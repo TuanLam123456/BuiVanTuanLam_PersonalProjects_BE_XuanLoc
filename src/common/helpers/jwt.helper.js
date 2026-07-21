@@ -11,8 +11,8 @@
 // - lưu trong httpOnly cookie
 import jwt from "jsonwebtoken";
 import {
-  JWT_REFRESH_SECRET_KEY,
   JWT_SECRET_KEY,
+  JWT_REFRESH_SECRET,
 } from "../constant/app.constant.js";
 
 export const signAccessToken = (payload) => {
@@ -24,9 +24,9 @@ export const verifyAccessToken = (token, options) => {
 };
 
 export const signRefreshToken = (payload) => {
-  return jwt.sign(payload, JWT_REFRESH_SECRET_KEY, { expiresIn: "7d" });
+  return jwt.sign(payload, JWT_REFRESH_SECRET, { expiresIn: "7d" });
 };
 
 export const verifyRefreshToken = (token) => {
-  return jwt.verify(token, JWT_REFRESH_SECRET_KEY);
+  return jwt.verify(token, JWT_REFRESH_SECRET);
 };

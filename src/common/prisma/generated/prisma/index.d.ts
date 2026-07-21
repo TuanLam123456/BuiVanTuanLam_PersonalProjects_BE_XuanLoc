@@ -108,6 +108,11 @@ export type tuition_plans = $Result.DefaultSelection<Prisma.$tuition_plansPayloa
  * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
  */
 export type users = $Result.DefaultSelection<Prisma.$usersPayload>
+/**
+ * Model password_resets
+ * 
+ */
+export type password_resets = $Result.DefaultSelection<Prisma.$password_resetsPayload>
 
 /**
  * Enums
@@ -704,6 +709,16 @@ export class PrismaClient<
     * ```
     */
   get users(): Prisma.usersDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.password_resets`: Exposes CRUD operations for the **password_resets** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Password_resets
+    * const password_resets = await prisma.password_resets.findMany()
+    * ```
+    */
+  get password_resets(): Prisma.password_resetsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1169,7 +1184,8 @@ export namespace Prisma {
     teachers: 'teachers',
     trial_registrations: 'trial_registrations',
     tuition_plans: 'tuition_plans',
-    users: 'users'
+    users: 'users',
+    password_resets: 'password_resets'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1185,7 +1201,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "assignments" | "attendance" | "classes" | "course_categories" | "courses" | "enrollments" | "grades" | "news" | "news_categories" | "opening_schedules" | "payments" | "placement_tests" | "registrations" | "roles" | "teacher_courses" | "teachers" | "trial_registrations" | "tuition_plans" | "users"
+      modelProps: "assignments" | "attendance" | "classes" | "course_categories" | "courses" | "enrollments" | "grades" | "news" | "news_categories" | "opening_schedules" | "payments" | "placement_tests" | "registrations" | "roles" | "teacher_courses" | "teachers" | "trial_registrations" | "tuition_plans" | "users" | "password_resets"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2443,6 +2459,72 @@ export namespace Prisma {
           }
         }
       }
+      password_resets: {
+        payload: Prisma.$password_resetsPayload<ExtArgs>
+        fields: Prisma.password_resetsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.password_resetsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$password_resetsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.password_resetsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$password_resetsPayload>
+          }
+          findFirst: {
+            args: Prisma.password_resetsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$password_resetsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.password_resetsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$password_resetsPayload>
+          }
+          findMany: {
+            args: Prisma.password_resetsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$password_resetsPayload>[]
+          }
+          create: {
+            args: Prisma.password_resetsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$password_resetsPayload>
+          }
+          createMany: {
+            args: Prisma.password_resetsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.password_resetsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$password_resetsPayload>
+          }
+          update: {
+            args: Prisma.password_resetsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$password_resetsPayload>
+          }
+          deleteMany: {
+            args: Prisma.password_resetsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.password_resetsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.password_resetsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$password_resetsPayload>
+          }
+          aggregate: {
+            args: Prisma.Password_resetsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePassword_resets>
+          }
+          groupBy: {
+            args: Prisma.password_resetsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Password_resetsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.password_resetsCountArgs<ExtArgs>
+            result: $Utils.Optional<Password_resetsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2585,6 +2667,7 @@ export namespace Prisma {
     trial_registrations?: trial_registrationsOmit
     tuition_plans?: tuition_plansOmit
     users?: usersOmit
+    password_resets?: password_resetsOmit
   }
 
   /* Types for Logging */
@@ -3041,6 +3124,7 @@ export namespace Prisma {
   export type UsersCountOutputType = {
     enrollments: number
     news: number
+    password_resets: number
     placement_tests: number
     registrations: number
     trial_registrations: number
@@ -3049,6 +3133,7 @@ export namespace Prisma {
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enrollments?: boolean | UsersCountOutputTypeCountEnrollmentsArgs
     news?: boolean | UsersCountOutputTypeCountNewsArgs
+    password_resets?: boolean | UsersCountOutputTypeCountPassword_resetsArgs
     placement_tests?: boolean | UsersCountOutputTypeCountPlacement_testsArgs
     registrations?: boolean | UsersCountOutputTypeCountRegistrationsArgs
     trial_registrations?: boolean | UsersCountOutputTypeCountTrial_registrationsArgs
@@ -3077,6 +3162,13 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountNewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: newsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountPassword_resetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: password_resetsWhereInput
   }
 
   /**
@@ -22706,6 +22798,7 @@ export namespace Prisma {
     status: $Enums.users_status | null
     created_at: Date | null
     updated_at: Date | null
+    refresh_token: string | null
   }
 
   export type UsersMaxAggregateOutputType = {
@@ -22722,6 +22815,7 @@ export namespace Prisma {
     status: $Enums.users_status | null
     created_at: Date | null
     updated_at: Date | null
+    refresh_token: string | null
   }
 
   export type UsersCountAggregateOutputType = {
@@ -22738,6 +22832,7 @@ export namespace Prisma {
     status: number
     created_at: number
     updated_at: number
+    refresh_token: number
     _all: number
   }
 
@@ -22766,6 +22861,7 @@ export namespace Prisma {
     status?: true
     created_at?: true
     updated_at?: true
+    refresh_token?: true
   }
 
   export type UsersMaxAggregateInputType = {
@@ -22782,6 +22878,7 @@ export namespace Prisma {
     status?: true
     created_at?: true
     updated_at?: true
+    refresh_token?: true
   }
 
   export type UsersCountAggregateInputType = {
@@ -22798,6 +22895,7 @@ export namespace Prisma {
     status?: true
     created_at?: true
     updated_at?: true
+    refresh_token?: true
     _all?: true
   }
 
@@ -22901,6 +22999,7 @@ export namespace Prisma {
     status: $Enums.users_status | null
     created_at: Date | null
     updated_at: Date | null
+    refresh_token: string | null
     _count: UsersCountAggregateOutputType | null
     _avg: UsersAvgAggregateOutputType | null
     _sum: UsersSumAggregateOutputType | null
@@ -22936,8 +23035,10 @@ export namespace Prisma {
     status?: boolean
     created_at?: boolean
     updated_at?: boolean
+    refresh_token?: boolean
     enrollments?: boolean | users$enrollmentsArgs<ExtArgs>
     news?: boolean | users$newsArgs<ExtArgs>
+    password_resets?: boolean | users$password_resetsArgs<ExtArgs>
     placement_tests?: boolean | users$placement_testsArgs<ExtArgs>
     registrations?: boolean | users$registrationsArgs<ExtArgs>
     teachers?: boolean | users$teachersArgs<ExtArgs>
@@ -22962,12 +23063,14 @@ export namespace Prisma {
     status?: boolean
     created_at?: boolean
     updated_at?: boolean
+    refresh_token?: boolean
   }
 
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "role_id" | "full_name" | "email" | "phone" | "password_hash" | "avatar" | "date_of_birth" | "gender" | "address" | "status" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
+  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "role_id" | "full_name" | "email" | "phone" | "password_hash" | "avatar" | "date_of_birth" | "gender" | "address" | "status" | "created_at" | "updated_at" | "refresh_token", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enrollments?: boolean | users$enrollmentsArgs<ExtArgs>
     news?: boolean | users$newsArgs<ExtArgs>
+    password_resets?: boolean | users$password_resetsArgs<ExtArgs>
     placement_tests?: boolean | users$placement_testsArgs<ExtArgs>
     registrations?: boolean | users$registrationsArgs<ExtArgs>
     teachers?: boolean | users$teachersArgs<ExtArgs>
@@ -22981,6 +23084,7 @@ export namespace Prisma {
     objects: {
       enrollments: Prisma.$enrollmentsPayload<ExtArgs>[]
       news: Prisma.$newsPayload<ExtArgs>[]
+      password_resets: Prisma.$password_resetsPayload<ExtArgs>[]
       placement_tests: Prisma.$placement_testsPayload<ExtArgs>[]
       registrations: Prisma.$registrationsPayload<ExtArgs>[]
       teachers: Prisma.$teachersPayload<ExtArgs> | null
@@ -23001,6 +23105,7 @@ export namespace Prisma {
       status: $Enums.users_status | null
       created_at: Date | null
       updated_at: Date | null
+      refresh_token: string | null
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -23343,6 +23448,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     enrollments<T extends users$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, users$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$enrollmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     news<T extends users$newsArgs<ExtArgs> = {}>(args?: Subset<T, users$newsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$newsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    password_resets<T extends users$password_resetsArgs<ExtArgs> = {}>(args?: Subset<T, users$password_resetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$password_resetsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     placement_tests<T extends users$placement_testsArgs<ExtArgs> = {}>(args?: Subset<T, users$placement_testsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$placement_testsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     registrations<T extends users$registrationsArgs<ExtArgs> = {}>(args?: Subset<T, users$registrationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$registrationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     teachers<T extends users$teachersArgs<ExtArgs> = {}>(args?: Subset<T, users$teachersArgs<ExtArgs>>): Prisma__teachersClient<$Result.GetResult<Prisma.$teachersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -23390,6 +23496,7 @@ export namespace Prisma {
     readonly status: FieldRef<"users", 'users_status'>
     readonly created_at: FieldRef<"users", 'DateTime'>
     readonly updated_at: FieldRef<"users", 'DateTime'>
+    readonly refresh_token: FieldRef<"users", 'String'>
   }
     
 
@@ -23786,6 +23893,30 @@ export namespace Prisma {
   }
 
   /**
+   * users.password_resets
+   */
+  export type users$password_resetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the password_resets
+     */
+    select?: password_resetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the password_resets
+     */
+    omit?: password_resetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: password_resetsInclude<ExtArgs> | null
+    where?: password_resetsWhereInput
+    orderBy?: password_resetsOrderByWithRelationInput | password_resetsOrderByWithRelationInput[]
+    cursor?: password_resetsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Password_resetsScalarFieldEnum | Password_resetsScalarFieldEnum[]
+  }
+
+  /**
    * users.placement_tests
    */
   export type users$placement_testsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -23892,6 +24023,989 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: usersInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model password_resets
+   */
+
+  export type AggregatePassword_resets = {
+    _count: Password_resetsCountAggregateOutputType | null
+    _avg: Password_resetsAvgAggregateOutputType | null
+    _sum: Password_resetsSumAggregateOutputType | null
+    _min: Password_resetsMinAggregateOutputType | null
+    _max: Password_resetsMaxAggregateOutputType | null
+  }
+
+  export type Password_resetsAvgAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+  }
+
+  export type Password_resetsSumAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+  }
+
+  export type Password_resetsMinAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    otp: string | null
+    expired_at: Date | null
+    is_used: boolean | null
+    created_at: Date | null
+  }
+
+  export type Password_resetsMaxAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    otp: string | null
+    expired_at: Date | null
+    is_used: boolean | null
+    created_at: Date | null
+  }
+
+  export type Password_resetsCountAggregateOutputType = {
+    id: number
+    user_id: number
+    otp: number
+    expired_at: number
+    is_used: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Password_resetsAvgAggregateInputType = {
+    id?: true
+    user_id?: true
+  }
+
+  export type Password_resetsSumAggregateInputType = {
+    id?: true
+    user_id?: true
+  }
+
+  export type Password_resetsMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    otp?: true
+    expired_at?: true
+    is_used?: true
+    created_at?: true
+  }
+
+  export type Password_resetsMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    otp?: true
+    expired_at?: true
+    is_used?: true
+    created_at?: true
+  }
+
+  export type Password_resetsCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    otp?: true
+    expired_at?: true
+    is_used?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Password_resetsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which password_resets to aggregate.
+     */
+    where?: password_resetsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of password_resets to fetch.
+     */
+    orderBy?: password_resetsOrderByWithRelationInput | password_resetsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: password_resetsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` password_resets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` password_resets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned password_resets
+    **/
+    _count?: true | Password_resetsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Password_resetsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Password_resetsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Password_resetsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Password_resetsMaxAggregateInputType
+  }
+
+  export type GetPassword_resetsAggregateType<T extends Password_resetsAggregateArgs> = {
+        [P in keyof T & keyof AggregatePassword_resets]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePassword_resets[P]>
+      : GetScalarType<T[P], AggregatePassword_resets[P]>
+  }
+
+
+
+
+  export type password_resetsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: password_resetsWhereInput
+    orderBy?: password_resetsOrderByWithAggregationInput | password_resetsOrderByWithAggregationInput[]
+    by: Password_resetsScalarFieldEnum[] | Password_resetsScalarFieldEnum
+    having?: password_resetsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Password_resetsCountAggregateInputType | true
+    _avg?: Password_resetsAvgAggregateInputType
+    _sum?: Password_resetsSumAggregateInputType
+    _min?: Password_resetsMinAggregateInputType
+    _max?: Password_resetsMaxAggregateInputType
+  }
+
+  export type Password_resetsGroupByOutputType = {
+    id: number
+    user_id: number
+    otp: string
+    expired_at: Date
+    is_used: boolean | null
+    created_at: Date | null
+    _count: Password_resetsCountAggregateOutputType | null
+    _avg: Password_resetsAvgAggregateOutputType | null
+    _sum: Password_resetsSumAggregateOutputType | null
+    _min: Password_resetsMinAggregateOutputType | null
+    _max: Password_resetsMaxAggregateOutputType | null
+  }
+
+  type GetPassword_resetsGroupByPayload<T extends password_resetsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Password_resetsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Password_resetsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Password_resetsGroupByOutputType[P]>
+            : GetScalarType<T[P], Password_resetsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type password_resetsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    otp?: boolean
+    expired_at?: boolean
+    is_used?: boolean
+    created_at?: boolean
+    users?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["password_resets"]>
+
+
+
+  export type password_resetsSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    otp?: boolean
+    expired_at?: boolean
+    is_used?: boolean
+    created_at?: boolean
+  }
+
+  export type password_resetsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "otp" | "expired_at" | "is_used" | "created_at", ExtArgs["result"]["password_resets"]>
+  export type password_resetsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $password_resetsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "password_resets"
+    objects: {
+      users: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      user_id: number
+      otp: string
+      expired_at: Date
+      is_used: boolean | null
+      created_at: Date | null
+    }, ExtArgs["result"]["password_resets"]>
+    composites: {}
+  }
+
+  type password_resetsGetPayload<S extends boolean | null | undefined | password_resetsDefaultArgs> = $Result.GetResult<Prisma.$password_resetsPayload, S>
+
+  type password_resetsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<password_resetsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Password_resetsCountAggregateInputType | true
+    }
+
+  export interface password_resetsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['password_resets'], meta: { name: 'password_resets' } }
+    /**
+     * Find zero or one Password_resets that matches the filter.
+     * @param {password_resetsFindUniqueArgs} args - Arguments to find a Password_resets
+     * @example
+     * // Get one Password_resets
+     * const password_resets = await prisma.password_resets.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends password_resetsFindUniqueArgs>(args: SelectSubset<T, password_resetsFindUniqueArgs<ExtArgs>>): Prisma__password_resetsClient<$Result.GetResult<Prisma.$password_resetsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Password_resets that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {password_resetsFindUniqueOrThrowArgs} args - Arguments to find a Password_resets
+     * @example
+     * // Get one Password_resets
+     * const password_resets = await prisma.password_resets.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends password_resetsFindUniqueOrThrowArgs>(args: SelectSubset<T, password_resetsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__password_resetsClient<$Result.GetResult<Prisma.$password_resetsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Password_resets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {password_resetsFindFirstArgs} args - Arguments to find a Password_resets
+     * @example
+     * // Get one Password_resets
+     * const password_resets = await prisma.password_resets.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends password_resetsFindFirstArgs>(args?: SelectSubset<T, password_resetsFindFirstArgs<ExtArgs>>): Prisma__password_resetsClient<$Result.GetResult<Prisma.$password_resetsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Password_resets that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {password_resetsFindFirstOrThrowArgs} args - Arguments to find a Password_resets
+     * @example
+     * // Get one Password_resets
+     * const password_resets = await prisma.password_resets.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends password_resetsFindFirstOrThrowArgs>(args?: SelectSubset<T, password_resetsFindFirstOrThrowArgs<ExtArgs>>): Prisma__password_resetsClient<$Result.GetResult<Prisma.$password_resetsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Password_resets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {password_resetsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Password_resets
+     * const password_resets = await prisma.password_resets.findMany()
+     * 
+     * // Get first 10 Password_resets
+     * const password_resets = await prisma.password_resets.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const password_resetsWithIdOnly = await prisma.password_resets.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends password_resetsFindManyArgs>(args?: SelectSubset<T, password_resetsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$password_resetsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Password_resets.
+     * @param {password_resetsCreateArgs} args - Arguments to create a Password_resets.
+     * @example
+     * // Create one Password_resets
+     * const Password_resets = await prisma.password_resets.create({
+     *   data: {
+     *     // ... data to create a Password_resets
+     *   }
+     * })
+     * 
+     */
+    create<T extends password_resetsCreateArgs>(args: SelectSubset<T, password_resetsCreateArgs<ExtArgs>>): Prisma__password_resetsClient<$Result.GetResult<Prisma.$password_resetsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Password_resets.
+     * @param {password_resetsCreateManyArgs} args - Arguments to create many Password_resets.
+     * @example
+     * // Create many Password_resets
+     * const password_resets = await prisma.password_resets.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends password_resetsCreateManyArgs>(args?: SelectSubset<T, password_resetsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Password_resets.
+     * @param {password_resetsDeleteArgs} args - Arguments to delete one Password_resets.
+     * @example
+     * // Delete one Password_resets
+     * const Password_resets = await prisma.password_resets.delete({
+     *   where: {
+     *     // ... filter to delete one Password_resets
+     *   }
+     * })
+     * 
+     */
+    delete<T extends password_resetsDeleteArgs>(args: SelectSubset<T, password_resetsDeleteArgs<ExtArgs>>): Prisma__password_resetsClient<$Result.GetResult<Prisma.$password_resetsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Password_resets.
+     * @param {password_resetsUpdateArgs} args - Arguments to update one Password_resets.
+     * @example
+     * // Update one Password_resets
+     * const password_resets = await prisma.password_resets.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends password_resetsUpdateArgs>(args: SelectSubset<T, password_resetsUpdateArgs<ExtArgs>>): Prisma__password_resetsClient<$Result.GetResult<Prisma.$password_resetsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Password_resets.
+     * @param {password_resetsDeleteManyArgs} args - Arguments to filter Password_resets to delete.
+     * @example
+     * // Delete a few Password_resets
+     * const { count } = await prisma.password_resets.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends password_resetsDeleteManyArgs>(args?: SelectSubset<T, password_resetsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Password_resets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {password_resetsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Password_resets
+     * const password_resets = await prisma.password_resets.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends password_resetsUpdateManyArgs>(args: SelectSubset<T, password_resetsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Password_resets.
+     * @param {password_resetsUpsertArgs} args - Arguments to update or create a Password_resets.
+     * @example
+     * // Update or create a Password_resets
+     * const password_resets = await prisma.password_resets.upsert({
+     *   create: {
+     *     // ... data to create a Password_resets
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Password_resets we want to update
+     *   }
+     * })
+     */
+    upsert<T extends password_resetsUpsertArgs>(args: SelectSubset<T, password_resetsUpsertArgs<ExtArgs>>): Prisma__password_resetsClient<$Result.GetResult<Prisma.$password_resetsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Password_resets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {password_resetsCountArgs} args - Arguments to filter Password_resets to count.
+     * @example
+     * // Count the number of Password_resets
+     * const count = await prisma.password_resets.count({
+     *   where: {
+     *     // ... the filter for the Password_resets we want to count
+     *   }
+     * })
+    **/
+    count<T extends password_resetsCountArgs>(
+      args?: Subset<T, password_resetsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Password_resetsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Password_resets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Password_resetsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Password_resetsAggregateArgs>(args: Subset<T, Password_resetsAggregateArgs>): Prisma.PrismaPromise<GetPassword_resetsAggregateType<T>>
+
+    /**
+     * Group by Password_resets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {password_resetsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends password_resetsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: password_resetsGroupByArgs['orderBy'] }
+        : { orderBy?: password_resetsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, password_resetsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPassword_resetsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the password_resets model
+   */
+  readonly fields: password_resetsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for password_resets.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__password_resetsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    users<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the password_resets model
+   */
+  interface password_resetsFieldRefs {
+    readonly id: FieldRef<"password_resets", 'Int'>
+    readonly user_id: FieldRef<"password_resets", 'Int'>
+    readonly otp: FieldRef<"password_resets", 'String'>
+    readonly expired_at: FieldRef<"password_resets", 'DateTime'>
+    readonly is_used: FieldRef<"password_resets", 'Boolean'>
+    readonly created_at: FieldRef<"password_resets", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * password_resets findUnique
+   */
+  export type password_resetsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the password_resets
+     */
+    select?: password_resetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the password_resets
+     */
+    omit?: password_resetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: password_resetsInclude<ExtArgs> | null
+    /**
+     * Filter, which password_resets to fetch.
+     */
+    where: password_resetsWhereUniqueInput
+  }
+
+  /**
+   * password_resets findUniqueOrThrow
+   */
+  export type password_resetsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the password_resets
+     */
+    select?: password_resetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the password_resets
+     */
+    omit?: password_resetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: password_resetsInclude<ExtArgs> | null
+    /**
+     * Filter, which password_resets to fetch.
+     */
+    where: password_resetsWhereUniqueInput
+  }
+
+  /**
+   * password_resets findFirst
+   */
+  export type password_resetsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the password_resets
+     */
+    select?: password_resetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the password_resets
+     */
+    omit?: password_resetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: password_resetsInclude<ExtArgs> | null
+    /**
+     * Filter, which password_resets to fetch.
+     */
+    where?: password_resetsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of password_resets to fetch.
+     */
+    orderBy?: password_resetsOrderByWithRelationInput | password_resetsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for password_resets.
+     */
+    cursor?: password_resetsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` password_resets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` password_resets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of password_resets.
+     */
+    distinct?: Password_resetsScalarFieldEnum | Password_resetsScalarFieldEnum[]
+  }
+
+  /**
+   * password_resets findFirstOrThrow
+   */
+  export type password_resetsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the password_resets
+     */
+    select?: password_resetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the password_resets
+     */
+    omit?: password_resetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: password_resetsInclude<ExtArgs> | null
+    /**
+     * Filter, which password_resets to fetch.
+     */
+    where?: password_resetsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of password_resets to fetch.
+     */
+    orderBy?: password_resetsOrderByWithRelationInput | password_resetsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for password_resets.
+     */
+    cursor?: password_resetsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` password_resets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` password_resets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of password_resets.
+     */
+    distinct?: Password_resetsScalarFieldEnum | Password_resetsScalarFieldEnum[]
+  }
+
+  /**
+   * password_resets findMany
+   */
+  export type password_resetsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the password_resets
+     */
+    select?: password_resetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the password_resets
+     */
+    omit?: password_resetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: password_resetsInclude<ExtArgs> | null
+    /**
+     * Filter, which password_resets to fetch.
+     */
+    where?: password_resetsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of password_resets to fetch.
+     */
+    orderBy?: password_resetsOrderByWithRelationInput | password_resetsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing password_resets.
+     */
+    cursor?: password_resetsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` password_resets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` password_resets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of password_resets.
+     */
+    distinct?: Password_resetsScalarFieldEnum | Password_resetsScalarFieldEnum[]
+  }
+
+  /**
+   * password_resets create
+   */
+  export type password_resetsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the password_resets
+     */
+    select?: password_resetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the password_resets
+     */
+    omit?: password_resetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: password_resetsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a password_resets.
+     */
+    data: XOR<password_resetsCreateInput, password_resetsUncheckedCreateInput>
+  }
+
+  /**
+   * password_resets createMany
+   */
+  export type password_resetsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many password_resets.
+     */
+    data: password_resetsCreateManyInput | password_resetsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * password_resets update
+   */
+  export type password_resetsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the password_resets
+     */
+    select?: password_resetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the password_resets
+     */
+    omit?: password_resetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: password_resetsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a password_resets.
+     */
+    data: XOR<password_resetsUpdateInput, password_resetsUncheckedUpdateInput>
+    /**
+     * Choose, which password_resets to update.
+     */
+    where: password_resetsWhereUniqueInput
+  }
+
+  /**
+   * password_resets updateMany
+   */
+  export type password_resetsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update password_resets.
+     */
+    data: XOR<password_resetsUpdateManyMutationInput, password_resetsUncheckedUpdateManyInput>
+    /**
+     * Filter which password_resets to update
+     */
+    where?: password_resetsWhereInput
+    /**
+     * Limit how many password_resets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * password_resets upsert
+   */
+  export type password_resetsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the password_resets
+     */
+    select?: password_resetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the password_resets
+     */
+    omit?: password_resetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: password_resetsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the password_resets to update in case it exists.
+     */
+    where: password_resetsWhereUniqueInput
+    /**
+     * In case the password_resets found by the `where` argument doesn't exist, create a new password_resets with this data.
+     */
+    create: XOR<password_resetsCreateInput, password_resetsUncheckedCreateInput>
+    /**
+     * In case the password_resets was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<password_resetsUpdateInput, password_resetsUncheckedUpdateInput>
+  }
+
+  /**
+   * password_resets delete
+   */
+  export type password_resetsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the password_resets
+     */
+    select?: password_resetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the password_resets
+     */
+    omit?: password_resetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: password_resetsInclude<ExtArgs> | null
+    /**
+     * Filter which password_resets to delete.
+     */
+    where: password_resetsWhereUniqueInput
+  }
+
+  /**
+   * password_resets deleteMany
+   */
+  export type password_resetsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which password_resets to delete
+     */
+    where?: password_resetsWhereInput
+    /**
+     * Limit how many password_resets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * password_resets without action
+   */
+  export type password_resetsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the password_resets
+     */
+    select?: password_resetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the password_resets
+     */
+    omit?: password_resetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: password_resetsInclude<ExtArgs> | null
   }
 
 
@@ -24222,10 +25336,23 @@ export namespace Prisma {
     address: 'address',
     status: 'status',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    refresh_token: 'refresh_token'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+  export const Password_resetsScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    otp: 'otp',
+    expired_at: 'expired_at',
+    is_used: 'is_used',
+    created_at: 'created_at'
+  };
+
+  export type Password_resetsScalarFieldEnum = (typeof Password_resetsScalarFieldEnum)[keyof typeof Password_resetsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -24422,10 +25549,18 @@ export namespace Prisma {
     phone: 'phone',
     password_hash: 'password_hash',
     avatar: 'avatar',
-    address: 'address'
+    address: 'address',
+    refresh_token: 'refresh_token'
   };
 
   export type usersOrderByRelevanceFieldEnum = (typeof usersOrderByRelevanceFieldEnum)[keyof typeof usersOrderByRelevanceFieldEnum]
+
+
+  export const password_resetsOrderByRelevanceFieldEnum: {
+    otp: 'otp'
+  };
+
+  export type password_resetsOrderByRelevanceFieldEnum = (typeof password_resetsOrderByRelevanceFieldEnum)[keyof typeof password_resetsOrderByRelevanceFieldEnum]
 
 
   /**
@@ -26292,8 +27427,10 @@ export namespace Prisma {
     status?: Enumusers_statusNullableFilter<"users"> | $Enums.users_status | null
     created_at?: DateTimeNullableFilter<"users"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"users"> | Date | string | null
+    refresh_token?: StringNullableFilter<"users"> | string | null
     enrollments?: EnrollmentsListRelationFilter
     news?: NewsListRelationFilter
+    password_resets?: Password_resetsListRelationFilter
     placement_tests?: Placement_testsListRelationFilter
     registrations?: RegistrationsListRelationFilter
     teachers?: XOR<TeachersNullableScalarRelationFilter, teachersWhereInput> | null
@@ -26315,8 +27452,10 @@ export namespace Prisma {
     status?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    refresh_token?: SortOrderInput | SortOrder
     enrollments?: enrollmentsOrderByRelationAggregateInput
     news?: newsOrderByRelationAggregateInput
+    password_resets?: password_resetsOrderByRelationAggregateInput
     placement_tests?: placement_testsOrderByRelationAggregateInput
     registrations?: registrationsOrderByRelationAggregateInput
     teachers?: teachersOrderByWithRelationInput
@@ -26342,8 +27481,10 @@ export namespace Prisma {
     status?: Enumusers_statusNullableFilter<"users"> | $Enums.users_status | null
     created_at?: DateTimeNullableFilter<"users"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"users"> | Date | string | null
+    refresh_token?: StringNullableFilter<"users"> | string | null
     enrollments?: EnrollmentsListRelationFilter
     news?: NewsListRelationFilter
+    password_resets?: Password_resetsListRelationFilter
     placement_tests?: Placement_testsListRelationFilter
     registrations?: RegistrationsListRelationFilter
     teachers?: XOR<TeachersNullableScalarRelationFilter, teachersWhereInput> | null
@@ -26365,6 +27506,7 @@ export namespace Prisma {
     status?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    refresh_token?: SortOrderInput | SortOrder
     _count?: usersCountOrderByAggregateInput
     _avg?: usersAvgOrderByAggregateInput
     _max?: usersMaxOrderByAggregateInput
@@ -26389,6 +27531,70 @@ export namespace Prisma {
     status?: Enumusers_statusNullableWithAggregatesFilter<"users"> | $Enums.users_status | null
     created_at?: DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
     updated_at?: DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
+    refresh_token?: StringNullableWithAggregatesFilter<"users"> | string | null
+  }
+
+  export type password_resetsWhereInput = {
+    AND?: password_resetsWhereInput | password_resetsWhereInput[]
+    OR?: password_resetsWhereInput[]
+    NOT?: password_resetsWhereInput | password_resetsWhereInput[]
+    id?: IntFilter<"password_resets"> | number
+    user_id?: IntFilter<"password_resets"> | number
+    otp?: StringFilter<"password_resets"> | string
+    expired_at?: DateTimeFilter<"password_resets"> | Date | string
+    is_used?: BoolNullableFilter<"password_resets"> | boolean | null
+    created_at?: DateTimeNullableFilter<"password_resets"> | Date | string | null
+    users?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type password_resetsOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    otp?: SortOrder
+    expired_at?: SortOrder
+    is_used?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    users?: usersOrderByWithRelationInput
+    _relevance?: password_resetsOrderByRelevanceInput
+  }
+
+  export type password_resetsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: password_resetsWhereInput | password_resetsWhereInput[]
+    OR?: password_resetsWhereInput[]
+    NOT?: password_resetsWhereInput | password_resetsWhereInput[]
+    user_id?: IntFilter<"password_resets"> | number
+    otp?: StringFilter<"password_resets"> | string
+    expired_at?: DateTimeFilter<"password_resets"> | Date | string
+    is_used?: BoolNullableFilter<"password_resets"> | boolean | null
+    created_at?: DateTimeNullableFilter<"password_resets"> | Date | string | null
+    users?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id">
+
+  export type password_resetsOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    otp?: SortOrder
+    expired_at?: SortOrder
+    is_used?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    _count?: password_resetsCountOrderByAggregateInput
+    _avg?: password_resetsAvgOrderByAggregateInput
+    _max?: password_resetsMaxOrderByAggregateInput
+    _min?: password_resetsMinOrderByAggregateInput
+    _sum?: password_resetsSumOrderByAggregateInput
+  }
+
+  export type password_resetsScalarWhereWithAggregatesInput = {
+    AND?: password_resetsScalarWhereWithAggregatesInput | password_resetsScalarWhereWithAggregatesInput[]
+    OR?: password_resetsScalarWhereWithAggregatesInput[]
+    NOT?: password_resetsScalarWhereWithAggregatesInput | password_resetsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"password_resets"> | number
+    user_id?: IntWithAggregatesFilter<"password_resets"> | number
+    otp?: StringWithAggregatesFilter<"password_resets"> | string
+    expired_at?: DateTimeWithAggregatesFilter<"password_resets"> | Date | string
+    is_used?: BoolNullableWithAggregatesFilter<"password_resets"> | boolean | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"password_resets"> | Date | string | null
   }
 
   export type assignmentsCreateInput = {
@@ -28132,8 +29338,10 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
@@ -28155,8 +29363,10 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
@@ -28175,8 +29385,10 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
@@ -28198,8 +29410,10 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
@@ -28220,6 +29434,7 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
   }
 
   export type usersUpdateManyMutationInput = {
@@ -28234,6 +29449,7 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersUncheckedUpdateManyInput = {
@@ -28250,6 +29466,66 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type password_resetsCreateInput = {
+    otp: string
+    expired_at: Date | string
+    is_used?: boolean | null
+    created_at?: Date | string | null
+    users: usersCreateNestedOneWithoutPassword_resetsInput
+  }
+
+  export type password_resetsUncheckedCreateInput = {
+    id?: number
+    user_id: number
+    otp: string
+    expired_at: Date | string
+    is_used?: boolean | null
+    created_at?: Date | string | null
+  }
+
+  export type password_resetsUpdateInput = {
+    otp?: StringFieldUpdateOperationsInput | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_used?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    users?: usersUpdateOneRequiredWithoutPassword_resetsNestedInput
+  }
+
+  export type password_resetsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    otp?: StringFieldUpdateOperationsInput | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_used?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type password_resetsCreateManyInput = {
+    id?: number
+    user_id: number
+    otp: string
+    expired_at: Date | string
+    is_used?: boolean | null
+    created_at?: Date | string | null
+  }
+
+  export type password_resetsUpdateManyMutationInput = {
+    otp?: StringFieldUpdateOperationsInput | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_used?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type password_resetsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    otp?: StringFieldUpdateOperationsInput | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_used?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -30131,9 +31407,19 @@ export namespace Prisma {
     not?: NestedEnumusers_statusNullableFilter<$PrismaModel> | $Enums.users_status | null
   }
 
+  export type Password_resetsListRelationFilter = {
+    every?: password_resetsWhereInput
+    some?: password_resetsWhereInput
+    none?: password_resetsWhereInput
+  }
+
   export type RolesScalarRelationFilter = {
     is?: rolesWhereInput
     isNot?: rolesWhereInput
+  }
+
+  export type password_resetsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type usersOrderByRelevanceInput = {
@@ -30156,6 +31442,7 @@ export namespace Prisma {
     status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    refresh_token?: SortOrder
   }
 
   export type usersAvgOrderByAggregateInput = {
@@ -30177,6 +31464,7 @@ export namespace Prisma {
     status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    refresh_token?: SortOrder
   }
 
   export type usersMinOrderByAggregateInput = {
@@ -30193,6 +31481,7 @@ export namespace Prisma {
     status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    refresh_token?: SortOrder
   }
 
   export type usersSumOrderByAggregateInput = {
@@ -30218,6 +31507,49 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumusers_statusNullableFilter<$PrismaModel>
     _max?: NestedEnumusers_statusNullableFilter<$PrismaModel>
+  }
+
+  export type password_resetsOrderByRelevanceInput = {
+    fields: password_resetsOrderByRelevanceFieldEnum | password_resetsOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type password_resetsCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    otp?: SortOrder
+    expired_at?: SortOrder
+    is_used?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type password_resetsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type password_resetsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    otp?: SortOrder
+    expired_at?: SortOrder
+    is_used?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type password_resetsMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    otp?: SortOrder
+    expired_at?: SortOrder
+    is_used?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type password_resetsSumOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
   }
 
   export type classesCreateNestedOneWithoutAssignmentsInput = {
@@ -31682,6 +33014,13 @@ export namespace Prisma {
     connect?: newsWhereUniqueInput | newsWhereUniqueInput[]
   }
 
+  export type password_resetsCreateNestedManyWithoutUsersInput = {
+    create?: XOR<password_resetsCreateWithoutUsersInput, password_resetsUncheckedCreateWithoutUsersInput> | password_resetsCreateWithoutUsersInput[] | password_resetsUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: password_resetsCreateOrConnectWithoutUsersInput | password_resetsCreateOrConnectWithoutUsersInput[]
+    createMany?: password_resetsCreateManyUsersInputEnvelope
+    connect?: password_resetsWhereUniqueInput | password_resetsWhereUniqueInput[]
+  }
+
   export type placement_testsCreateNestedManyWithoutUsersInput = {
     create?: XOR<placement_testsCreateWithoutUsersInput, placement_testsUncheckedCreateWithoutUsersInput> | placement_testsCreateWithoutUsersInput[] | placement_testsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: placement_testsCreateOrConnectWithoutUsersInput | placement_testsCreateOrConnectWithoutUsersInput[]
@@ -31727,6 +33066,13 @@ export namespace Prisma {
     connectOrCreate?: newsCreateOrConnectWithoutUsersInput | newsCreateOrConnectWithoutUsersInput[]
     createMany?: newsCreateManyUsersInputEnvelope
     connect?: newsWhereUniqueInput | newsWhereUniqueInput[]
+  }
+
+  export type password_resetsUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<password_resetsCreateWithoutUsersInput, password_resetsUncheckedCreateWithoutUsersInput> | password_resetsCreateWithoutUsersInput[] | password_resetsUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: password_resetsCreateOrConnectWithoutUsersInput | password_resetsCreateOrConnectWithoutUsersInput[]
+    createMany?: password_resetsCreateManyUsersInputEnvelope
+    connect?: password_resetsWhereUniqueInput | password_resetsWhereUniqueInput[]
   }
 
   export type placement_testsUncheckedCreateNestedManyWithoutUsersInput = {
@@ -31790,6 +33136,20 @@ export namespace Prisma {
     update?: newsUpdateWithWhereUniqueWithoutUsersInput | newsUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: newsUpdateManyWithWhereWithoutUsersInput | newsUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: newsScalarWhereInput | newsScalarWhereInput[]
+  }
+
+  export type password_resetsUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<password_resetsCreateWithoutUsersInput, password_resetsUncheckedCreateWithoutUsersInput> | password_resetsCreateWithoutUsersInput[] | password_resetsUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: password_resetsCreateOrConnectWithoutUsersInput | password_resetsCreateOrConnectWithoutUsersInput[]
+    upsert?: password_resetsUpsertWithWhereUniqueWithoutUsersInput | password_resetsUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: password_resetsCreateManyUsersInputEnvelope
+    set?: password_resetsWhereUniqueInput | password_resetsWhereUniqueInput[]
+    disconnect?: password_resetsWhereUniqueInput | password_resetsWhereUniqueInput[]
+    delete?: password_resetsWhereUniqueInput | password_resetsWhereUniqueInput[]
+    connect?: password_resetsWhereUniqueInput | password_resetsWhereUniqueInput[]
+    update?: password_resetsUpdateWithWhereUniqueWithoutUsersInput | password_resetsUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: password_resetsUpdateManyWithWhereWithoutUsersInput | password_resetsUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: password_resetsScalarWhereInput | password_resetsScalarWhereInput[]
   }
 
   export type placement_testsUpdateManyWithoutUsersNestedInput = {
@@ -31880,6 +33240,20 @@ export namespace Prisma {
     deleteMany?: newsScalarWhereInput | newsScalarWhereInput[]
   }
 
+  export type password_resetsUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<password_resetsCreateWithoutUsersInput, password_resetsUncheckedCreateWithoutUsersInput> | password_resetsCreateWithoutUsersInput[] | password_resetsUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: password_resetsCreateOrConnectWithoutUsersInput | password_resetsCreateOrConnectWithoutUsersInput[]
+    upsert?: password_resetsUpsertWithWhereUniqueWithoutUsersInput | password_resetsUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: password_resetsCreateManyUsersInputEnvelope
+    set?: password_resetsWhereUniqueInput | password_resetsWhereUniqueInput[]
+    disconnect?: password_resetsWhereUniqueInput | password_resetsWhereUniqueInput[]
+    delete?: password_resetsWhereUniqueInput | password_resetsWhereUniqueInput[]
+    connect?: password_resetsWhereUniqueInput | password_resetsWhereUniqueInput[]
+    update?: password_resetsUpdateWithWhereUniqueWithoutUsersInput | password_resetsUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: password_resetsUpdateManyWithWhereWithoutUsersInput | password_resetsUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: password_resetsScalarWhereInput | password_resetsScalarWhereInput[]
+  }
+
   export type placement_testsUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<placement_testsCreateWithoutUsersInput, placement_testsUncheckedCreateWithoutUsersInput> | placement_testsCreateWithoutUsersInput[] | placement_testsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: placement_testsCreateOrConnectWithoutUsersInput | placement_testsCreateOrConnectWithoutUsersInput[]
@@ -31930,6 +33304,20 @@ export namespace Prisma {
     update?: trial_registrationsUpdateWithWhereUniqueWithoutUsersInput | trial_registrationsUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: trial_registrationsUpdateManyWithWhereWithoutUsersInput | trial_registrationsUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: trial_registrationsScalarWhereInput | trial_registrationsScalarWhereInput[]
+  }
+
+  export type usersCreateNestedOneWithoutPassword_resetsInput = {
+    create?: XOR<usersCreateWithoutPassword_resetsInput, usersUncheckedCreateWithoutPassword_resetsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutPassword_resetsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type usersUpdateOneRequiredWithoutPassword_resetsNestedInput = {
+    create?: XOR<usersCreateWithoutPassword_resetsInput, usersUncheckedCreateWithoutPassword_resetsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutPassword_resetsInput
+    upsert?: usersUpsertWithoutPassword_resetsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutPassword_resetsInput, usersUpdateWithoutPassword_resetsInput>, usersUncheckedUpdateWithoutPassword_resetsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -34104,7 +35492,9 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     news?: newsCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
@@ -34126,7 +35516,9 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
@@ -34289,7 +35681,9 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     news?: newsUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
@@ -34311,7 +35705,9 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
@@ -34549,7 +35945,9 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
@@ -34571,7 +35969,9 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
@@ -34632,7 +36032,9 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
@@ -34654,7 +36056,9 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
@@ -35160,8 +36564,10 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
     trial_registrations?: trial_registrationsCreateNestedManyWithoutUsersInput
@@ -35182,8 +36588,10 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
     trial_registrations?: trial_registrationsUncheckedCreateNestedManyWithoutUsersInput
@@ -35275,8 +36683,10 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
     trial_registrations?: trial_registrationsUpdateManyWithoutUsersNestedInput
@@ -35297,8 +36707,10 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
     trial_registrations?: trial_registrationsUncheckedUpdateManyWithoutUsersNestedInput
@@ -35368,8 +36780,10 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
     trial_registrations?: trial_registrationsCreateNestedManyWithoutUsersInput
@@ -35390,8 +36804,10 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
     trial_registrations?: trial_registrationsUncheckedCreateNestedManyWithoutUsersInput
@@ -35483,8 +36899,10 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
     trial_registrations?: trial_registrationsUpdateManyWithoutUsersNestedInput
@@ -35505,8 +36923,10 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
     trial_registrations?: trial_registrationsUncheckedUpdateManyWithoutUsersNestedInput
@@ -35524,8 +36944,10 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
@@ -35545,8 +36967,10 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
@@ -35596,6 +37020,7 @@ export namespace Prisma {
     status?: Enumusers_statusNullableFilter<"users"> | $Enums.users_status | null
     created_at?: DateTimeNullableFilter<"users"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"users"> | Date | string | null
+    refresh_token?: StringNullableFilter<"users"> | string | null
   }
 
   export type coursesCreateWithoutTeacher_coursesInput = {
@@ -35983,8 +37408,10 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     trial_registrations?: trial_registrationsCreateNestedManyWithoutUsersInput
@@ -36005,8 +37432,10 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     trial_registrations?: trial_registrationsUncheckedCreateNestedManyWithoutUsersInput
@@ -36120,8 +37549,10 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     trial_registrations?: trial_registrationsUpdateManyWithoutUsersNestedInput
@@ -36142,8 +37573,10 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     trial_registrations?: trial_registrationsUncheckedUpdateManyWithoutUsersNestedInput
@@ -36213,8 +37646,10 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
@@ -36235,8 +37670,10 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
@@ -36328,8 +37765,10 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
@@ -36350,8 +37789,10 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
@@ -36540,6 +37981,31 @@ export namespace Prisma {
 
   export type newsCreateManyUsersInputEnvelope = {
     data: newsCreateManyUsersInput | newsCreateManyUsersInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type password_resetsCreateWithoutUsersInput = {
+    otp: string
+    expired_at: Date | string
+    is_used?: boolean | null
+    created_at?: Date | string | null
+  }
+
+  export type password_resetsUncheckedCreateWithoutUsersInput = {
+    id?: number
+    otp: string
+    expired_at: Date | string
+    is_used?: boolean | null
+    created_at?: Date | string | null
+  }
+
+  export type password_resetsCreateOrConnectWithoutUsersInput = {
+    where: password_resetsWhereUniqueInput
+    create: XOR<password_resetsCreateWithoutUsersInput, password_resetsUncheckedCreateWithoutUsersInput>
+  }
+
+  export type password_resetsCreateManyUsersInputEnvelope = {
+    data: password_resetsCreateManyUsersInput | password_resetsCreateManyUsersInput[]
     skipDuplicates?: boolean
   }
 
@@ -36752,6 +38218,34 @@ export namespace Prisma {
     data: XOR<newsUpdateManyMutationInput, newsUncheckedUpdateManyWithoutUsersInput>
   }
 
+  export type password_resetsUpsertWithWhereUniqueWithoutUsersInput = {
+    where: password_resetsWhereUniqueInput
+    update: XOR<password_resetsUpdateWithoutUsersInput, password_resetsUncheckedUpdateWithoutUsersInput>
+    create: XOR<password_resetsCreateWithoutUsersInput, password_resetsUncheckedCreateWithoutUsersInput>
+  }
+
+  export type password_resetsUpdateWithWhereUniqueWithoutUsersInput = {
+    where: password_resetsWhereUniqueInput
+    data: XOR<password_resetsUpdateWithoutUsersInput, password_resetsUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type password_resetsUpdateManyWithWhereWithoutUsersInput = {
+    where: password_resetsScalarWhereInput
+    data: XOR<password_resetsUpdateManyMutationInput, password_resetsUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type password_resetsScalarWhereInput = {
+    AND?: password_resetsScalarWhereInput | password_resetsScalarWhereInput[]
+    OR?: password_resetsScalarWhereInput[]
+    NOT?: password_resetsScalarWhereInput | password_resetsScalarWhereInput[]
+    id?: IntFilter<"password_resets"> | number
+    user_id?: IntFilter<"password_resets"> | number
+    otp?: StringFilter<"password_resets"> | string
+    expired_at?: DateTimeFilter<"password_resets"> | Date | string
+    is_used?: BoolNullableFilter<"password_resets"> | boolean | null
+    created_at?: DateTimeNullableFilter<"password_resets"> | Date | string | null
+  }
+
   export type placement_testsUpsertWithWhereUniqueWithoutUsersInput = {
     where: placement_testsWhereUniqueInput
     update: XOR<placement_testsUpdateWithoutUsersInput, placement_testsUncheckedUpdateWithoutUsersInput>
@@ -36868,6 +38362,112 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type usersCreateWithoutPassword_resetsInput = {
+    full_name: string
+    email: string
+    phone?: string | null
+    password_hash: string
+    avatar?: string | null
+    date_of_birth?: Date | string | null
+    gender?: $Enums.users_gender | null
+    address?: string | null
+    status?: $Enums.users_status | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    refresh_token?: string | null
+    enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
+    news?: newsCreateNestedManyWithoutUsersInput
+    placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
+    registrations?: registrationsCreateNestedManyWithoutUsersInput
+    teachers?: teachersCreateNestedOneWithoutUsersInput
+    trial_registrations?: trial_registrationsCreateNestedManyWithoutUsersInput
+    roles: rolesCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersUncheckedCreateWithoutPassword_resetsInput = {
+    id?: number
+    role_id: number
+    full_name: string
+    email: string
+    phone?: string | null
+    password_hash: string
+    avatar?: string | null
+    date_of_birth?: Date | string | null
+    gender?: $Enums.users_gender | null
+    address?: string | null
+    status?: $Enums.users_status | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    refresh_token?: string | null
+    enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
+    news?: newsUncheckedCreateNestedManyWithoutUsersInput
+    placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
+    registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
+    teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
+    trial_registrations?: trial_registrationsUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type usersCreateOrConnectWithoutPassword_resetsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutPassword_resetsInput, usersUncheckedCreateWithoutPassword_resetsInput>
+  }
+
+  export type usersUpsertWithoutPassword_resetsInput = {
+    update: XOR<usersUpdateWithoutPassword_resetsInput, usersUncheckedUpdateWithoutPassword_resetsInput>
+    create: XOR<usersCreateWithoutPassword_resetsInput, usersUncheckedCreateWithoutPassword_resetsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutPassword_resetsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutPassword_resetsInput, usersUncheckedUpdateWithoutPassword_resetsInput>
+  }
+
+  export type usersUpdateWithoutPassword_resetsInput = {
+    full_name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    date_of_birth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableEnumusers_genderFieldUpdateOperationsInput | $Enums.users_gender | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
+    news?: newsUpdateManyWithoutUsersNestedInput
+    placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
+    registrations?: registrationsUpdateManyWithoutUsersNestedInput
+    teachers?: teachersUpdateOneWithoutUsersNestedInput
+    trial_registrations?: trial_registrationsUpdateManyWithoutUsersNestedInput
+    roles?: rolesUpdateOneRequiredWithoutUsersNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutPassword_resetsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    role_id?: IntFieldUpdateOperationsInput | number
+    full_name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    date_of_birth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableEnumusers_genderFieldUpdateOperationsInput | $Enums.users_gender | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
+    news?: newsUncheckedUpdateManyWithoutUsersNestedInput
+    placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
+    registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
+    trial_registrations?: trial_registrationsUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type assignmentsCreateManyClassesInput = {
@@ -37757,6 +39357,7 @@ export namespace Prisma {
     status?: $Enums.users_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    refresh_token?: string | null
   }
 
   export type usersUpdateWithoutRolesInput = {
@@ -37771,8 +39372,10 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
@@ -37792,8 +39395,10 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
@@ -37813,6 +39418,7 @@ export namespace Prisma {
     status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type assignmentsCreateManyTeachersInput = {
@@ -38092,6 +39698,14 @@ export namespace Prisma {
     updated_at?: Date | string | null
   }
 
+  export type password_resetsCreateManyUsersInput = {
+    id?: number
+    otp: string
+    expired_at: Date | string
+    is_used?: boolean | null
+    created_at?: Date | string | null
+  }
+
   export type placement_testsCreateManyUsersInput = {
     id?: number
     recommended_course_id?: number | null
@@ -38218,6 +39832,29 @@ export namespace Prisma {
     view_count?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type password_resetsUpdateWithoutUsersInput = {
+    otp?: StringFieldUpdateOperationsInput | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_used?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type password_resetsUncheckedUpdateWithoutUsersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    otp?: StringFieldUpdateOperationsInput | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_used?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type password_resetsUncheckedUpdateManyWithoutUsersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    otp?: StringFieldUpdateOperationsInput | string
+    expired_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_used?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type placement_testsUpdateWithoutUsersInput = {

@@ -379,7 +379,17 @@ exports.Prisma.UsersScalarFieldEnum = {
   address: 'address',
   status: 'status',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  refresh_token: 'refresh_token'
+};
+
+exports.Prisma.Password_resetsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  otp: 'otp',
+  expired_at: 'expired_at',
+  is_used: 'is_used',
+  created_at: 'created_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -516,7 +526,12 @@ exports.Prisma.usersOrderByRelevanceFieldEnum = {
   phone: 'phone',
   password_hash: 'password_hash',
   avatar: 'avatar',
-  address: 'address'
+  address: 'address',
+  refresh_token: 'refresh_token'
+};
+
+exports.Prisma.password_resetsOrderByRelevanceFieldEnum = {
+  otp: 'otp'
 };
 exports.assignments_status = exports.$Enums.assignments_status = {
   DRAFT: 'DRAFT',
@@ -670,7 +685,8 @@ exports.Prisma.ModelName = {
   teachers: 'teachers',
   trial_registrations: 'trial_registrations',
   tuition_plans: 'tuition_plans',
-  users: 'users'
+  users: 'users',
+  password_resets: 'password_resets'
 };
 
 /**
