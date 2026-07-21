@@ -1,6 +1,7 @@
 import { responseSuccess } from "../common/helpers/response.helper.js";
 import { authService } from "../services/auth.service.js";
 
+
 export const authController = {
   async register(req, res, next) {
     try {
@@ -113,6 +114,16 @@ export const authController = {
       const response = responseSuccess(result, "Đặt lại mật khẩu thành công");
 
       res.json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async updateProfile(req, res, next) {
+    try {
+      const user = await authService.updateProfile(req);
+
+      res.json(responseSuccess(user, "Cập nhật thông tin cá nhân thành công"));
     } catch (error) {
       next(error);
     }

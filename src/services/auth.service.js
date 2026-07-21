@@ -13,6 +13,8 @@ import {
 } from "../common/helpers/jwt.helper.js";
 import { generateOTP } from "../common/helpers/otp.helper.js";
 import { sendMail } from "../common/email/mail.service.js";
+import fs from "fs";
+import path from "path";
 
 export const authService = {
   async register(req) {
@@ -423,5 +425,76 @@ export const authService = {
     });
 
     return result;
+  },
+
+  async updateProfile(req) {
+    const userId = req.user.id;
+
+    const { full_name, phone, date_of_birth, gender, address } = req.body;
+
+    // avatar cũ
+    const oldAvatar = req.user.avatar;
+
+    // avatar mới giữ nguyên nếu không upload
+    let avatar = oldAvatar;
+
+    if (req.file) {
+      avatar = req.file.filename;
+    }
+
+    const user = await prisma.users.update({
+      where: {
+        id: userId,
+      },
+
+      data: {
+        full_name,
+
+        phone,
+
+        date_of_birth: date_of_birth ? new Date(date_of_birth) : undefined,
+
+        gender,
+
+        address,
+
+        avatar,
+      },
+
+      select: {
+        id: true,
+
+        role_id: true,
+
+        full_name: true,
+
+        email: true,
+
+        phone: true,
+
+        avatar: true,
+
+        date_of_birth: true,
+
+        gender: true,
+
+        address: true,
+
+        status: true,
+
+        updated_at: true,
+      },
+    });
+
+    // Sau khi update DB thành công mới xóa ảnh cũ
+    if (req.file && oldAvatar) {
+      const oldFilePath = path.join("public/images", oldAvatar);
+
+      if (fs.existsSync(oldFilePath)) {
+        fs.unlinkSync(oldFilePath);
+      }
+    }
+
+    return user;
   },
 };
