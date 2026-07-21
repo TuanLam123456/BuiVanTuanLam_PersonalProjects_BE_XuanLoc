@@ -1,0 +1,43 @@
+{
+  "name": "trung-tam-ngoai-ngu-xuan-loc-be",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000B\u0000u\u0000i\u0000V\u0000a\u0000n\u0000T\u0000u\u0000a\u0000n\u0000L\u0000a\u0000m\u0000_\u0000P\u0000e\u0000r\u0000s\u0000o\u0000n\u0000a\u0000l\u0000P\u0000r\u0000o\u0000j\u0000e\u0000c\u0000t\u0000s\u0000_\u0000B\u0000E\u0000_\u0000X\u0000u\u0000a\u0000n\u0000L\u0000o\u0000c\u0000\r\u0000 \u00001\u0000/\u0000 \u0000K\u0000h\u0000�\u001ei\u0000 \u0000t\u0000�\u001eo\u0000 \u0000d\u0000�\u001e \u0000�\u0000n\u0000 \u0000E\u0000x\u0000p\u0000r\u0000e\u0000s\u0000s\u0000 \u0000J\u0000S\u0000 \u0000-\u0000>\u0000 \u0000n\u0000p\u0000m\u0000 \u0000i\u0000n\u0000i\u0000t\u0000 \u0000-\u0000>\u0000 \u0000t\u0000h\u0000a\u0000y\u0000 \u0000\u0011\u0001�\u001ei\u0000 \u0000m\u0000a\u0000i\u0000n\u0000 \u0000(\u0000p\u0000a\u0000c\u0000k\u0000a\u0000g\u0000e\u0000.\u0000j\u0000s\u0000o\u0000n\u0000)\u0000 \u0000t\u0000h\u0000�\u0000n\u0000h\u0000 \u0000'\u0000s\u0000e\u0000r\u0000v\u0000e\u0000r\u0000.\u0000j\u0000s\u0000'\u0000 \u0000-\u0000>\u0000 \u0000t\u0000h\u0000a\u0000y\u0000 \u0000\u0011\u0001�\u001ei\u0000 \u0000t\u0000y\u0000p\u0000e\u0000 \u0000t\u0000h\u0000�\u0000n\u0000h\u0000 \u0000m\u0000o\u0000d\u0000u\u0000l\u0000e\u0000 \u0000 \u0000-\u0000>\u0000 \u0000g\u0000�\u001en\u0000 \u0000t\u0000h\u0000�\u0000m\u0000 \u0000s\u0000t\u0000a\u0000r\u0000t\u0000 \u0000'\u0000n\u0000o\u0000d\u0000e\u0000 \u0000s\u0000e\u0000r\u0000v\u0000e\u0000r\u0000.\u0000j\u0000s\u0000'\u0000 \u0000-\u0000>\u0000 \u0000n\u0000p\u0000m\u0000 \u0000i\u0000 \u0000e\u0000x\u0000p\u0000r\u0000e\u0000s\u0000s\u0000 \u0000-\u0000>\u0000 \u0000n\u0000p\u0000m\u0000 \u0000i\u0000 \u0000n\u0000o\u0000d\u0000e\u0000m\u0000o\u0000n\u0000 \u0000-\u0000>\u0000 \u0000t\u0000h\u0000�\u0000m\u0000 \u0000d\u0000e\u0000v\u0000 \u0000n\u0000o\u0000d\u0000e\u0000m\u0000o\u0000n\u0000 \u0000s\u0000e\u0000r\u0000v\u0000e\u0000r\u0000.\u0000j\u0000s\u0000\r\u0000 \u0000",
+  "homepage": "https://github.com/TuanLam123456/BuiVanTuanLam_PersonalProjects_BE_XuanLoc#readme",
+  "bugs": {
+    "url": "https://github.com/TuanLam123456/BuiVanTuanLam_PersonalProjects_BE_XuanLoc/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TuanLam123456/BuiVanTuanLam_PersonalProjects_BE_XuanLoc.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "prisma": "npx prisma db pull && npx prisma generate"
+  },
+  "dependencies": {
+    "@prisma/adapter-mariadb": "^7.9.0",
+    "@prisma/client": "^7.9.0",
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.10.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.2.0",
+    "mysql2": "^3.23.1",
+    "nodemon": "^3.1.14",
+    "sequelize": "^6.37.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "prisma": "^7.9.0"
+  }
+}
