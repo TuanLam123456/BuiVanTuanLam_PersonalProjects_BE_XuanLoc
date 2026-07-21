@@ -36,4 +36,24 @@ export const courseController = {
       next(error);
     }
   },
+
+  async update(req, res, next) {
+    try {
+      const course = await courseService.update(req);
+
+      res.json(responseSuccess(course, "Cập nhật khóa học thành công"));
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async delete(req, res, next) {
+    try {
+      const course = await courseService.delete(req);
+
+      res.json(responseSuccess(course, "Xóa khóa học thành công"));
+    } catch (error) {
+      next(error);
+    }
+  },
 };
