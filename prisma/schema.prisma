@@ -8,113 +8,514 @@ datasource db {
   provider = "mysql"
 }
 
-model Articles {
-  id        Int       @id @default(autoincrement())
-  title     String?   @db.VarChar(255)
-  content   String?   @db.Text
-  imageUrl  String?   @db.VarChar(255)
-  views     Int       @default(0)
-  userId    Int?
-  deletedBy Int       @default(0)
-  isDeleted Boolean   @default(false)
-  deletedAt DateTime? @db.Timestamp(0)
-  createdAt DateTime  @default(now()) @db.Timestamp(0)
-  updatedAt DateTime  @default(now()) @db.Timestamp(0)
-  Users     Users?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Articles_ibfk_1")
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model assignments {
+  id          Int                 @id @default(autoincrement())
+  class_id    Int
+  teacher_id  Int
+  title       String              @db.VarChar(255)
+  description String?             @db.Text
+  attachment  String?             @db.VarChar(500)
+  due_date    DateTime?           @db.DateTime(0)
+  status      assignments_status? @default(DRAFT)
+  created_at  DateTime?           @default(now()) @db.Timestamp(0)
+  updated_at  DateTime?           @default(now()) @db.Timestamp(0)
+  classes     classes             @relation(fields: [class_id], references: [id], onDelete: Cascade, map: "fk_assignment_class")
+  teachers    teachers            @relation(fields: [teacher_id], references: [id], map: "fk_assignment_teacher")
 
-  @@index([userId], map: "userId")
+  @@index([class_id], map: "fk_assignment_class")
+  @@index([teacher_id], map: "fk_assignment_teacher")
 }
 
-model ChatGroupMembers {
-  id          Int         @id @default(autoincrement())
-  userId      Int?
-  chatGroupId Int?
-  deletedBy   Int         @default(0)
-  isDeleted   Boolean     @default(false)
-  deletedAt   DateTime?   @db.Timestamp(0)
-  createdAt   DateTime    @default(now()) @db.Timestamp(0)
-  updatedAt   DateTime    @default(now()) @db.Timestamp(0)
-  Users       Users?      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ChatGroupMembers_ibfk_1")
-  ChatGroups  ChatGroups? @relation(fields: [chatGroupId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ChatGroupMembers_ibfk_2")
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model attendance {
+  id              Int                @id @default(autoincrement())
+  enrollment_id   Int
+  class_id        Int
+  attendance_date DateTime           @db.Date
+  status          attendance_status? @default(PRESENT)
+  note            String?            @db.VarChar(255)
+  created_at      DateTime?          @default(now()) @db.Timestamp(0)
+  updated_at      DateTime?          @default(now()) @db.Timestamp(0)
+  classes         classes            @relation(fields: [class_id], references: [id], onDelete: Cascade, map: "fk_attendance_class")
+  enrollments     enrollments        @relation(fields: [enrollment_id], references: [id], onDelete: Cascade, map: "fk_attendance_enrollment")
 
-  @@index([chatGroupId], map: "chatGroupId")
-  @@index([userId], map: "userId")
+  @@unique([enrollment_id, attendance_date], map: "unique_attendance")
+  @@index([class_id], map: "fk_attendance_class")
 }
 
-model ChatGroups {
-  id               Int                @id @default(autoincrement())
-  name             String?            @db.VarChar(255)
-  ownerId          Int?
-  deletedBy        Int                @default(0)
-  isDeleted        Boolean            @default(false)
-  deletedAt        DateTime?          @db.Timestamp(0)
-  createdAt        DateTime           @default(now()) @db.Timestamp(0)
-  updatedAt        DateTime           @default(now()) @db.Timestamp(0)
-  ChatGroupMembers ChatGroupMembers[]
-  Users            Users?             @relation(fields: [ownerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ChatGroups_ibfk_1")
-  ChatMessages     ChatMessages[]
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model classes {
+  id                Int                @id @default(autoincrement())
+  course_id         Int
+  schedule_id       Int?
+  teacher_id        Int?
+  class_code        String             @unique(map: "class_code") @db.VarChar(50)
+  name              String             @db.VarChar(150)
+  start_date        DateTime           @db.Date
+  end_date          DateTime?          @db.Date
+  study_time        String?            @db.VarChar(255)
+  room              String?            @db.VarChar(100)
+  max_students      Int?               @default(20)
+  status            classes_status?    @default(PLANNING)
+  created_at        DateTime?          @default(now()) @db.Timestamp(0)
+  updated_at        DateTime?          @default(now()) @db.Timestamp(0)
+  assignments       assignments[]
+  attendance        attendance[]
+  courses           courses            @relation(fields: [course_id], references: [id], map: "fk_classes_course")
+  opening_schedules opening_schedules? @relation(fields: [schedule_id], references: [id], map: "fk_classes_schedule")
+  teachers          teachers?          @relation(fields: [teacher_id], references: [id], map: "fk_classes_teacher")
+  enrollments       enrollments[]
 
-  @@index([ownerId], map: "ownerId")
+  @@index([course_id], map: "fk_classes_course")
+  @@index([schedule_id], map: "fk_classes_schedule")
+  @@index([teacher_id], map: "fk_classes_teacher")
 }
 
-model ChatMessages {
-  id           Int         @id @default(autoincrement())
-  chatGroupId  Int?
-  userIdSender Int?
-  messageText  String?     @db.Text
-  deletedBy    Int         @default(0)
-  isDeleted    Boolean     @default(false)
-  deletedAt    DateTime?   @db.Timestamp(0)
-  createdAt    DateTime    @default(now()) @db.Timestamp(0)
-  updatedAt    DateTime    @default(now()) @db.Timestamp(0)
-  ChatGroups   ChatGroups? @relation(fields: [chatGroupId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ChatMessages_ibfk_1")
-  Users        Users?      @relation(fields: [userIdSender], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ChatMessages_ibfk_2")
-
-  @@index([chatGroupId], map: "chatGroupId")
-  @@index([userIdSender], map: "userIdSender")
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model course_categories {
+  id          Int                       @id @default(autoincrement())
+  name        String                    @db.VarChar(100)
+  slug        String                    @unique(map: "slug") @db.VarChar(120)
+  description String?                   @db.Text
+  image       String?                   @db.VarChar(500)
+  status      course_categories_status? @default(ACTIVE)
+  sort_order  Int?                      @default(0)
+  created_at  DateTime?                 @default(now()) @db.Timestamp(0)
+  updated_at  DateTime?                 @default(now()) @db.Timestamp(0)
+  courses     courses[]
 }
 
-model Foods {
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model courses {
+  id                  Int                   @id @default(autoincrement())
+  category_id         Int
+  title               String                @db.VarChar(150)
+  slug                String                @unique(map: "slug") @db.VarChar(180)
+  short_description   String?               @db.VarChar(500)
+  description         String?               @db.LongText
+  image               String?               @db.VarChar(500)
+  target_students     String?               @db.Text
+  level               String?               @db.VarChar(100)
+  duration            String?               @db.VarChar(100)
+  study_method        courses_study_method? @default(OFFLINE)
+  status              courses_status?       @default(ACTIVE)
+  featured            Boolean?              @default(false)
+  created_at          DateTime?             @default(now()) @db.Timestamp(0)
+  updated_at          DateTime?             @default(now()) @db.Timestamp(0)
+  classes             classes[]
+  course_categories   course_categories     @relation(fields: [category_id], references: [id], map: "fk_courses_category")
+  opening_schedules   opening_schedules[]
+  placement_tests     placement_tests[]
+  registrations       registrations[]
+  teacher_courses     teacher_courses[]
+  trial_registrations trial_registrations[]
+  tuition_plans       tuition_plans[]
+
+  @@index([category_id], map: "fk_courses_category")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model enrollments {
+  id              Int                 @id @default(autoincrement())
+  class_id        Int
+  student_id      Int
+  enrollment_date DateTime?           @default(dbgenerated("(curdate())")) @db.Date
+  status          enrollments_status? @default(PENDING)
+  final_score     Decimal?            @db.Decimal(5, 2)
+  note            String?             @db.Text
+  created_at      DateTime?           @default(now()) @db.Timestamp(0)
+  updated_at      DateTime?           @default(now()) @db.Timestamp(0)
+  attendance      attendance[]
+  classes         classes             @relation(fields: [class_id], references: [id], onDelete: Cascade, map: "fk_enrollment_class")
+  users           users               @relation(fields: [student_id], references: [id], map: "fk_enrollment_student")
+  grades          grades[]
+  payments        payments[]
+
+  @@unique([class_id, student_id], map: "unique_student_class")
+  @@index([student_id], map: "fk_enrollment_student")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model grades {
+  id            Int         @id @default(autoincrement())
+  enrollment_id Int
+  teacher_id    Int
+  name          String      @db.VarChar(150)
+  score         Decimal     @db.Decimal(5, 2)
+  max_score     Decimal?    @default(10.00) @db.Decimal(5, 2)
+  note          String?     @db.Text
+  created_at    DateTime?   @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?   @default(now()) @db.Timestamp(0)
+  enrollments   enrollments @relation(fields: [enrollment_id], references: [id], onDelete: Cascade, map: "fk_grade_enrollment")
+  teachers      teachers    @relation(fields: [teacher_id], references: [id], map: "fk_grade_teacher")
+
+  @@index([enrollment_id], map: "fk_grade_enrollment")
+  @@index([teacher_id], map: "fk_grade_teacher")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model news {
+  id                Int             @id @default(autoincrement())
+  category_id       Int
+  author_id         Int
+  title             String          @db.VarChar(255)
+  slug              String          @unique(map: "slug") @db.VarChar(255)
+  short_description String?         @db.VarChar(500)
+  content           String          @db.LongText
+  image             String?         @db.VarChar(500)
+  status            news_status?    @default(DRAFT)
+  published_at      DateTime?       @db.DateTime(0)
+  view_count        Int?            @default(0)
+  created_at        DateTime?       @default(now()) @db.Timestamp(0)
+  updated_at        DateTime?       @default(now()) @db.Timestamp(0)
+  users             users           @relation(fields: [author_id], references: [id], map: "fk_news_author")
+  news_categories   news_categories @relation(fields: [category_id], references: [id], map: "fk_news_category")
+
+  @@index([author_id], map: "fk_news_author")
+  @@index([category_id], map: "fk_news_category")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model news_categories {
+  id          Int                     @id @default(autoincrement())
+  name        String                  @db.VarChar(100)
+  slug        String                  @unique(map: "slug") @db.VarChar(120)
+  description String?                 @db.Text
+  status      news_categories_status? @default(ACTIVE)
+  sort_order  Int?                    @default(0)
+  created_at  DateTime?               @default(now()) @db.Timestamp(0)
+  updated_at  DateTime?               @default(now()) @db.Timestamp(0)
+  news        news[]
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model opening_schedules {
+  id               Int                             @id @default(autoincrement())
+  course_id        Int
+  teacher_id       Int?
+  start_date       DateTime                        @db.Date
+  end_date         DateTime?                       @db.Date
+  study_time       String?                         @db.VarChar(255)
+  study_method     opening_schedules_study_method? @default(OFFLINE)
+  room             String?                         @db.VarChar(100)
+  max_students     Int?                            @default(20)
+  current_students Int?                            @default(0)
+  tuition          Decimal?                        @db.Decimal(12, 2)
+  status           opening_schedules_status?       @default(OPEN)
+  created_at       DateTime?                       @default(now()) @db.Timestamp(0)
+  updated_at       DateTime?                       @default(now()) @db.Timestamp(0)
+  classes          classes[]
+  courses          courses                         @relation(fields: [course_id], references: [id], map: "fk_schedule_course")
+  teachers         teachers?                       @relation(fields: [teacher_id], references: [id], map: "fk_schedule_teacher")
+
+  @@index([course_id], map: "fk_schedule_course")
+  @@index([teacher_id], map: "fk_schedule_teacher")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model payments {
+  id               Int                      @id @default(autoincrement())
+  enrollment_id    Int
+  amount           Decimal                  @db.Decimal(12, 2)
+  payment_method   payments_payment_method? @default(CASH)
+  transaction_code String?                  @db.VarChar(100)
+  status           payments_status?         @default(PENDING)
+  paid_at          DateTime?                @db.DateTime(0)
+  note             String?                  @db.Text
+  created_at       DateTime?                @default(now()) @db.Timestamp(0)
+  updated_at       DateTime?                @default(now()) @db.Timestamp(0)
+  enrollments      enrollments              @relation(fields: [enrollment_id], references: [id], map: "fk_payment_enrollment")
+
+  @@index([enrollment_id], map: "fk_payment_enrollment")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model placement_tests {
+  id                    Int                     @id @default(autoincrement())
+  user_id               Int?
+  recommended_course_id Int?
+  full_name             String                  @db.VarChar(100)
+  email                 String?                 @db.VarChar(150)
+  phone                 String?                 @db.VarChar(20)
+  total_questions       Int?                    @default(0)
+  correct_answers       Int?                    @default(0)
+  score                 Decimal?                @db.Decimal(5, 2)
+  level_result          String?                 @db.VarChar(100)
+  recommendation        String?                 @db.Text
+  status                placement_tests_status? @default(STARTED)
+  created_at            DateTime?               @default(now()) @db.Timestamp(0)
+  updated_at            DateTime?               @default(now()) @db.Timestamp(0)
+  courses               courses?                @relation(fields: [recommended_course_id], references: [id], map: "fk_test_course")
+  users                 users?                  @relation(fields: [user_id], references: [id], map: "fk_test_user")
+
+  @@index([recommended_course_id], map: "fk_test_course")
+  @@index([user_id], map: "fk_test_user")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model registrations {
+  id         Int                   @id @default(autoincrement())
+  user_id    Int?
+  course_id  Int?
+  full_name  String                @db.VarChar(100)
+  phone      String                @db.VarChar(20)
+  email      String?               @db.VarChar(150)
+  message    String?               @db.Text
+  source     registrations_source? @default(CONTACT_PAGE)
+  status     registrations_status? @default(NEW)
+  note       String?               @db.Text
+  created_at DateTime?             @default(now()) @db.Timestamp(0)
+  updated_at DateTime?             @default(now()) @db.Timestamp(0)
+  courses    courses?              @relation(fields: [course_id], references: [id], map: "fk_registration_course")
+  users      users?                @relation(fields: [user_id], references: [id], map: "fk_registration_user")
+
+  @@index([course_id], map: "fk_registration_course")
+  @@index([user_id], map: "fk_registration_user")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model roles {
   id          Int       @id @default(autoincrement())
-  name        String?   @db.VarChar(255)
-  description String?   @default("Chưa có thông tin") @db.VarChar(255)
-  deletedBy   Int       @default(0)
-  isDeleted   Boolean   @default(false)
-  deletedAt   DateTime? @db.Timestamp(0)
-  createdAt   DateTime  @default(now()) @db.Timestamp(0)
-  updatedAt   DateTime  @default(now()) @db.Timestamp(0)
-  Orders      Orders[]
+  name        String    @unique(map: "name") @db.VarChar(50)
+  description String?   @db.VarChar(255)
+  created_at  DateTime? @default(now()) @db.Timestamp(0)
+  users       users[]
 }
 
-model Orders {
-  id     Int    @id @default(autoincrement())
-  userId Int?
-  foodId Int?
-  Users  Users? @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Orders_ibfk_1")
-  Foods  Foods? @relation(fields: [foodId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Orders_ibfk_2")
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model teacher_courses {
+  id          Int       @id @default(autoincrement())
+  teacher_id  Int
+  course_id   Int
+  role        String?   @db.VarChar(100)
+  assigned_at DateTime? @default(now()) @db.Timestamp(0)
+  courses     courses   @relation(fields: [course_id], references: [id], onDelete: Cascade, map: "fk_teacher_courses_course")
+  teachers    teachers  @relation(fields: [teacher_id], references: [id], onDelete: Cascade, map: "fk_teacher_courses_teacher")
 
-  @@index([foodId], map: "foodId")
-  @@index([userId], map: "userId")
+  @@unique([teacher_id, course_id], map: "unique_teacher_course")
+  @@index([course_id], map: "fk_teacher_courses_course")
 }
 
-model Users {
-  id               Int                @id @default(autoincrement())
-  email            String             @unique(map: "email") @db.VarChar(255)
-  fullName         String?            @db.VarChar(255)
-  avatar           String?            @db.Text
-  age              Int?
-  totpSecret       String?            @db.VarChar(255)
-  googleId         String?            @db.VarChar(255)
-  password         String?            @db.VarChar(255)
-  deletedBy        Int                @default(0)
-  isDeleted        Boolean            @default(false)
-  deletedAt        DateTime?          @db.Timestamp(0)
-  createdAt        DateTime           @default(now()) @db.Timestamp(0)
-  updatedAt        DateTime           @default(now()) @db.Timestamp(0)
-  codeChangePass   String?            @db.VarChar(255)
-  Articles         Articles[]
-  ChatGroupMembers ChatGroupMembers[]
-  ChatGroups       ChatGroups[]
-  ChatMessages     ChatMessages[]
-  Orders           Orders[]
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model teachers {
+  id                Int                 @id @default(autoincrement())
+  user_id           Int                 @unique(map: "user_id")
+  specialization    String?             @db.VarChar(150)
+  experience        String?             @db.VarChar(100)
+  education         String?             @db.VarChar(255)
+  introduction      String?             @db.Text
+  avatar            String?             @db.VarChar(500)
+  phone             String?             @db.VarChar(20)
+  status            teachers_status?    @default(ACTIVE)
+  created_at        DateTime?           @default(now()) @db.Timestamp(0)
+  updated_at        DateTime?           @default(now()) @db.Timestamp(0)
+  assignments       assignments[]
+  classes           classes[]
+  grades            grades[]
+  opening_schedules opening_schedules[]
+  teacher_courses   teacher_courses[]
+  users             users               @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "fk_teachers_users")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model trial_registrations {
+  id             Int                         @id @default(autoincrement())
+  user_id        Int?
+  course_id      Int?
+  full_name      String                      @db.VarChar(100)
+  phone          String                      @db.VarChar(20)
+  email          String?                     @db.VarChar(150)
+  age            Int?
+  current_level  String?                     @db.VarChar(100)
+  preferred_time String?                     @db.VarChar(255)
+  note           String?                     @db.Text
+  trial_date     DateTime?                   @db.Date
+  status         trial_registrations_status? @default(NEW)
+  created_at     DateTime?                   @default(now()) @db.Timestamp(0)
+  updated_at     DateTime?                   @default(now()) @db.Timestamp(0)
+  courses        courses?                    @relation(fields: [course_id], references: [id], map: "fk_trial_course")
+  users          users?                      @relation(fields: [user_id], references: [id], map: "fk_trial_user")
+
+  @@index([course_id], map: "fk_trial_course")
+  @@index([user_id], map: "fk_trial_user")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model tuition_plans {
+  id               Int                   @id @default(autoincrement())
+  course_id        Int
+  name             String                @db.VarChar(150)
+  price            Decimal               @db.Decimal(12, 2)
+  original_price   Decimal?              @db.Decimal(12, 2)
+  duration         String?               @db.VarChar(100)
+  description      String?               @db.Text
+  benefits         String?               @db.Text
+  is_discount      Boolean?              @default(false)
+  discount_percent Int?                  @default(0)
+  status           tuition_plans_status? @default(ACTIVE)
+  created_at       DateTime?             @default(now()) @db.Timestamp(0)
+  updated_at       DateTime?             @default(now()) @db.Timestamp(0)
+  courses          courses               @relation(fields: [course_id], references: [id], map: "fk_tuition_course")
+
+  @@index([course_id], map: "fk_tuition_course")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model users {
+  id                  Int                   @id @default(autoincrement())
+  role_id             Int
+  full_name           String                @db.VarChar(100)
+  email               String                @unique(map: "email") @db.VarChar(150)
+  phone               String?               @db.VarChar(20)
+  password_hash       String                @db.VarChar(255)
+  avatar              String?               @db.VarChar(500)
+  date_of_birth       DateTime?             @db.Date
+  gender              users_gender?
+  address             String?               @db.VarChar(255)
+  status              users_status?         @default(ACTIVE)
+  created_at          DateTime?             @default(now()) @db.Timestamp(0)
+  updated_at          DateTime?             @default(now()) @db.Timestamp(0)
+  enrollments         enrollments[]
+  news                news[]
+  placement_tests     placement_tests[]
+  registrations       registrations[]
+  teachers            teachers?
+  trial_registrations trial_registrations[]
+  roles               roles                 @relation(fields: [role_id], references: [id], map: "fk_users_roles")
+
+  @@index([role_id], map: "fk_users_roles")
+}
+
+enum payments_payment_method {
+  CASH
+  BANK_TRANSFER
+  ONLINE
+}
+
+enum attendance_status {
+  PRESENT
+  ABSENT
+  LATE
+  EXCUSED
+}
+
+enum enrollments_status {
+  PENDING
+  ACTIVE
+  COMPLETED
+  DROPPED
+  CANCELLED
+}
+
+enum news_categories_status {
+  ACTIVE
+  INACTIVE
+}
+
+enum course_categories_status {
+  ACTIVE
+  INACTIVE
+}
+
+enum payments_status {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum opening_schedules_study_method {
+  OFFLINE
+  ONLINE
+  BOTH
+}
+
+enum assignments_status {
+  DRAFT
+  PUBLISHED
+  CLOSED
+}
+
+enum registrations_source {
+  CONTACT_PAGE
+  COURSE_PAGE
+  TRIAL
+  OTHER
+}
+
+enum news_status {
+  DRAFT
+  PUBLISHED
+  HIDDEN
+}
+
+enum registrations_status {
+  NEW
+  CONTACTED
+  CONSULTING
+  CONFIRMED
+  CANCELLED
+}
+
+enum teachers_status {
+  ACTIVE
+  INACTIVE
+}
+
+enum users_gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum courses_study_method {
+  OFFLINE
+  ONLINE
+  BOTH
+}
+
+enum tuition_plans_status {
+  ACTIVE
+  INACTIVE
+}
+
+enum users_status {
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
+
+enum classes_status {
+  PLANNING
+  OPEN
+  RUNNING
+  FINISHED
+  CANCELLED
+}
+
+enum courses_status {
+  ACTIVE
+  INACTIVE
+  DRAFT
+}
+
+enum opening_schedules_status {
+  OPEN
+  FULL
+  STARTED
+  CLOSED
+}
+
+enum placement_tests_status {
+  STARTED
+  COMPLETED
+  CONSULTED
+}
+
+enum trial_registrations_status {
+  NEW
+  SCHEDULED
+  COMPLETED
+  CANCELLED
 }

@@ -120,86 +120,266 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.ArticlesScalarFieldEnum = {
+exports.Prisma.AssignmentsScalarFieldEnum = {
   id: 'id',
+  class_id: 'class_id',
+  teacher_id: 'teacher_id',
   title: 'title',
-  content: 'content',
-  imageUrl: 'imageUrl',
-  views: 'views',
-  userId: 'userId',
-  deletedBy: 'deletedBy',
-  isDeleted: 'isDeleted',
-  deletedAt: 'deletedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  description: 'description',
+  attachment: 'attachment',
+  due_date: 'due_date',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
-exports.Prisma.ChatGroupMembersScalarFieldEnum = {
+exports.Prisma.AttendanceScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  chatGroupId: 'chatGroupId',
-  deletedBy: 'deletedBy',
-  isDeleted: 'isDeleted',
-  deletedAt: 'deletedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  enrollment_id: 'enrollment_id',
+  class_id: 'class_id',
+  attendance_date: 'attendance_date',
+  status: 'status',
+  note: 'note',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
-exports.Prisma.ChatGroupsScalarFieldEnum = {
+exports.Prisma.ClassesScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  schedule_id: 'schedule_id',
+  teacher_id: 'teacher_id',
+  class_code: 'class_code',
+  name: 'name',
+  start_date: 'start_date',
+  end_date: 'end_date',
+  study_time: 'study_time',
+  room: 'room',
+  max_students: 'max_students',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Course_categoriesScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  ownerId: 'ownerId',
-  deletedBy: 'deletedBy',
-  isDeleted: 'isDeleted',
-  deletedAt: 'deletedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  slug: 'slug',
+  description: 'description',
+  image: 'image',
+  status: 'status',
+  sort_order: 'sort_order',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
-exports.Prisma.ChatMessagesScalarFieldEnum = {
+exports.Prisma.CoursesScalarFieldEnum = {
   id: 'id',
-  chatGroupId: 'chatGroupId',
-  userIdSender: 'userIdSender',
-  messageText: 'messageText',
-  deletedBy: 'deletedBy',
-  isDeleted: 'isDeleted',
-  deletedAt: 'deletedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  category_id: 'category_id',
+  title: 'title',
+  slug: 'slug',
+  short_description: 'short_description',
+  description: 'description',
+  image: 'image',
+  target_students: 'target_students',
+  level: 'level',
+  duration: 'duration',
+  study_method: 'study_method',
+  status: 'status',
+  featured: 'featured',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
-exports.Prisma.FoodsScalarFieldEnum = {
+exports.Prisma.EnrollmentsScalarFieldEnum = {
+  id: 'id',
+  class_id: 'class_id',
+  student_id: 'student_id',
+  enrollment_date: 'enrollment_date',
+  status: 'status',
+  final_score: 'final_score',
+  note: 'note',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.GradesScalarFieldEnum = {
+  id: 'id',
+  enrollment_id: 'enrollment_id',
+  teacher_id: 'teacher_id',
+  name: 'name',
+  score: 'score',
+  max_score: 'max_score',
+  note: 'note',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.NewsScalarFieldEnum = {
+  id: 'id',
+  category_id: 'category_id',
+  author_id: 'author_id',
+  title: 'title',
+  slug: 'slug',
+  short_description: 'short_description',
+  content: 'content',
+  image: 'image',
+  status: 'status',
+  published_at: 'published_at',
+  view_count: 'view_count',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.News_categoriesScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  status: 'status',
+  sort_order: 'sort_order',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Opening_schedulesScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  teacher_id: 'teacher_id',
+  start_date: 'start_date',
+  end_date: 'end_date',
+  study_time: 'study_time',
+  study_method: 'study_method',
+  room: 'room',
+  max_students: 'max_students',
+  current_students: 'current_students',
+  tuition: 'tuition',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.PaymentsScalarFieldEnum = {
+  id: 'id',
+  enrollment_id: 'enrollment_id',
+  amount: 'amount',
+  payment_method: 'payment_method',
+  transaction_code: 'transaction_code',
+  status: 'status',
+  paid_at: 'paid_at',
+  note: 'note',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Placement_testsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  recommended_course_id: 'recommended_course_id',
+  full_name: 'full_name',
+  email: 'email',
+  phone: 'phone',
+  total_questions: 'total_questions',
+  correct_answers: 'correct_answers',
+  score: 'score',
+  level_result: 'level_result',
+  recommendation: 'recommendation',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.RegistrationsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  course_id: 'course_id',
+  full_name: 'full_name',
+  phone: 'phone',
+  email: 'email',
+  message: 'message',
+  source: 'source',
+  status: 'status',
+  note: 'note',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.RolesScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  deletedBy: 'deletedBy',
-  isDeleted: 'isDeleted',
-  deletedAt: 'deletedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at'
 };
 
-exports.Prisma.OrdersScalarFieldEnum = {
+exports.Prisma.Teacher_coursesScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  foodId: 'foodId'
+  teacher_id: 'teacher_id',
+  course_id: 'course_id',
+  role: 'role',
+  assigned_at: 'assigned_at'
+};
+
+exports.Prisma.TeachersScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  specialization: 'specialization',
+  experience: 'experience',
+  education: 'education',
+  introduction: 'introduction',
+  avatar: 'avatar',
+  phone: 'phone',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Trial_registrationsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  course_id: 'course_id',
+  full_name: 'full_name',
+  phone: 'phone',
+  email: 'email',
+  age: 'age',
+  current_level: 'current_level',
+  preferred_time: 'preferred_time',
+  note: 'note',
+  trial_date: 'trial_date',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Tuition_plansScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  name: 'name',
+  price: 'price',
+  original_price: 'original_price',
+  duration: 'duration',
+  description: 'description',
+  benefits: 'benefits',
+  is_discount: 'is_discount',
+  discount_percent: 'discount_percent',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.UsersScalarFieldEnum = {
   id: 'id',
+  role_id: 'role_id',
+  full_name: 'full_name',
   email: 'email',
-  fullName: 'fullName',
+  phone: 'phone',
+  password_hash: 'password_hash',
   avatar: 'avatar',
-  age: 'age',
-  totpSecret: 'totpSecret',
-  googleId: 'googleId',
-  password: 'password',
-  deletedBy: 'deletedBy',
-  isDeleted: 'isDeleted',
-  deletedAt: 'deletedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  codeChangePass: 'codeChangePass'
+  date_of_birth: 'date_of_birth',
+  gender: 'gender',
+  address: 'address',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -212,44 +392,285 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
-exports.Prisma.ArticlesOrderByRelevanceFieldEnum = {
+exports.Prisma.assignmentsOrderByRelevanceFieldEnum = {
   title: 'title',
+  description: 'description',
+  attachment: 'attachment'
+};
+
+exports.Prisma.attendanceOrderByRelevanceFieldEnum = {
+  note: 'note'
+};
+
+exports.Prisma.classesOrderByRelevanceFieldEnum = {
+  class_code: 'class_code',
+  name: 'name',
+  study_time: 'study_time',
+  room: 'room'
+};
+
+exports.Prisma.course_categoriesOrderByRelevanceFieldEnum = {
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  image: 'image'
+};
+
+exports.Prisma.coursesOrderByRelevanceFieldEnum = {
+  title: 'title',
+  slug: 'slug',
+  short_description: 'short_description',
+  description: 'description',
+  image: 'image',
+  target_students: 'target_students',
+  level: 'level',
+  duration: 'duration'
+};
+
+exports.Prisma.enrollmentsOrderByRelevanceFieldEnum = {
+  note: 'note'
+};
+
+exports.Prisma.gradesOrderByRelevanceFieldEnum = {
+  name: 'name',
+  note: 'note'
+};
+
+exports.Prisma.newsOrderByRelevanceFieldEnum = {
+  title: 'title',
+  slug: 'slug',
+  short_description: 'short_description',
   content: 'content',
-  imageUrl: 'imageUrl'
+  image: 'image'
 };
 
-exports.Prisma.ChatGroupsOrderByRelevanceFieldEnum = {
-  name: 'name'
+exports.Prisma.news_categoriesOrderByRelevanceFieldEnum = {
+  name: 'name',
+  slug: 'slug',
+  description: 'description'
 };
 
-exports.Prisma.ChatMessagesOrderByRelevanceFieldEnum = {
-  messageText: 'messageText'
+exports.Prisma.opening_schedulesOrderByRelevanceFieldEnum = {
+  study_time: 'study_time',
+  room: 'room'
 };
 
-exports.Prisma.FoodsOrderByRelevanceFieldEnum = {
+exports.Prisma.paymentsOrderByRelevanceFieldEnum = {
+  transaction_code: 'transaction_code',
+  note: 'note'
+};
+
+exports.Prisma.placement_testsOrderByRelevanceFieldEnum = {
+  full_name: 'full_name',
+  email: 'email',
+  phone: 'phone',
+  level_result: 'level_result',
+  recommendation: 'recommendation'
+};
+
+exports.Prisma.registrationsOrderByRelevanceFieldEnum = {
+  full_name: 'full_name',
+  phone: 'phone',
+  email: 'email',
+  message: 'message',
+  note: 'note'
+};
+
+exports.Prisma.rolesOrderByRelevanceFieldEnum = {
   name: 'name',
   description: 'description'
 };
 
-exports.Prisma.UsersOrderByRelevanceFieldEnum = {
-  email: 'email',
-  fullName: 'fullName',
-  avatar: 'avatar',
-  totpSecret: 'totpSecret',
-  googleId: 'googleId',
-  password: 'password',
-  codeChangePass: 'codeChangePass'
+exports.Prisma.teacher_coursesOrderByRelevanceFieldEnum = {
+  role: 'role'
 };
 
+exports.Prisma.teachersOrderByRelevanceFieldEnum = {
+  specialization: 'specialization',
+  experience: 'experience',
+  education: 'education',
+  introduction: 'introduction',
+  avatar: 'avatar',
+  phone: 'phone'
+};
+
+exports.Prisma.trial_registrationsOrderByRelevanceFieldEnum = {
+  full_name: 'full_name',
+  phone: 'phone',
+  email: 'email',
+  current_level: 'current_level',
+  preferred_time: 'preferred_time',
+  note: 'note'
+};
+
+exports.Prisma.tuition_plansOrderByRelevanceFieldEnum = {
+  name: 'name',
+  duration: 'duration',
+  description: 'description',
+  benefits: 'benefits'
+};
+
+exports.Prisma.usersOrderByRelevanceFieldEnum = {
+  full_name: 'full_name',
+  email: 'email',
+  phone: 'phone',
+  password_hash: 'password_hash',
+  avatar: 'avatar',
+  address: 'address'
+};
+exports.assignments_status = exports.$Enums.assignments_status = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  CLOSED: 'CLOSED'
+};
+
+exports.attendance_status = exports.$Enums.attendance_status = {
+  PRESENT: 'PRESENT',
+  ABSENT: 'ABSENT',
+  LATE: 'LATE',
+  EXCUSED: 'EXCUSED'
+};
+
+exports.classes_status = exports.$Enums.classes_status = {
+  PLANNING: 'PLANNING',
+  OPEN: 'OPEN',
+  RUNNING: 'RUNNING',
+  FINISHED: 'FINISHED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.course_categories_status = exports.$Enums.course_categories_status = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
+exports.courses_study_method = exports.$Enums.courses_study_method = {
+  OFFLINE: 'OFFLINE',
+  ONLINE: 'ONLINE',
+  BOTH: 'BOTH'
+};
+
+exports.courses_status = exports.$Enums.courses_status = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  DRAFT: 'DRAFT'
+};
+
+exports.enrollments_status = exports.$Enums.enrollments_status = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  DROPPED: 'DROPPED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.news_status = exports.$Enums.news_status = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  HIDDEN: 'HIDDEN'
+};
+
+exports.news_categories_status = exports.$Enums.news_categories_status = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
+exports.opening_schedules_study_method = exports.$Enums.opening_schedules_study_method = {
+  OFFLINE: 'OFFLINE',
+  ONLINE: 'ONLINE',
+  BOTH: 'BOTH'
+};
+
+exports.opening_schedules_status = exports.$Enums.opening_schedules_status = {
+  OPEN: 'OPEN',
+  FULL: 'FULL',
+  STARTED: 'STARTED',
+  CLOSED: 'CLOSED'
+};
+
+exports.payments_payment_method = exports.$Enums.payments_payment_method = {
+  CASH: 'CASH',
+  BANK_TRANSFER: 'BANK_TRANSFER',
+  ONLINE: 'ONLINE'
+};
+
+exports.payments_status = exports.$Enums.payments_status = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED'
+};
+
+exports.placement_tests_status = exports.$Enums.placement_tests_status = {
+  STARTED: 'STARTED',
+  COMPLETED: 'COMPLETED',
+  CONSULTED: 'CONSULTED'
+};
+
+exports.registrations_source = exports.$Enums.registrations_source = {
+  CONTACT_PAGE: 'CONTACT_PAGE',
+  COURSE_PAGE: 'COURSE_PAGE',
+  TRIAL: 'TRIAL',
+  OTHER: 'OTHER'
+};
+
+exports.registrations_status = exports.$Enums.registrations_status = {
+  NEW: 'NEW',
+  CONTACTED: 'CONTACTED',
+  CONSULTING: 'CONSULTING',
+  CONFIRMED: 'CONFIRMED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.teachers_status = exports.$Enums.teachers_status = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
+exports.trial_registrations_status = exports.$Enums.trial_registrations_status = {
+  NEW: 'NEW',
+  SCHEDULED: 'SCHEDULED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.tuition_plans_status = exports.$Enums.tuition_plans_status = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
+exports.users_gender = exports.$Enums.users_gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  OTHER: 'OTHER'
+};
+
+exports.users_status = exports.$Enums.users_status = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  BLOCKED: 'BLOCKED'
+};
 
 exports.Prisma.ModelName = {
-  Articles: 'Articles',
-  ChatGroupMembers: 'ChatGroupMembers',
-  ChatGroups: 'ChatGroups',
-  ChatMessages: 'ChatMessages',
-  Foods: 'Foods',
-  Orders: 'Orders',
-  Users: 'Users'
+  assignments: 'assignments',
+  attendance: 'attendance',
+  classes: 'classes',
+  course_categories: 'course_categories',
+  courses: 'courses',
+  enrollments: 'enrollments',
+  grades: 'grades',
+  news: 'news',
+  news_categories: 'news_categories',
+  opening_schedules: 'opening_schedules',
+  payments: 'payments',
+  placement_tests: 'placement_tests',
+  registrations: 'registrations',
+  roles: 'roles',
+  teacher_courses: 'teacher_courses',
+  teachers: 'teachers',
+  trial_registrations: 'trial_registrations',
+  tuition_plans: 'tuition_plans',
+  users: 'users'
 };
 
 /**
