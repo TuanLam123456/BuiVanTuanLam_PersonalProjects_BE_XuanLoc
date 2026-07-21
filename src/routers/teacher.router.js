@@ -31,4 +31,9 @@ teacherRouter.delete(
     teacherController.delete
 );
 
+teacherRouter.get(
+    "/:id",
+    teacherController.findOne
+);
+
 export default teacherRouter;

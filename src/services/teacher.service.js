@@ -239,4 +239,30 @@ export const teacherService = {
 
     return true;
   },
+
+  async findOne(req) {
+    const { id } = req.params;
+
+    const teacher = await prisma.teachers.findUnique({
+      where: {
+        id: Number(id),
+      },
+
+      include: {
+        users: true,
+
+        teacher_courses: {
+          include: {
+            courses: true,
+          },
+        },
+      },
+    });
+
+    if (!teacher) {
+      throw new BadRequestError("Không tìm thấy giáo viên");
+    }
+
+    return teacher;
+  },
 };

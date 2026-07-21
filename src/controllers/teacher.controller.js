@@ -41,4 +41,14 @@ export const teacherController = {
       next(error);
     }
   },
+
+  async findOne(req, res, next) {
+    try {
+      const teacher = await teacherService.findOne(req);
+
+      res.json(responseSuccess(teacher, "Lấy chi tiết giáo viên thành công"));
+    } catch (error) {
+      next(error);
+    }
+  },
 };
