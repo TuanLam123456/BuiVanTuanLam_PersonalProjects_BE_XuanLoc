@@ -42,5 +42,19 @@ authRouter.patch(
   authController.resetPassword
 );
 
+authRouter.post(
+  "/forgot-password",
+  authController.forgotPassword
+);
+
+authRouter.post(
+    "/verify-reset-otp",
+    authController.verifyResetOTP
+);
+
+authRouter.post(
+  "/reset-password-token",
+  authController.resetPasswordToken
+);
 
 export default authRouter;

@@ -11,6 +11,8 @@ import {
   signRefreshToken,
   verifyRefreshToken,
 } from "../common/helpers/jwt.helper.js";
+import { generateOTP } from "../common/helpers/otp.helper.js";
+import { sendMail } from "../common/email/mail.service.js";
 
 export const authService = {
   async register(req) {
@@ -258,6 +260,165 @@ export const authService = {
         id: true,
         full_name: true,
         email: true,
+      },
+    });
+
+    return result;
+  },
+
+  async forgotPassword(req) {
+    const { email } = req.body;
+
+    const user = await prisma.users.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      throw new BadRequestError("Email không tồn tại");
+    }
+
+    const otp = generateOTP();
+
+    await prisma.password_resets.create({
+      data: {
+        user_id: user.id,
+
+        otp,
+
+        expired_at: new Date(Date.now() + 5 * 60 * 1000),
+      },
+    });
+
+    await sendMail(
+      email,
+
+      "Khôi phục mật khẩu Ngoại ngữ Xuân Lộc",
+
+      `
+        <h2>Xin chào ${user.full_name}</h2>
+
+        <p>Mã OTP của bạn là:</p>
+
+        <h1>${otp}</h1>
+
+        <p>Mã có hiệu lực trong 5 phút.</p>
+        `,
+    );
+
+    return true;
+  },
+
+  async verifyResetOTP(req) {
+    const { email, otp } = req.body;
+
+    const user = await prisma.users.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      throw new BadRequestError("Email không tồn tại");
+    }
+
+    const resetRequest = await prisma.password_resets.findFirst({
+      where: {
+        user_id: user.id,
+
+        otp: otp,
+
+        is_used: false,
+      },
+
+      orderBy: {
+        created_at: "desc",
+      },
+    });
+
+    if (!resetRequest) {
+      throw new BadRequestError("OTP không đúng");
+    }
+
+    if (new Date() > resetRequest.expired_at) {
+      throw new BadRequestError("OTP đã hết hạn");
+    }
+
+    return {
+      message: "OTP hợp lệ",
+
+      userId: user.id,
+    };
+  },
+
+  async resetPasswordToken(req) {
+    const { email, otp, newPassword } = req.body;
+
+    const user = await prisma.users.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      throw new BadRequestError("Email không tồn tại");
+    }
+
+    const resetRequest = await prisma.password_resets.findFirst({
+      where: {
+        user_id: user.id,
+
+        otp: otp,
+
+        is_used: false,
+      },
+
+      orderBy: {
+        created_at: "desc",
+      },
+    });
+
+    if (!resetRequest) {
+      throw new BadRequestError("OTP không hợp lệ");
+    }
+
+    if (new Date() > resetRequest.expired_at) {
+      throw new BadRequestError("OTP đã hết hạn");
+    }
+
+    const passwordHash = await bcrypt.hash(newPassword, 10);
+
+    const result = await prisma.users.update({
+      where: {
+        id: user.id,
+      },
+
+      data: {
+        password_hash: passwordHash,
+
+        // logout các thiết bị cũ
+        refresh_token: null,
+      },
+
+      select: {
+        id: true,
+
+        role_id: true,
+
+        full_name: true,
+
+        email: true,
+      },
+    });
+
+    await prisma.password_resets.update({
+      where: {
+        id: resetRequest.id,
+      },
+
+      data: {
+        is_used: true,
       },
     });
 

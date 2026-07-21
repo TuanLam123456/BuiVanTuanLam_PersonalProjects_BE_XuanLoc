@@ -23,7 +23,7 @@ export const authController = {
       res.cookie("refreshToken", result.refreshToken, {
         httpOnly: true,
       });
-      
+
       res.json(
         responseSuccess(
           {
@@ -77,6 +77,42 @@ export const authController = {
       const result = await authService.resetPassword(req);
 
       res.json(responseSuccess(result, "Đổi mật khẩu thành công"));
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async forgotPassword(req, res, next) {
+    try {
+      const result = await authService.forgotPassword(req);
+
+      const response = responseSuccess(result, "Gửi mã OTP thành công");
+
+      res.json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async verifyResetOTP(req, res, next) {
+    try {
+      const result = await authService.verifyResetOTP(req);
+
+      const response = responseSuccess(result, "Xác thực OTP thành công");
+
+      res.json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async resetPasswordToken(req, res, next) {
+    try {
+      const result = await authService.resetPasswordToken(req);
+
+      const response = responseSuccess(result, "Đặt lại mật khẩu thành công");
+
+      res.json(response);
     } catch (error) {
       next(error);
     }
