@@ -11,4 +11,29 @@ export const courseController = {
       next(error);
     }
   },
+
+  async findOne(req, res, next) {
+    try {
+      const course = await courseService.findOne(req);
+
+      const response = responseSuccess(
+        course,
+        "Lấy chi tiết khóa học thành công",
+      );
+
+      res.json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async create(req, res, next) {
+    try {
+      const course = await courseService.create(req);
+
+      res.json(responseSuccess(course, "Tạo khóa học thành công"));
+    } catch (error) {
+      next(error);
+    }
+  },
 };
