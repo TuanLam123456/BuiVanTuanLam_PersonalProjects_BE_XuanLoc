@@ -6,6 +6,7 @@ import courseRouter from "./course.router.js";
 import teacherRouter from "./teacher.router.js";
 import teacherCourseRouter from "./teacher-course.router.js";
 import newsRouter from "./news.router.js";
+import newsCategoryRouter from "./news-category.router.js";
 
 const rootRouter = express.Router();
 
@@ -27,6 +28,11 @@ rootRouter.use(
 rootRouter.use(
     "/news",
     newsRouter
+);
+
+rootRouter.use(
+    "/news-categories",
+    newsCategoryRouter
 );
 
 export default rootRouter;
