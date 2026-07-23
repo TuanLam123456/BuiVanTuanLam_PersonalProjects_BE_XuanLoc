@@ -9,6 +9,8 @@ import newsRouter from "./news.router.js";
 import newsCategoryRouter from "./news-category.router.js";
 import openingScheduleRouter from "./opening-schedule.router.js";
 import trialRegistrationRouter from "./trial-registration.router.js";
+import registrationRouter from "./registration.router.js";
+
 const rootRouter = express.Router();
 
 rootRouter.use("/users", userRouter);
@@ -44,6 +46,11 @@ rootRouter.use(
 rootRouter.use(
     "/trial-registrations",
     trialRegistrationRouter
+);
+
+rootRouter.use(
+  "/registrations",
+  registrationRouter
 );
 
 export default rootRouter;
