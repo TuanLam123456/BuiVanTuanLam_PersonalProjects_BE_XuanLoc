@@ -11,6 +11,8 @@ import openingScheduleRouter from "./opening-schedule.router.js";
 import trialRegistrationRouter from "./trial-registration.router.js";
 import registrationRouter from "./registration.router.js";
 import classRouter from "./class.router.js";
+import enrollmentRouter from "./enrollment.router.js";
+
 const rootRouter = express.Router();
 
 rootRouter.use("/users", userRouter);
@@ -36,5 +38,7 @@ rootRouter.use("/trial-registrations", trialRegistrationRouter);
 rootRouter.use("/registrations", registrationRouter);
 
 rootRouter.use("/classes", classRouter);
+
+rootRouter.use("/enrollments", enrollmentRouter);
 
 export default rootRouter;
