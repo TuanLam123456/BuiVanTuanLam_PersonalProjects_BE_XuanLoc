@@ -295,15 +295,6 @@ export const opening_schedules_status: {
 export type opening_schedules_status = (typeof opening_schedules_status)[keyof typeof opening_schedules_status]
 
 
-export const placement_tests_status: {
-  STARTED: 'STARTED',
-  COMPLETED: 'COMPLETED',
-  CONSULTED: 'CONSULTED'
-};
-
-export type placement_tests_status = (typeof placement_tests_status)[keyof typeof placement_tests_status]
-
-
 export const trial_registrations_status: {
   NEW: 'NEW',
   SCHEDULED: 'SCHEDULED',
@@ -312,6 +303,16 @@ export const trial_registrations_status: {
 };
 
 export type trial_registrations_status = (typeof trial_registrations_status)[keyof typeof trial_registrations_status]
+
+
+export const placement_tests_status: {
+  SCHEDULED: 'SCHEDULED',
+  COMPLETED: 'COMPLETED',
+  CONSULTED: 'CONSULTED',
+  CANCELLED: 'CANCELLED'
+};
+
+export type placement_tests_status = (typeof placement_tests_status)[keyof typeof placement_tests_status]
 
 }
 
@@ -391,13 +392,13 @@ export type opening_schedules_status = $Enums.opening_schedules_status
 
 export const opening_schedules_status: typeof $Enums.opening_schedules_status
 
-export type placement_tests_status = $Enums.placement_tests_status
-
-export const placement_tests_status: typeof $Enums.placement_tests_status
-
 export type trial_registrations_status = $Enums.trial_registrations_status
 
 export const trial_registrations_status: typeof $Enums.trial_registrations_status
+
+export type placement_tests_status = $Enums.placement_tests_status
+
+export const placement_tests_status: typeof $Enums.placement_tests_status
 
 /**
  * ##  Prisma Client ʲˢ
@@ -3059,6 +3060,7 @@ export namespace Prisma {
     classes: number
     grades: number
     opening_schedules: number
+    placement_tests: number
     teacher_courses: number
   }
 
@@ -3067,6 +3069,7 @@ export namespace Prisma {
     classes?: boolean | TeachersCountOutputTypeCountClassesArgs
     grades?: boolean | TeachersCountOutputTypeCountGradesArgs
     opening_schedules?: boolean | TeachersCountOutputTypeCountOpening_schedulesArgs
+    placement_tests?: boolean | TeachersCountOutputTypeCountPlacement_testsArgs
     teacher_courses?: boolean | TeachersCountOutputTypeCountTeacher_coursesArgs
   }
 
@@ -3112,6 +3115,13 @@ export namespace Prisma {
   /**
    * TeachersCountOutputType without action
    */
+  export type TeachersCountOutputTypeCountPlacement_testsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: placement_testsWhereInput
+  }
+
+  /**
+   * TeachersCountOutputType without action
+   */
   export type TeachersCountOutputTypeCountTeacher_coursesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: teacher_coursesWhereInput
   }
@@ -3125,6 +3135,7 @@ export namespace Prisma {
     enrollments: number
     news: number
     password_resets: number
+    placement_tests_placement_tests_evaluator_idTousers: number
     placement_tests: number
     registrations: number
     trial_registrations: number
@@ -3134,6 +3145,7 @@ export namespace Prisma {
     enrollments?: boolean | UsersCountOutputTypeCountEnrollmentsArgs
     news?: boolean | UsersCountOutputTypeCountNewsArgs
     password_resets?: boolean | UsersCountOutputTypeCountPassword_resetsArgs
+    placement_tests_placement_tests_evaluator_idTousers?: boolean | UsersCountOutputTypeCountPlacement_tests_placement_tests_evaluator_idTousersArgs
     placement_tests?: boolean | UsersCountOutputTypeCountPlacement_testsArgs
     registrations?: boolean | UsersCountOutputTypeCountRegistrationsArgs
     trial_registrations?: boolean | UsersCountOutputTypeCountTrial_registrationsArgs
@@ -3169,6 +3181,13 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountPassword_resetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: password_resetsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountPlacement_tests_placement_tests_evaluator_idTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: placement_testsWhereInput
   }
 
   /**
@@ -15218,8 +15237,8 @@ export namespace Prisma {
     id: number | null
     user_id: number | null
     recommended_course_id: number | null
-    total_questions: number | null
-    correct_answers: number | null
+    evaluator_teacher_id: number | null
+    evaluator_id: number | null
     score: Decimal | null
   }
 
@@ -15227,8 +15246,8 @@ export namespace Prisma {
     id: number | null
     user_id: number | null
     recommended_course_id: number | null
-    total_questions: number | null
-    correct_answers: number | null
+    evaluator_teacher_id: number | null
+    evaluator_id: number | null
     score: Decimal | null
   }
 
@@ -15236,14 +15255,16 @@ export namespace Prisma {
     id: number | null
     user_id: number | null
     recommended_course_id: number | null
+    evaluator_teacher_id: number | null
+    evaluator_id: number | null
     full_name: string | null
     email: string | null
     phone: string | null
-    total_questions: number | null
-    correct_answers: number | null
+    test_date: Date | null
     score: Decimal | null
     level_result: string | null
     recommendation: string | null
+    note: string | null
     status: $Enums.placement_tests_status | null
     created_at: Date | null
     updated_at: Date | null
@@ -15253,14 +15274,16 @@ export namespace Prisma {
     id: number | null
     user_id: number | null
     recommended_course_id: number | null
+    evaluator_teacher_id: number | null
+    evaluator_id: number | null
     full_name: string | null
     email: string | null
     phone: string | null
-    total_questions: number | null
-    correct_answers: number | null
+    test_date: Date | null
     score: Decimal | null
     level_result: string | null
     recommendation: string | null
+    note: string | null
     status: $Enums.placement_tests_status | null
     created_at: Date | null
     updated_at: Date | null
@@ -15270,14 +15293,16 @@ export namespace Prisma {
     id: number
     user_id: number
     recommended_course_id: number
+    evaluator_teacher_id: number
+    evaluator_id: number
     full_name: number
     email: number
     phone: number
-    total_questions: number
-    correct_answers: number
+    test_date: number
     score: number
     level_result: number
     recommendation: number
+    note: number
     status: number
     created_at: number
     updated_at: number
@@ -15289,8 +15314,8 @@ export namespace Prisma {
     id?: true
     user_id?: true
     recommended_course_id?: true
-    total_questions?: true
-    correct_answers?: true
+    evaluator_teacher_id?: true
+    evaluator_id?: true
     score?: true
   }
 
@@ -15298,8 +15323,8 @@ export namespace Prisma {
     id?: true
     user_id?: true
     recommended_course_id?: true
-    total_questions?: true
-    correct_answers?: true
+    evaluator_teacher_id?: true
+    evaluator_id?: true
     score?: true
   }
 
@@ -15307,14 +15332,16 @@ export namespace Prisma {
     id?: true
     user_id?: true
     recommended_course_id?: true
+    evaluator_teacher_id?: true
+    evaluator_id?: true
     full_name?: true
     email?: true
     phone?: true
-    total_questions?: true
-    correct_answers?: true
+    test_date?: true
     score?: true
     level_result?: true
     recommendation?: true
+    note?: true
     status?: true
     created_at?: true
     updated_at?: true
@@ -15324,14 +15351,16 @@ export namespace Prisma {
     id?: true
     user_id?: true
     recommended_course_id?: true
+    evaluator_teacher_id?: true
+    evaluator_id?: true
     full_name?: true
     email?: true
     phone?: true
-    total_questions?: true
-    correct_answers?: true
+    test_date?: true
     score?: true
     level_result?: true
     recommendation?: true
+    note?: true
     status?: true
     created_at?: true
     updated_at?: true
@@ -15341,14 +15370,16 @@ export namespace Prisma {
     id?: true
     user_id?: true
     recommended_course_id?: true
+    evaluator_teacher_id?: true
+    evaluator_id?: true
     full_name?: true
     email?: true
     phone?: true
-    total_questions?: true
-    correct_answers?: true
+    test_date?: true
     score?: true
     level_result?: true
     recommendation?: true
+    note?: true
     status?: true
     created_at?: true
     updated_at?: true
@@ -15445,14 +15476,16 @@ export namespace Prisma {
     id: number
     user_id: number | null
     recommended_course_id: number | null
+    evaluator_teacher_id: number | null
+    evaluator_id: number | null
     full_name: string
     email: string | null
     phone: string | null
-    total_questions: number | null
-    correct_answers: number | null
+    test_date: Date | null
     score: Decimal | null
     level_result: string | null
     recommendation: string | null
+    note: string | null
     status: $Enums.placement_tests_status | null
     created_at: Date | null
     updated_at: Date | null
@@ -15481,18 +15514,22 @@ export namespace Prisma {
     id?: boolean
     user_id?: boolean
     recommended_course_id?: boolean
+    evaluator_teacher_id?: boolean
+    evaluator_id?: boolean
     full_name?: boolean
     email?: boolean
     phone?: boolean
-    total_questions?: boolean
-    correct_answers?: boolean
+    test_date?: boolean
     score?: boolean
     level_result?: boolean
     recommendation?: boolean
+    note?: boolean
     status?: boolean
     created_at?: boolean
     updated_at?: boolean
     courses?: boolean | placement_tests$coursesArgs<ExtArgs>
+    users_placement_tests_evaluator_idTousers?: boolean | placement_tests$users_placement_tests_evaluator_idTousersArgs<ExtArgs>
+    teachers?: boolean | placement_tests$teachersArgs<ExtArgs>
     users?: boolean | placement_tests$usersArgs<ExtArgs>
   }, ExtArgs["result"]["placement_tests"]>
 
@@ -15502,22 +15539,26 @@ export namespace Prisma {
     id?: boolean
     user_id?: boolean
     recommended_course_id?: boolean
+    evaluator_teacher_id?: boolean
+    evaluator_id?: boolean
     full_name?: boolean
     email?: boolean
     phone?: boolean
-    total_questions?: boolean
-    correct_answers?: boolean
+    test_date?: boolean
     score?: boolean
     level_result?: boolean
     recommendation?: boolean
+    note?: boolean
     status?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type placement_testsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "recommended_course_id" | "full_name" | "email" | "phone" | "total_questions" | "correct_answers" | "score" | "level_result" | "recommendation" | "status" | "created_at" | "updated_at", ExtArgs["result"]["placement_tests"]>
+  export type placement_testsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "recommended_course_id" | "evaluator_teacher_id" | "evaluator_id" | "full_name" | "email" | "phone" | "test_date" | "score" | "level_result" | "recommendation" | "note" | "status" | "created_at" | "updated_at", ExtArgs["result"]["placement_tests"]>
   export type placement_testsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     courses?: boolean | placement_tests$coursesArgs<ExtArgs>
+    users_placement_tests_evaluator_idTousers?: boolean | placement_tests$users_placement_tests_evaluator_idTousersArgs<ExtArgs>
+    teachers?: boolean | placement_tests$teachersArgs<ExtArgs>
     users?: boolean | placement_tests$usersArgs<ExtArgs>
   }
 
@@ -15525,20 +15566,24 @@ export namespace Prisma {
     name: "placement_tests"
     objects: {
       courses: Prisma.$coursesPayload<ExtArgs> | null
+      users_placement_tests_evaluator_idTousers: Prisma.$usersPayload<ExtArgs> | null
+      teachers: Prisma.$teachersPayload<ExtArgs> | null
       users: Prisma.$usersPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       user_id: number | null
       recommended_course_id: number | null
+      evaluator_teacher_id: number | null
+      evaluator_id: number | null
       full_name: string
       email: string | null
       phone: string | null
-      total_questions: number | null
-      correct_answers: number | null
+      test_date: Date | null
       score: Prisma.Decimal | null
       level_result: string | null
       recommendation: string | null
+      note: string | null
       status: $Enums.placement_tests_status | null
       created_at: Date | null
       updated_at: Date | null
@@ -15883,6 +15928,8 @@ export namespace Prisma {
   export interface Prisma__placement_testsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     courses<T extends placement_tests$coursesArgs<ExtArgs> = {}>(args?: Subset<T, placement_tests$coursesArgs<ExtArgs>>): Prisma__coursesClient<$Result.GetResult<Prisma.$coursesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    users_placement_tests_evaluator_idTousers<T extends placement_tests$users_placement_tests_evaluator_idTousersArgs<ExtArgs> = {}>(args?: Subset<T, placement_tests$users_placement_tests_evaluator_idTousersArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    teachers<T extends placement_tests$teachersArgs<ExtArgs> = {}>(args?: Subset<T, placement_tests$teachersArgs<ExtArgs>>): Prisma__teachersClient<$Result.GetResult<Prisma.$teachersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     users<T extends placement_tests$usersArgs<ExtArgs> = {}>(args?: Subset<T, placement_tests$usersArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -15916,14 +15963,16 @@ export namespace Prisma {
     readonly id: FieldRef<"placement_tests", 'Int'>
     readonly user_id: FieldRef<"placement_tests", 'Int'>
     readonly recommended_course_id: FieldRef<"placement_tests", 'Int'>
+    readonly evaluator_teacher_id: FieldRef<"placement_tests", 'Int'>
+    readonly evaluator_id: FieldRef<"placement_tests", 'Int'>
     readonly full_name: FieldRef<"placement_tests", 'String'>
     readonly email: FieldRef<"placement_tests", 'String'>
     readonly phone: FieldRef<"placement_tests", 'String'>
-    readonly total_questions: FieldRef<"placement_tests", 'Int'>
-    readonly correct_answers: FieldRef<"placement_tests", 'Int'>
+    readonly test_date: FieldRef<"placement_tests", 'DateTime'>
     readonly score: FieldRef<"placement_tests", 'Decimal'>
     readonly level_result: FieldRef<"placement_tests", 'String'>
     readonly recommendation: FieldRef<"placement_tests", 'String'>
+    readonly note: FieldRef<"placement_tests", 'String'>
     readonly status: FieldRef<"placement_tests", 'placement_tests_status'>
     readonly created_at: FieldRef<"placement_tests", 'DateTime'>
     readonly updated_at: FieldRef<"placement_tests", 'DateTime'>
@@ -16291,6 +16340,44 @@ export namespace Prisma {
      */
     include?: coursesInclude<ExtArgs> | null
     where?: coursesWhereInput
+  }
+
+  /**
+   * placement_tests.users_placement_tests_evaluator_idTousers
+   */
+  export type placement_tests$users_placement_tests_evaluator_idTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the users
+     */
+    select?: usersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the users
+     */
+    omit?: usersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+    where?: usersWhereInput
+  }
+
+  /**
+   * placement_tests.teachers
+   */
+  export type placement_tests$teachersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the teachers
+     */
+    select?: teachersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the teachers
+     */
+    omit?: teachersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: teachersInclude<ExtArgs> | null
+    where?: teachersWhereInput
   }
 
   /**
@@ -19643,6 +19730,7 @@ export namespace Prisma {
     classes?: boolean | teachers$classesArgs<ExtArgs>
     grades?: boolean | teachers$gradesArgs<ExtArgs>
     opening_schedules?: boolean | teachers$opening_schedulesArgs<ExtArgs>
+    placement_tests?: boolean | teachers$placement_testsArgs<ExtArgs>
     teacher_courses?: boolean | teachers$teacher_coursesArgs<ExtArgs>
     users?: boolean | usersDefaultArgs<ExtArgs>
     _count?: boolean | TeachersCountOutputTypeDefaultArgs<ExtArgs>
@@ -19670,6 +19758,7 @@ export namespace Prisma {
     classes?: boolean | teachers$classesArgs<ExtArgs>
     grades?: boolean | teachers$gradesArgs<ExtArgs>
     opening_schedules?: boolean | teachers$opening_schedulesArgs<ExtArgs>
+    placement_tests?: boolean | teachers$placement_testsArgs<ExtArgs>
     teacher_courses?: boolean | teachers$teacher_coursesArgs<ExtArgs>
     users?: boolean | usersDefaultArgs<ExtArgs>
     _count?: boolean | TeachersCountOutputTypeDefaultArgs<ExtArgs>
@@ -19682,6 +19771,7 @@ export namespace Prisma {
       classes: Prisma.$classesPayload<ExtArgs>[]
       grades: Prisma.$gradesPayload<ExtArgs>[]
       opening_schedules: Prisma.$opening_schedulesPayload<ExtArgs>[]
+      placement_tests: Prisma.$placement_testsPayload<ExtArgs>[]
       teacher_courses: Prisma.$teacher_coursesPayload<ExtArgs>[]
       users: Prisma.$usersPayload<ExtArgs>
     }
@@ -20041,6 +20131,7 @@ export namespace Prisma {
     classes<T extends teachers$classesArgs<ExtArgs> = {}>(args?: Subset<T, teachers$classesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$classesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     grades<T extends teachers$gradesArgs<ExtArgs> = {}>(args?: Subset<T, teachers$gradesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$gradesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     opening_schedules<T extends teachers$opening_schedulesArgs<ExtArgs> = {}>(args?: Subset<T, teachers$opening_schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$opening_schedulesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    placement_tests<T extends teachers$placement_testsArgs<ExtArgs> = {}>(args?: Subset<T, teachers$placement_testsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$placement_testsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     teacher_courses<T extends teachers$teacher_coursesArgs<ExtArgs> = {}>(args?: Subset<T, teachers$teacher_coursesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$teacher_coursesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     users<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -20524,6 +20615,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Opening_schedulesScalarFieldEnum | Opening_schedulesScalarFieldEnum[]
+  }
+
+  /**
+   * teachers.placement_tests
+   */
+  export type teachers$placement_testsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the placement_tests
+     */
+    select?: placement_testsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the placement_tests
+     */
+    omit?: placement_testsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: placement_testsInclude<ExtArgs> | null
+    where?: placement_testsWhereInput
+    orderBy?: placement_testsOrderByWithRelationInput | placement_testsOrderByWithRelationInput[]
+    cursor?: placement_testsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Placement_testsScalarFieldEnum | Placement_testsScalarFieldEnum[]
   }
 
   /**
@@ -23039,6 +23154,7 @@ export namespace Prisma {
     enrollments?: boolean | users$enrollmentsArgs<ExtArgs>
     news?: boolean | users$newsArgs<ExtArgs>
     password_resets?: boolean | users$password_resetsArgs<ExtArgs>
+    placement_tests_placement_tests_evaluator_idTousers?: boolean | users$placement_tests_placement_tests_evaluator_idTousersArgs<ExtArgs>
     placement_tests?: boolean | users$placement_testsArgs<ExtArgs>
     registrations?: boolean | users$registrationsArgs<ExtArgs>
     teachers?: boolean | users$teachersArgs<ExtArgs>
@@ -23071,6 +23187,7 @@ export namespace Prisma {
     enrollments?: boolean | users$enrollmentsArgs<ExtArgs>
     news?: boolean | users$newsArgs<ExtArgs>
     password_resets?: boolean | users$password_resetsArgs<ExtArgs>
+    placement_tests_placement_tests_evaluator_idTousers?: boolean | users$placement_tests_placement_tests_evaluator_idTousersArgs<ExtArgs>
     placement_tests?: boolean | users$placement_testsArgs<ExtArgs>
     registrations?: boolean | users$registrationsArgs<ExtArgs>
     teachers?: boolean | users$teachersArgs<ExtArgs>
@@ -23085,6 +23202,7 @@ export namespace Prisma {
       enrollments: Prisma.$enrollmentsPayload<ExtArgs>[]
       news: Prisma.$newsPayload<ExtArgs>[]
       password_resets: Prisma.$password_resetsPayload<ExtArgs>[]
+      placement_tests_placement_tests_evaluator_idTousers: Prisma.$placement_testsPayload<ExtArgs>[]
       placement_tests: Prisma.$placement_testsPayload<ExtArgs>[]
       registrations: Prisma.$registrationsPayload<ExtArgs>[]
       teachers: Prisma.$teachersPayload<ExtArgs> | null
@@ -23449,6 +23567,7 @@ export namespace Prisma {
     enrollments<T extends users$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, users$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$enrollmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     news<T extends users$newsArgs<ExtArgs> = {}>(args?: Subset<T, users$newsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$newsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     password_resets<T extends users$password_resetsArgs<ExtArgs> = {}>(args?: Subset<T, users$password_resetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$password_resetsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    placement_tests_placement_tests_evaluator_idTousers<T extends users$placement_tests_placement_tests_evaluator_idTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$placement_tests_placement_tests_evaluator_idTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$placement_testsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     placement_tests<T extends users$placement_testsArgs<ExtArgs> = {}>(args?: Subset<T, users$placement_testsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$placement_testsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     registrations<T extends users$registrationsArgs<ExtArgs> = {}>(args?: Subset<T, users$registrationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$registrationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     teachers<T extends users$teachersArgs<ExtArgs> = {}>(args?: Subset<T, users$teachersArgs<ExtArgs>>): Prisma__teachersClient<$Result.GetResult<Prisma.$teachersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -23914,6 +24033,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Password_resetsScalarFieldEnum | Password_resetsScalarFieldEnum[]
+  }
+
+  /**
+   * users.placement_tests_placement_tests_evaluator_idTousers
+   */
+  export type users$placement_tests_placement_tests_evaluator_idTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the placement_tests
+     */
+    select?: placement_testsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the placement_tests
+     */
+    omit?: placement_testsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: placement_testsInclude<ExtArgs> | null
+    where?: placement_testsWhereInput
+    orderBy?: placement_testsOrderByWithRelationInput | placement_testsOrderByWithRelationInput[]
+    cursor?: placement_testsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Placement_testsScalarFieldEnum | Placement_testsScalarFieldEnum[]
   }
 
   /**
@@ -25212,14 +25355,16 @@ export namespace Prisma {
     id: 'id',
     user_id: 'user_id',
     recommended_course_id: 'recommended_course_id',
+    evaluator_teacher_id: 'evaluator_teacher_id',
+    evaluator_id: 'evaluator_id',
     full_name: 'full_name',
     email: 'email',
     phone: 'phone',
-    total_questions: 'total_questions',
-    correct_answers: 'correct_answers',
+    test_date: 'test_date',
     score: 'score',
     level_result: 'level_result',
     recommendation: 'recommendation',
+    note: 'note',
     status: 'status',
     created_at: 'created_at',
     updated_at: 'updated_at'
@@ -25477,7 +25622,8 @@ export namespace Prisma {
     email: 'email',
     phone: 'phone',
     level_result: 'level_result',
-    recommendation: 'recommendation'
+    recommendation: 'recommendation',
+    note: 'note'
   };
 
   export type placement_testsOrderByRelevanceFieldEnum = (typeof placement_testsOrderByRelevanceFieldEnum)[keyof typeof placement_testsOrderByRelevanceFieldEnum]
@@ -26793,18 +26939,22 @@ export namespace Prisma {
     id?: IntFilter<"placement_tests"> | number
     user_id?: IntNullableFilter<"placement_tests"> | number | null
     recommended_course_id?: IntNullableFilter<"placement_tests"> | number | null
+    evaluator_teacher_id?: IntNullableFilter<"placement_tests"> | number | null
+    evaluator_id?: IntNullableFilter<"placement_tests"> | number | null
     full_name?: StringFilter<"placement_tests"> | string
     email?: StringNullableFilter<"placement_tests"> | string | null
     phone?: StringNullableFilter<"placement_tests"> | string | null
-    total_questions?: IntNullableFilter<"placement_tests"> | number | null
-    correct_answers?: IntNullableFilter<"placement_tests"> | number | null
+    test_date?: DateTimeNullableFilter<"placement_tests"> | Date | string | null
     score?: DecimalNullableFilter<"placement_tests"> | Decimal | DecimalJsLike | number | string | null
     level_result?: StringNullableFilter<"placement_tests"> | string | null
     recommendation?: StringNullableFilter<"placement_tests"> | string | null
+    note?: StringNullableFilter<"placement_tests"> | string | null
     status?: Enumplacement_tests_statusNullableFilter<"placement_tests"> | $Enums.placement_tests_status | null
     created_at?: DateTimeNullableFilter<"placement_tests"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"placement_tests"> | Date | string | null
     courses?: XOR<CoursesNullableScalarRelationFilter, coursesWhereInput> | null
+    users_placement_tests_evaluator_idTousers?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
+    teachers?: XOR<TeachersNullableScalarRelationFilter, teachersWhereInput> | null
     users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
   }
 
@@ -26812,18 +26962,22 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrderInput | SortOrder
     recommended_course_id?: SortOrderInput | SortOrder
+    evaluator_teacher_id?: SortOrderInput | SortOrder
+    evaluator_id?: SortOrderInput | SortOrder
     full_name?: SortOrder
     email?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
-    total_questions?: SortOrderInput | SortOrder
-    correct_answers?: SortOrderInput | SortOrder
+    test_date?: SortOrderInput | SortOrder
     score?: SortOrderInput | SortOrder
     level_result?: SortOrderInput | SortOrder
     recommendation?: SortOrderInput | SortOrder
+    note?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
     courses?: coursesOrderByWithRelationInput
+    users_placement_tests_evaluator_idTousers?: usersOrderByWithRelationInput
+    teachers?: teachersOrderByWithRelationInput
     users?: usersOrderByWithRelationInput
     _relevance?: placement_testsOrderByRelevanceInput
   }
@@ -26835,18 +26989,22 @@ export namespace Prisma {
     NOT?: placement_testsWhereInput | placement_testsWhereInput[]
     user_id?: IntNullableFilter<"placement_tests"> | number | null
     recommended_course_id?: IntNullableFilter<"placement_tests"> | number | null
+    evaluator_teacher_id?: IntNullableFilter<"placement_tests"> | number | null
+    evaluator_id?: IntNullableFilter<"placement_tests"> | number | null
     full_name?: StringFilter<"placement_tests"> | string
     email?: StringNullableFilter<"placement_tests"> | string | null
     phone?: StringNullableFilter<"placement_tests"> | string | null
-    total_questions?: IntNullableFilter<"placement_tests"> | number | null
-    correct_answers?: IntNullableFilter<"placement_tests"> | number | null
+    test_date?: DateTimeNullableFilter<"placement_tests"> | Date | string | null
     score?: DecimalNullableFilter<"placement_tests"> | Decimal | DecimalJsLike | number | string | null
     level_result?: StringNullableFilter<"placement_tests"> | string | null
     recommendation?: StringNullableFilter<"placement_tests"> | string | null
+    note?: StringNullableFilter<"placement_tests"> | string | null
     status?: Enumplacement_tests_statusNullableFilter<"placement_tests"> | $Enums.placement_tests_status | null
     created_at?: DateTimeNullableFilter<"placement_tests"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"placement_tests"> | Date | string | null
     courses?: XOR<CoursesNullableScalarRelationFilter, coursesWhereInput> | null
+    users_placement_tests_evaluator_idTousers?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
+    teachers?: XOR<TeachersNullableScalarRelationFilter, teachersWhereInput> | null
     users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
   }, "id">
 
@@ -26854,14 +27012,16 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrderInput | SortOrder
     recommended_course_id?: SortOrderInput | SortOrder
+    evaluator_teacher_id?: SortOrderInput | SortOrder
+    evaluator_id?: SortOrderInput | SortOrder
     full_name?: SortOrder
     email?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
-    total_questions?: SortOrderInput | SortOrder
-    correct_answers?: SortOrderInput | SortOrder
+    test_date?: SortOrderInput | SortOrder
     score?: SortOrderInput | SortOrder
     level_result?: SortOrderInput | SortOrder
     recommendation?: SortOrderInput | SortOrder
+    note?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
@@ -26879,14 +27039,16 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"placement_tests"> | number
     user_id?: IntNullableWithAggregatesFilter<"placement_tests"> | number | null
     recommended_course_id?: IntNullableWithAggregatesFilter<"placement_tests"> | number | null
+    evaluator_teacher_id?: IntNullableWithAggregatesFilter<"placement_tests"> | number | null
+    evaluator_id?: IntNullableWithAggregatesFilter<"placement_tests"> | number | null
     full_name?: StringWithAggregatesFilter<"placement_tests"> | string
     email?: StringNullableWithAggregatesFilter<"placement_tests"> | string | null
     phone?: StringNullableWithAggregatesFilter<"placement_tests"> | string | null
-    total_questions?: IntNullableWithAggregatesFilter<"placement_tests"> | number | null
-    correct_answers?: IntNullableWithAggregatesFilter<"placement_tests"> | number | null
+    test_date?: DateTimeNullableWithAggregatesFilter<"placement_tests"> | Date | string | null
     score?: DecimalNullableWithAggregatesFilter<"placement_tests"> | Decimal | DecimalJsLike | number | string | null
     level_result?: StringNullableWithAggregatesFilter<"placement_tests"> | string | null
     recommendation?: StringNullableWithAggregatesFilter<"placement_tests"> | string | null
+    note?: StringNullableWithAggregatesFilter<"placement_tests"> | string | null
     status?: Enumplacement_tests_statusNullableWithAggregatesFilter<"placement_tests"> | $Enums.placement_tests_status | null
     created_at?: DateTimeNullableWithAggregatesFilter<"placement_tests"> | Date | string | null
     updated_at?: DateTimeNullableWithAggregatesFilter<"placement_tests"> | Date | string | null
@@ -27122,6 +27284,7 @@ export namespace Prisma {
     classes?: ClassesListRelationFilter
     grades?: GradesListRelationFilter
     opening_schedules?: Opening_schedulesListRelationFilter
+    placement_tests?: Placement_testsListRelationFilter
     teacher_courses?: Teacher_coursesListRelationFilter
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
@@ -27142,6 +27305,7 @@ export namespace Prisma {
     classes?: classesOrderByRelationAggregateInput
     grades?: gradesOrderByRelationAggregateInput
     opening_schedules?: opening_schedulesOrderByRelationAggregateInput
+    placement_tests?: placement_testsOrderByRelationAggregateInput
     teacher_courses?: teacher_coursesOrderByRelationAggregateInput
     users?: usersOrderByWithRelationInput
     _relevance?: teachersOrderByRelevanceInput
@@ -27166,6 +27330,7 @@ export namespace Prisma {
     classes?: ClassesListRelationFilter
     grades?: GradesListRelationFilter
     opening_schedules?: Opening_schedulesListRelationFilter
+    placement_tests?: Placement_testsListRelationFilter
     teacher_courses?: Teacher_coursesListRelationFilter
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "id" | "user_id">
@@ -27431,6 +27596,7 @@ export namespace Prisma {
     enrollments?: EnrollmentsListRelationFilter
     news?: NewsListRelationFilter
     password_resets?: Password_resetsListRelationFilter
+    placement_tests_placement_tests_evaluator_idTousers?: Placement_testsListRelationFilter
     placement_tests?: Placement_testsListRelationFilter
     registrations?: RegistrationsListRelationFilter
     teachers?: XOR<TeachersNullableScalarRelationFilter, teachersWhereInput> | null
@@ -27456,6 +27622,7 @@ export namespace Prisma {
     enrollments?: enrollmentsOrderByRelationAggregateInput
     news?: newsOrderByRelationAggregateInput
     password_resets?: password_resetsOrderByRelationAggregateInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsOrderByRelationAggregateInput
     placement_tests?: placement_testsOrderByRelationAggregateInput
     registrations?: registrationsOrderByRelationAggregateInput
     teachers?: teachersOrderByWithRelationInput
@@ -27485,6 +27652,7 @@ export namespace Prisma {
     enrollments?: EnrollmentsListRelationFilter
     news?: NewsListRelationFilter
     password_resets?: Password_resetsListRelationFilter
+    placement_tests_placement_tests_evaluator_idTousers?: Placement_testsListRelationFilter
     placement_tests?: Placement_testsListRelationFilter
     registrations?: RegistrationsListRelationFilter
     teachers?: XOR<TeachersNullableScalarRelationFilter, teachersWhereInput> | null
@@ -28679,15 +28847,17 @@ export namespace Prisma {
     full_name: string
     email?: string | null
     phone?: string | null
-    total_questions?: number | null
-    correct_answers?: number | null
+    test_date?: Date | string | null
     score?: Decimal | DecimalJsLike | number | string | null
     level_result?: string | null
     recommendation?: string | null
+    note?: string | null
     status?: $Enums.placement_tests_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     courses?: coursesCreateNestedOneWithoutPlacement_testsInput
+    users_placement_tests_evaluator_idTousers?: usersCreateNestedOneWithoutPlacement_tests_placement_tests_evaluator_idTousersInput
+    teachers?: teachersCreateNestedOneWithoutPlacement_testsInput
     users?: usersCreateNestedOneWithoutPlacement_testsInput
   }
 
@@ -28695,14 +28865,16 @@ export namespace Prisma {
     id?: number
     user_id?: number | null
     recommended_course_id?: number | null
+    evaluator_teacher_id?: number | null
+    evaluator_id?: number | null
     full_name: string
     email?: string | null
     phone?: string | null
-    total_questions?: number | null
-    correct_answers?: number | null
+    test_date?: Date | string | null
     score?: Decimal | DecimalJsLike | number | string | null
     level_result?: string | null
     recommendation?: string | null
+    note?: string | null
     status?: $Enums.placement_tests_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
@@ -28712,15 +28884,17 @@ export namespace Prisma {
     full_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    total_questions?: NullableIntFieldUpdateOperationsInput | number | null
-    correct_answers?: NullableIntFieldUpdateOperationsInput | number | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     level_result?: NullableStringFieldUpdateOperationsInput | string | null
     recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     courses?: coursesUpdateOneWithoutPlacement_testsNestedInput
+    users_placement_tests_evaluator_idTousers?: usersUpdateOneWithoutPlacement_tests_placement_tests_evaluator_idTousersNestedInput
+    teachers?: teachersUpdateOneWithoutPlacement_testsNestedInput
     users?: usersUpdateOneWithoutPlacement_testsNestedInput
   }
 
@@ -28728,14 +28902,16 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     user_id?: NullableIntFieldUpdateOperationsInput | number | null
     recommended_course_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_teacher_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_id?: NullableIntFieldUpdateOperationsInput | number | null
     full_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    total_questions?: NullableIntFieldUpdateOperationsInput | number | null
-    correct_answers?: NullableIntFieldUpdateOperationsInput | number | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     level_result?: NullableStringFieldUpdateOperationsInput | string | null
     recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28745,14 +28921,16 @@ export namespace Prisma {
     id?: number
     user_id?: number | null
     recommended_course_id?: number | null
+    evaluator_teacher_id?: number | null
+    evaluator_id?: number | null
     full_name: string
     email?: string | null
     phone?: string | null
-    total_questions?: number | null
-    correct_answers?: number | null
+    test_date?: Date | string | null
     score?: Decimal | DecimalJsLike | number | string | null
     level_result?: string | null
     recommendation?: string | null
+    note?: string | null
     status?: $Enums.placement_tests_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
@@ -28762,11 +28940,11 @@ export namespace Prisma {
     full_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    total_questions?: NullableIntFieldUpdateOperationsInput | number | null
-    correct_answers?: NullableIntFieldUpdateOperationsInput | number | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     level_result?: NullableStringFieldUpdateOperationsInput | string | null
     recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28776,14 +28954,16 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     user_id?: NullableIntFieldUpdateOperationsInput | number | null
     recommended_course_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_teacher_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_id?: NullableIntFieldUpdateOperationsInput | number | null
     full_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    total_questions?: NullableIntFieldUpdateOperationsInput | number | null
-    correct_answers?: NullableIntFieldUpdateOperationsInput | number | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     level_result?: NullableStringFieldUpdateOperationsInput | string | null
     recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -29004,6 +29184,7 @@ export namespace Prisma {
     classes?: classesCreateNestedManyWithoutTeachersInput
     grades?: gradesCreateNestedManyWithoutTeachersInput
     opening_schedules?: opening_schedulesCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsCreateNestedManyWithoutTeachersInput
     teacher_courses?: teacher_coursesCreateNestedManyWithoutTeachersInput
     users: usersCreateNestedOneWithoutTeachersInput
   }
@@ -29024,6 +29205,7 @@ export namespace Prisma {
     classes?: classesUncheckedCreateNestedManyWithoutTeachersInput
     grades?: gradesUncheckedCreateNestedManyWithoutTeachersInput
     opening_schedules?: opening_schedulesUncheckedCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsUncheckedCreateNestedManyWithoutTeachersInput
     teacher_courses?: teacher_coursesUncheckedCreateNestedManyWithoutTeachersInput
   }
 
@@ -29041,6 +29223,7 @@ export namespace Prisma {
     classes?: classesUpdateManyWithoutTeachersNestedInput
     grades?: gradesUpdateManyWithoutTeachersNestedInput
     opening_schedules?: opening_schedulesUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUpdateManyWithoutTeachersNestedInput
     teacher_courses?: teacher_coursesUpdateManyWithoutTeachersNestedInput
     users?: usersUpdateOneRequiredWithoutTeachersNestedInput
   }
@@ -29061,6 +29244,7 @@ export namespace Prisma {
     classes?: classesUncheckedUpdateManyWithoutTeachersNestedInput
     grades?: gradesUncheckedUpdateManyWithoutTeachersNestedInput
     opening_schedules?: opening_schedulesUncheckedUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUncheckedUpdateManyWithoutTeachersNestedInput
     teacher_courses?: teacher_coursesUncheckedUpdateManyWithoutTeachersNestedInput
   }
 
@@ -29342,6 +29526,7 @@ export namespace Prisma {
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
@@ -29367,6 +29552,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
@@ -29389,6 +29575,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
@@ -29414,6 +29601,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
@@ -30879,14 +31067,16 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     recommended_course_id?: SortOrder
+    evaluator_teacher_id?: SortOrder
+    evaluator_id?: SortOrder
     full_name?: SortOrder
     email?: SortOrder
     phone?: SortOrder
-    total_questions?: SortOrder
-    correct_answers?: SortOrder
+    test_date?: SortOrder
     score?: SortOrder
     level_result?: SortOrder
     recommendation?: SortOrder
+    note?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -30896,8 +31086,8 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     recommended_course_id?: SortOrder
-    total_questions?: SortOrder
-    correct_answers?: SortOrder
+    evaluator_teacher_id?: SortOrder
+    evaluator_id?: SortOrder
     score?: SortOrder
   }
 
@@ -30905,14 +31095,16 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     recommended_course_id?: SortOrder
+    evaluator_teacher_id?: SortOrder
+    evaluator_id?: SortOrder
     full_name?: SortOrder
     email?: SortOrder
     phone?: SortOrder
-    total_questions?: SortOrder
-    correct_answers?: SortOrder
+    test_date?: SortOrder
     score?: SortOrder
     level_result?: SortOrder
     recommendation?: SortOrder
+    note?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -30922,14 +31114,16 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     recommended_course_id?: SortOrder
+    evaluator_teacher_id?: SortOrder
+    evaluator_id?: SortOrder
     full_name?: SortOrder
     email?: SortOrder
     phone?: SortOrder
-    total_questions?: SortOrder
-    correct_answers?: SortOrder
+    test_date?: SortOrder
     score?: SortOrder
     level_result?: SortOrder
     recommendation?: SortOrder
+    note?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -30939,8 +31133,8 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     recommended_course_id?: SortOrder
-    total_questions?: SortOrder
-    correct_answers?: SortOrder
+    evaluator_teacher_id?: SortOrder
+    evaluator_id?: SortOrder
     score?: SortOrder
   }
 
@@ -32578,6 +32772,18 @@ export namespace Prisma {
     connect?: coursesWhereUniqueInput
   }
 
+  export type usersCreateNestedOneWithoutPlacement_tests_placement_tests_evaluator_idTousersInput = {
+    create?: XOR<usersCreateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput, usersUncheckedCreateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput>
+    connectOrCreate?: usersCreateOrConnectWithoutPlacement_tests_placement_tests_evaluator_idTousersInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type teachersCreateNestedOneWithoutPlacement_testsInput = {
+    create?: XOR<teachersCreateWithoutPlacement_testsInput, teachersUncheckedCreateWithoutPlacement_testsInput>
+    connectOrCreate?: teachersCreateOrConnectWithoutPlacement_testsInput
+    connect?: teachersWhereUniqueInput
+  }
+
   export type usersCreateNestedOneWithoutPlacement_testsInput = {
     create?: XOR<usersCreateWithoutPlacement_testsInput, usersUncheckedCreateWithoutPlacement_testsInput>
     connectOrCreate?: usersCreateOrConnectWithoutPlacement_testsInput
@@ -32596,6 +32802,26 @@ export namespace Prisma {
     delete?: coursesWhereInput | boolean
     connect?: coursesWhereUniqueInput
     update?: XOR<XOR<coursesUpdateToOneWithWhereWithoutPlacement_testsInput, coursesUpdateWithoutPlacement_testsInput>, coursesUncheckedUpdateWithoutPlacement_testsInput>
+  }
+
+  export type usersUpdateOneWithoutPlacement_tests_placement_tests_evaluator_idTousersNestedInput = {
+    create?: XOR<usersCreateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput, usersUncheckedCreateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput>
+    connectOrCreate?: usersCreateOrConnectWithoutPlacement_tests_placement_tests_evaluator_idTousersInput
+    upsert?: usersUpsertWithoutPlacement_tests_placement_tests_evaluator_idTousersInput
+    disconnect?: usersWhereInput | boolean
+    delete?: usersWhereInput | boolean
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutPlacement_tests_placement_tests_evaluator_idTousersInput, usersUpdateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput>, usersUncheckedUpdateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput>
+  }
+
+  export type teachersUpdateOneWithoutPlacement_testsNestedInput = {
+    create?: XOR<teachersCreateWithoutPlacement_testsInput, teachersUncheckedCreateWithoutPlacement_testsInput>
+    connectOrCreate?: teachersCreateOrConnectWithoutPlacement_testsInput
+    upsert?: teachersUpsertWithoutPlacement_testsInput
+    disconnect?: teachersWhereInput | boolean
+    delete?: teachersWhereInput | boolean
+    connect?: teachersWhereUniqueInput
+    update?: XOR<XOR<teachersUpdateToOneWithWhereWithoutPlacement_testsInput, teachersUpdateWithoutPlacement_testsInput>, teachersUncheckedUpdateWithoutPlacement_testsInput>
   }
 
   export type usersUpdateOneWithoutPlacement_testsNestedInput = {
@@ -32746,6 +32972,13 @@ export namespace Prisma {
     connect?: opening_schedulesWhereUniqueInput | opening_schedulesWhereUniqueInput[]
   }
 
+  export type placement_testsCreateNestedManyWithoutTeachersInput = {
+    create?: XOR<placement_testsCreateWithoutTeachersInput, placement_testsUncheckedCreateWithoutTeachersInput> | placement_testsCreateWithoutTeachersInput[] | placement_testsUncheckedCreateWithoutTeachersInput[]
+    connectOrCreate?: placement_testsCreateOrConnectWithoutTeachersInput | placement_testsCreateOrConnectWithoutTeachersInput[]
+    createMany?: placement_testsCreateManyTeachersInputEnvelope
+    connect?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+  }
+
   export type teacher_coursesCreateNestedManyWithoutTeachersInput = {
     create?: XOR<teacher_coursesCreateWithoutTeachersInput, teacher_coursesUncheckedCreateWithoutTeachersInput> | teacher_coursesCreateWithoutTeachersInput[] | teacher_coursesUncheckedCreateWithoutTeachersInput[]
     connectOrCreate?: teacher_coursesCreateOrConnectWithoutTeachersInput | teacher_coursesCreateOrConnectWithoutTeachersInput[]
@@ -32785,6 +33018,13 @@ export namespace Prisma {
     connectOrCreate?: opening_schedulesCreateOrConnectWithoutTeachersInput | opening_schedulesCreateOrConnectWithoutTeachersInput[]
     createMany?: opening_schedulesCreateManyTeachersInputEnvelope
     connect?: opening_schedulesWhereUniqueInput | opening_schedulesWhereUniqueInput[]
+  }
+
+  export type placement_testsUncheckedCreateNestedManyWithoutTeachersInput = {
+    create?: XOR<placement_testsCreateWithoutTeachersInput, placement_testsUncheckedCreateWithoutTeachersInput> | placement_testsCreateWithoutTeachersInput[] | placement_testsUncheckedCreateWithoutTeachersInput[]
+    connectOrCreate?: placement_testsCreateOrConnectWithoutTeachersInput | placement_testsCreateOrConnectWithoutTeachersInput[]
+    createMany?: placement_testsCreateManyTeachersInputEnvelope
+    connect?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
   }
 
   export type teacher_coursesUncheckedCreateNestedManyWithoutTeachersInput = {
@@ -32852,6 +33092,20 @@ export namespace Prisma {
     update?: opening_schedulesUpdateWithWhereUniqueWithoutTeachersInput | opening_schedulesUpdateWithWhereUniqueWithoutTeachersInput[]
     updateMany?: opening_schedulesUpdateManyWithWhereWithoutTeachersInput | opening_schedulesUpdateManyWithWhereWithoutTeachersInput[]
     deleteMany?: opening_schedulesScalarWhereInput | opening_schedulesScalarWhereInput[]
+  }
+
+  export type placement_testsUpdateManyWithoutTeachersNestedInput = {
+    create?: XOR<placement_testsCreateWithoutTeachersInput, placement_testsUncheckedCreateWithoutTeachersInput> | placement_testsCreateWithoutTeachersInput[] | placement_testsUncheckedCreateWithoutTeachersInput[]
+    connectOrCreate?: placement_testsCreateOrConnectWithoutTeachersInput | placement_testsCreateOrConnectWithoutTeachersInput[]
+    upsert?: placement_testsUpsertWithWhereUniqueWithoutTeachersInput | placement_testsUpsertWithWhereUniqueWithoutTeachersInput[]
+    createMany?: placement_testsCreateManyTeachersInputEnvelope
+    set?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    disconnect?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    delete?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    connect?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    update?: placement_testsUpdateWithWhereUniqueWithoutTeachersInput | placement_testsUpdateWithWhereUniqueWithoutTeachersInput[]
+    updateMany?: placement_testsUpdateManyWithWhereWithoutTeachersInput | placement_testsUpdateManyWithWhereWithoutTeachersInput[]
+    deleteMany?: placement_testsScalarWhereInput | placement_testsScalarWhereInput[]
   }
 
   export type teacher_coursesUpdateManyWithoutTeachersNestedInput = {
@@ -32930,6 +33184,20 @@ export namespace Prisma {
     update?: opening_schedulesUpdateWithWhereUniqueWithoutTeachersInput | opening_schedulesUpdateWithWhereUniqueWithoutTeachersInput[]
     updateMany?: opening_schedulesUpdateManyWithWhereWithoutTeachersInput | opening_schedulesUpdateManyWithWhereWithoutTeachersInput[]
     deleteMany?: opening_schedulesScalarWhereInput | opening_schedulesScalarWhereInput[]
+  }
+
+  export type placement_testsUncheckedUpdateManyWithoutTeachersNestedInput = {
+    create?: XOR<placement_testsCreateWithoutTeachersInput, placement_testsUncheckedCreateWithoutTeachersInput> | placement_testsCreateWithoutTeachersInput[] | placement_testsUncheckedCreateWithoutTeachersInput[]
+    connectOrCreate?: placement_testsCreateOrConnectWithoutTeachersInput | placement_testsCreateOrConnectWithoutTeachersInput[]
+    upsert?: placement_testsUpsertWithWhereUniqueWithoutTeachersInput | placement_testsUpsertWithWhereUniqueWithoutTeachersInput[]
+    createMany?: placement_testsCreateManyTeachersInputEnvelope
+    set?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    disconnect?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    delete?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    connect?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    update?: placement_testsUpdateWithWhereUniqueWithoutTeachersInput | placement_testsUpdateWithWhereUniqueWithoutTeachersInput[]
+    updateMany?: placement_testsUpdateManyWithWhereWithoutTeachersInput | placement_testsUpdateManyWithWhereWithoutTeachersInput[]
+    deleteMany?: placement_testsScalarWhereInput | placement_testsScalarWhereInput[]
   }
 
   export type teacher_coursesUncheckedUpdateManyWithoutTeachersNestedInput = {
@@ -33021,6 +33289,13 @@ export namespace Prisma {
     connect?: password_resetsWhereUniqueInput | password_resetsWhereUniqueInput[]
   }
 
+  export type placement_testsCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput = {
+    create?: XOR<placement_testsCreateWithoutUsers_placement_tests_evaluator_idTousersInput, placement_testsUncheckedCreateWithoutUsers_placement_tests_evaluator_idTousersInput> | placement_testsCreateWithoutUsers_placement_tests_evaluator_idTousersInput[] | placement_testsUncheckedCreateWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    connectOrCreate?: placement_testsCreateOrConnectWithoutUsers_placement_tests_evaluator_idTousersInput | placement_testsCreateOrConnectWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    createMany?: placement_testsCreateManyUsers_placement_tests_evaluator_idTousersInputEnvelope
+    connect?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+  }
+
   export type placement_testsCreateNestedManyWithoutUsersInput = {
     create?: XOR<placement_testsCreateWithoutUsersInput, placement_testsUncheckedCreateWithoutUsersInput> | placement_testsCreateWithoutUsersInput[] | placement_testsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: placement_testsCreateOrConnectWithoutUsersInput | placement_testsCreateOrConnectWithoutUsersInput[]
@@ -33073,6 +33348,13 @@ export namespace Prisma {
     connectOrCreate?: password_resetsCreateOrConnectWithoutUsersInput | password_resetsCreateOrConnectWithoutUsersInput[]
     createMany?: password_resetsCreateManyUsersInputEnvelope
     connect?: password_resetsWhereUniqueInput | password_resetsWhereUniqueInput[]
+  }
+
+  export type placement_testsUncheckedCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput = {
+    create?: XOR<placement_testsCreateWithoutUsers_placement_tests_evaluator_idTousersInput, placement_testsUncheckedCreateWithoutUsers_placement_tests_evaluator_idTousersInput> | placement_testsCreateWithoutUsers_placement_tests_evaluator_idTousersInput[] | placement_testsUncheckedCreateWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    connectOrCreate?: placement_testsCreateOrConnectWithoutUsers_placement_tests_evaluator_idTousersInput | placement_testsCreateOrConnectWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    createMany?: placement_testsCreateManyUsers_placement_tests_evaluator_idTousersInputEnvelope
+    connect?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
   }
 
   export type placement_testsUncheckedCreateNestedManyWithoutUsersInput = {
@@ -33150,6 +33432,20 @@ export namespace Prisma {
     update?: password_resetsUpdateWithWhereUniqueWithoutUsersInput | password_resetsUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: password_resetsUpdateManyWithWhereWithoutUsersInput | password_resetsUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: password_resetsScalarWhereInput | password_resetsScalarWhereInput[]
+  }
+
+  export type placement_testsUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput = {
+    create?: XOR<placement_testsCreateWithoutUsers_placement_tests_evaluator_idTousersInput, placement_testsUncheckedCreateWithoutUsers_placement_tests_evaluator_idTousersInput> | placement_testsCreateWithoutUsers_placement_tests_evaluator_idTousersInput[] | placement_testsUncheckedCreateWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    connectOrCreate?: placement_testsCreateOrConnectWithoutUsers_placement_tests_evaluator_idTousersInput | placement_testsCreateOrConnectWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    upsert?: placement_testsUpsertWithWhereUniqueWithoutUsers_placement_tests_evaluator_idTousersInput | placement_testsUpsertWithWhereUniqueWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    createMany?: placement_testsCreateManyUsers_placement_tests_evaluator_idTousersInputEnvelope
+    set?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    disconnect?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    delete?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    connect?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    update?: placement_testsUpdateWithWhereUniqueWithoutUsers_placement_tests_evaluator_idTousersInput | placement_testsUpdateWithWhereUniqueWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    updateMany?: placement_testsUpdateManyWithWhereWithoutUsers_placement_tests_evaluator_idTousersInput | placement_testsUpdateManyWithWhereWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    deleteMany?: placement_testsScalarWhereInput | placement_testsScalarWhereInput[]
   }
 
   export type placement_testsUpdateManyWithoutUsersNestedInput = {
@@ -33252,6 +33548,20 @@ export namespace Prisma {
     update?: password_resetsUpdateWithWhereUniqueWithoutUsersInput | password_resetsUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: password_resetsUpdateManyWithWhereWithoutUsersInput | password_resetsUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: password_resetsScalarWhereInput | password_resetsScalarWhereInput[]
+  }
+
+  export type placement_testsUncheckedUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput = {
+    create?: XOR<placement_testsCreateWithoutUsers_placement_tests_evaluator_idTousersInput, placement_testsUncheckedCreateWithoutUsers_placement_tests_evaluator_idTousersInput> | placement_testsCreateWithoutUsers_placement_tests_evaluator_idTousersInput[] | placement_testsUncheckedCreateWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    connectOrCreate?: placement_testsCreateOrConnectWithoutUsers_placement_tests_evaluator_idTousersInput | placement_testsCreateOrConnectWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    upsert?: placement_testsUpsertWithWhereUniqueWithoutUsers_placement_tests_evaluator_idTousersInput | placement_testsUpsertWithWhereUniqueWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    createMany?: placement_testsCreateManyUsers_placement_tests_evaluator_idTousersInputEnvelope
+    set?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    disconnect?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    delete?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    connect?: placement_testsWhereUniqueInput | placement_testsWhereUniqueInput[]
+    update?: placement_testsUpdateWithWhereUniqueWithoutUsers_placement_tests_evaluator_idTousersInput | placement_testsUpdateWithWhereUniqueWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    updateMany?: placement_testsUpdateManyWithWhereWithoutUsers_placement_tests_evaluator_idTousersInput | placement_testsUpdateManyWithWhereWithoutUsers_placement_tests_evaluator_idTousersInput[]
+    deleteMany?: placement_testsScalarWhereInput | placement_testsScalarWhereInput[]
   }
 
   export type placement_testsUncheckedUpdateManyWithoutUsersNestedInput = {
@@ -33991,6 +34301,7 @@ export namespace Prisma {
     classes?: classesCreateNestedManyWithoutTeachersInput
     grades?: gradesCreateNestedManyWithoutTeachersInput
     opening_schedules?: opening_schedulesCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsCreateNestedManyWithoutTeachersInput
     teacher_courses?: teacher_coursesCreateNestedManyWithoutTeachersInput
     users: usersCreateNestedOneWithoutTeachersInput
   }
@@ -34010,6 +34321,7 @@ export namespace Prisma {
     classes?: classesUncheckedCreateNestedManyWithoutTeachersInput
     grades?: gradesUncheckedCreateNestedManyWithoutTeachersInput
     opening_schedules?: opening_schedulesUncheckedCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsUncheckedCreateNestedManyWithoutTeachersInput
     teacher_courses?: teacher_coursesUncheckedCreateNestedManyWithoutTeachersInput
   }
 
@@ -34090,6 +34402,7 @@ export namespace Prisma {
     classes?: classesUpdateManyWithoutTeachersNestedInput
     grades?: gradesUpdateManyWithoutTeachersNestedInput
     opening_schedules?: opening_schedulesUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUpdateManyWithoutTeachersNestedInput
     teacher_courses?: teacher_coursesUpdateManyWithoutTeachersNestedInput
     users?: usersUpdateOneRequiredWithoutTeachersNestedInput
   }
@@ -34109,6 +34422,7 @@ export namespace Prisma {
     classes?: classesUncheckedUpdateManyWithoutTeachersNestedInput
     grades?: gradesUncheckedUpdateManyWithoutTeachersNestedInput
     opening_schedules?: opening_schedulesUncheckedUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUncheckedUpdateManyWithoutTeachersNestedInput
     teacher_courses?: teacher_coursesUncheckedUpdateManyWithoutTeachersNestedInput
   }
 
@@ -34437,6 +34751,7 @@ export namespace Prisma {
     assignments?: assignmentsCreateNestedManyWithoutTeachersInput
     grades?: gradesCreateNestedManyWithoutTeachersInput
     opening_schedules?: opening_schedulesCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsCreateNestedManyWithoutTeachersInput
     teacher_courses?: teacher_coursesCreateNestedManyWithoutTeachersInput
     users: usersCreateNestedOneWithoutTeachersInput
   }
@@ -34456,6 +34771,7 @@ export namespace Prisma {
     assignments?: assignmentsUncheckedCreateNestedManyWithoutTeachersInput
     grades?: gradesUncheckedCreateNestedManyWithoutTeachersInput
     opening_schedules?: opening_schedulesUncheckedCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsUncheckedCreateNestedManyWithoutTeachersInput
     teacher_courses?: teacher_coursesUncheckedCreateNestedManyWithoutTeachersInput
   }
 
@@ -34689,6 +35005,7 @@ export namespace Prisma {
     assignments?: assignmentsUpdateManyWithoutTeachersNestedInput
     grades?: gradesUpdateManyWithoutTeachersNestedInput
     opening_schedules?: opening_schedulesUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUpdateManyWithoutTeachersNestedInput
     teacher_courses?: teacher_coursesUpdateManyWithoutTeachersNestedInput
     users?: usersUpdateOneRequiredWithoutTeachersNestedInput
   }
@@ -34708,6 +35025,7 @@ export namespace Prisma {
     assignments?: assignmentsUncheckedUpdateManyWithoutTeachersNestedInput
     grades?: gradesUncheckedUpdateManyWithoutTeachersNestedInput
     opening_schedules?: opening_schedulesUncheckedUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUncheckedUpdateManyWithoutTeachersNestedInput
     teacher_courses?: teacher_coursesUncheckedUpdateManyWithoutTeachersNestedInput
   }
 
@@ -34958,28 +35276,32 @@ export namespace Prisma {
     full_name: string
     email?: string | null
     phone?: string | null
-    total_questions?: number | null
-    correct_answers?: number | null
+    test_date?: Date | string | null
     score?: Decimal | DecimalJsLike | number | string | null
     level_result?: string | null
     recommendation?: string | null
+    note?: string | null
     status?: $Enums.placement_tests_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    users_placement_tests_evaluator_idTousers?: usersCreateNestedOneWithoutPlacement_tests_placement_tests_evaluator_idTousersInput
+    teachers?: teachersCreateNestedOneWithoutPlacement_testsInput
     users?: usersCreateNestedOneWithoutPlacement_testsInput
   }
 
   export type placement_testsUncheckedCreateWithoutCoursesInput = {
     id?: number
     user_id?: number | null
+    evaluator_teacher_id?: number | null
+    evaluator_id?: number | null
     full_name: string
     email?: string | null
     phone?: string | null
-    total_questions?: number | null
-    correct_answers?: number | null
+    test_date?: Date | string | null
     score?: Decimal | DecimalJsLike | number | string | null
     level_result?: string | null
     recommendation?: string | null
+    note?: string | null
     status?: $Enums.placement_tests_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
@@ -35264,14 +35586,16 @@ export namespace Prisma {
     id?: IntFilter<"placement_tests"> | number
     user_id?: IntNullableFilter<"placement_tests"> | number | null
     recommended_course_id?: IntNullableFilter<"placement_tests"> | number | null
+    evaluator_teacher_id?: IntNullableFilter<"placement_tests"> | number | null
+    evaluator_id?: IntNullableFilter<"placement_tests"> | number | null
     full_name?: StringFilter<"placement_tests"> | string
     email?: StringNullableFilter<"placement_tests"> | string | null
     phone?: StringNullableFilter<"placement_tests"> | string | null
-    total_questions?: IntNullableFilter<"placement_tests"> | number | null
-    correct_answers?: IntNullableFilter<"placement_tests"> | number | null
+    test_date?: DateTimeNullableFilter<"placement_tests"> | Date | string | null
     score?: DecimalNullableFilter<"placement_tests"> | Decimal | DecimalJsLike | number | string | null
     level_result?: StringNullableFilter<"placement_tests"> | string | null
     recommendation?: StringNullableFilter<"placement_tests"> | string | null
+    note?: StringNullableFilter<"placement_tests"> | string | null
     status?: Enumplacement_tests_statusNullableFilter<"placement_tests"> | $Enums.placement_tests_status | null
     created_at?: DateTimeNullableFilter<"placement_tests"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"placement_tests"> | Date | string | null
@@ -35495,6 +35819,7 @@ export namespace Prisma {
     refresh_token?: string | null
     news?: newsCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
@@ -35519,6 +35844,7 @@ export namespace Prisma {
     refresh_token?: string | null
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
@@ -35684,6 +36010,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     news?: newsUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
@@ -35708,6 +36035,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
@@ -35822,6 +36150,7 @@ export namespace Prisma {
     assignments?: assignmentsCreateNestedManyWithoutTeachersInput
     classes?: classesCreateNestedManyWithoutTeachersInput
     opening_schedules?: opening_schedulesCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsCreateNestedManyWithoutTeachersInput
     teacher_courses?: teacher_coursesCreateNestedManyWithoutTeachersInput
     users: usersCreateNestedOneWithoutTeachersInput
   }
@@ -35841,6 +36170,7 @@ export namespace Prisma {
     assignments?: assignmentsUncheckedCreateNestedManyWithoutTeachersInput
     classes?: classesUncheckedCreateNestedManyWithoutTeachersInput
     opening_schedules?: opening_schedulesUncheckedCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsUncheckedCreateNestedManyWithoutTeachersInput
     teacher_courses?: teacher_coursesUncheckedCreateNestedManyWithoutTeachersInput
   }
 
@@ -35911,6 +36241,7 @@ export namespace Prisma {
     assignments?: assignmentsUpdateManyWithoutTeachersNestedInput
     classes?: classesUpdateManyWithoutTeachersNestedInput
     opening_schedules?: opening_schedulesUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUpdateManyWithoutTeachersNestedInput
     teacher_courses?: teacher_coursesUpdateManyWithoutTeachersNestedInput
     users?: usersUpdateOneRequiredWithoutTeachersNestedInput
   }
@@ -35930,6 +36261,7 @@ export namespace Prisma {
     assignments?: assignmentsUncheckedUpdateManyWithoutTeachersNestedInput
     classes?: classesUncheckedUpdateManyWithoutTeachersNestedInput
     opening_schedules?: opening_schedulesUncheckedUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUncheckedUpdateManyWithoutTeachersNestedInput
     teacher_courses?: teacher_coursesUncheckedUpdateManyWithoutTeachersNestedInput
   }
 
@@ -35948,6 +36280,7 @@ export namespace Prisma {
     refresh_token?: string | null
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
@@ -35972,6 +36305,7 @@ export namespace Prisma {
     refresh_token?: string | null
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
@@ -36035,6 +36369,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
@@ -36059,6 +36394,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
@@ -36283,6 +36619,7 @@ export namespace Prisma {
     assignments?: assignmentsCreateNestedManyWithoutTeachersInput
     classes?: classesCreateNestedManyWithoutTeachersInput
     grades?: gradesCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsCreateNestedManyWithoutTeachersInput
     teacher_courses?: teacher_coursesCreateNestedManyWithoutTeachersInput
     users: usersCreateNestedOneWithoutTeachersInput
   }
@@ -36302,6 +36639,7 @@ export namespace Prisma {
     assignments?: assignmentsUncheckedCreateNestedManyWithoutTeachersInput
     classes?: classesUncheckedCreateNestedManyWithoutTeachersInput
     grades?: gradesUncheckedCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsUncheckedCreateNestedManyWithoutTeachersInput
     teacher_courses?: teacher_coursesUncheckedCreateNestedManyWithoutTeachersInput
   }
 
@@ -36408,6 +36746,7 @@ export namespace Prisma {
     assignments?: assignmentsUpdateManyWithoutTeachersNestedInput
     classes?: classesUpdateManyWithoutTeachersNestedInput
     grades?: gradesUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUpdateManyWithoutTeachersNestedInput
     teacher_courses?: teacher_coursesUpdateManyWithoutTeachersNestedInput
     users?: usersUpdateOneRequiredWithoutTeachersNestedInput
   }
@@ -36427,6 +36766,7 @@ export namespace Prisma {
     assignments?: assignmentsUncheckedUpdateManyWithoutTeachersNestedInput
     classes?: classesUncheckedUpdateManyWithoutTeachersNestedInput
     grades?: gradesUncheckedUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUncheckedUpdateManyWithoutTeachersNestedInput
     teacher_courses?: teacher_coursesUncheckedUpdateManyWithoutTeachersNestedInput
   }
 
@@ -36552,6 +36892,100 @@ export namespace Prisma {
     create: XOR<coursesCreateWithoutPlacement_testsInput, coursesUncheckedCreateWithoutPlacement_testsInput>
   }
 
+  export type usersCreateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput = {
+    full_name: string
+    email: string
+    phone?: string | null
+    password_hash: string
+    avatar?: string | null
+    date_of_birth?: Date | string | null
+    gender?: $Enums.users_gender | null
+    address?: string | null
+    status?: $Enums.users_status | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    refresh_token?: string | null
+    enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
+    news?: newsCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsCreateNestedManyWithoutUsersInput
+    placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
+    registrations?: registrationsCreateNestedManyWithoutUsersInput
+    teachers?: teachersCreateNestedOneWithoutUsersInput
+    trial_registrations?: trial_registrationsCreateNestedManyWithoutUsersInput
+    roles: rolesCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersUncheckedCreateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput = {
+    id?: number
+    role_id: number
+    full_name: string
+    email: string
+    phone?: string | null
+    password_hash: string
+    avatar?: string | null
+    date_of_birth?: Date | string | null
+    gender?: $Enums.users_gender | null
+    address?: string | null
+    status?: $Enums.users_status | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    refresh_token?: string | null
+    enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
+    news?: newsUncheckedCreateNestedManyWithoutUsersInput
+    password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
+    placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
+    registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
+    teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
+    trial_registrations?: trial_registrationsUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type usersCreateOrConnectWithoutPlacement_tests_placement_tests_evaluator_idTousersInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput, usersUncheckedCreateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput>
+  }
+
+  export type teachersCreateWithoutPlacement_testsInput = {
+    specialization?: string | null
+    experience?: string | null
+    education?: string | null
+    introduction?: string | null
+    avatar?: string | null
+    phone?: string | null
+    status?: $Enums.teachers_status | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    assignments?: assignmentsCreateNestedManyWithoutTeachersInput
+    classes?: classesCreateNestedManyWithoutTeachersInput
+    grades?: gradesCreateNestedManyWithoutTeachersInput
+    opening_schedules?: opening_schedulesCreateNestedManyWithoutTeachersInput
+    teacher_courses?: teacher_coursesCreateNestedManyWithoutTeachersInput
+    users: usersCreateNestedOneWithoutTeachersInput
+  }
+
+  export type teachersUncheckedCreateWithoutPlacement_testsInput = {
+    id?: number
+    user_id: number
+    specialization?: string | null
+    experience?: string | null
+    education?: string | null
+    introduction?: string | null
+    avatar?: string | null
+    phone?: string | null
+    status?: $Enums.teachers_status | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    assignments?: assignmentsUncheckedCreateNestedManyWithoutTeachersInput
+    classes?: classesUncheckedCreateNestedManyWithoutTeachersInput
+    grades?: gradesUncheckedCreateNestedManyWithoutTeachersInput
+    opening_schedules?: opening_schedulesUncheckedCreateNestedManyWithoutTeachersInput
+    teacher_courses?: teacher_coursesUncheckedCreateNestedManyWithoutTeachersInput
+  }
+
+  export type teachersCreateOrConnectWithoutPlacement_testsInput = {
+    where: teachersWhereUniqueInput
+    create: XOR<teachersCreateWithoutPlacement_testsInput, teachersUncheckedCreateWithoutPlacement_testsInput>
+  }
+
   export type usersCreateWithoutPlacement_testsInput = {
     full_name: string
     email: string
@@ -36568,6 +37002,7 @@ export namespace Prisma {
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
     trial_registrations?: trial_registrationsCreateNestedManyWithoutUsersInput
@@ -36592,6 +37027,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
     trial_registrations?: trial_registrationsUncheckedCreateNestedManyWithoutUsersInput
@@ -36660,6 +37096,112 @@ export namespace Prisma {
     tuition_plans?: tuition_plansUncheckedUpdateManyWithoutCoursesNestedInput
   }
 
+  export type usersUpsertWithoutPlacement_tests_placement_tests_evaluator_idTousersInput = {
+    update: XOR<usersUpdateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput, usersUncheckedUpdateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput>
+    create: XOR<usersCreateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput, usersUncheckedCreateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutPlacement_tests_placement_tests_evaluator_idTousersInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput, usersUncheckedUpdateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput>
+  }
+
+  export type usersUpdateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput = {
+    full_name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    date_of_birth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableEnumusers_genderFieldUpdateOperationsInput | $Enums.users_gender | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
+    news?: newsUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
+    placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
+    registrations?: registrationsUpdateManyWithoutUsersNestedInput
+    teachers?: teachersUpdateOneWithoutUsersNestedInput
+    trial_registrations?: trial_registrationsUpdateManyWithoutUsersNestedInput
+    roles?: rolesUpdateOneRequiredWithoutUsersNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutPlacement_tests_placement_tests_evaluator_idTousersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    role_id?: IntFieldUpdateOperationsInput | number
+    full_name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    date_of_birth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableEnumusers_genderFieldUpdateOperationsInput | $Enums.users_gender | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumusers_statusFieldUpdateOperationsInput | $Enums.users_status | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
+    news?: newsUncheckedUpdateManyWithoutUsersNestedInput
+    password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
+    placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
+    registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
+    trial_registrations?: trial_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type teachersUpsertWithoutPlacement_testsInput = {
+    update: XOR<teachersUpdateWithoutPlacement_testsInput, teachersUncheckedUpdateWithoutPlacement_testsInput>
+    create: XOR<teachersCreateWithoutPlacement_testsInput, teachersUncheckedCreateWithoutPlacement_testsInput>
+    where?: teachersWhereInput
+  }
+
+  export type teachersUpdateToOneWithWhereWithoutPlacement_testsInput = {
+    where?: teachersWhereInput
+    data: XOR<teachersUpdateWithoutPlacement_testsInput, teachersUncheckedUpdateWithoutPlacement_testsInput>
+  }
+
+  export type teachersUpdateWithoutPlacement_testsInput = {
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    introduction?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumteachers_statusFieldUpdateOperationsInput | $Enums.teachers_status | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignments?: assignmentsUpdateManyWithoutTeachersNestedInput
+    classes?: classesUpdateManyWithoutTeachersNestedInput
+    grades?: gradesUpdateManyWithoutTeachersNestedInput
+    opening_schedules?: opening_schedulesUpdateManyWithoutTeachersNestedInput
+    teacher_courses?: teacher_coursesUpdateManyWithoutTeachersNestedInput
+    users?: usersUpdateOneRequiredWithoutTeachersNestedInput
+  }
+
+  export type teachersUncheckedUpdateWithoutPlacement_testsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    introduction?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumteachers_statusFieldUpdateOperationsInput | $Enums.teachers_status | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignments?: assignmentsUncheckedUpdateManyWithoutTeachersNestedInput
+    classes?: classesUncheckedUpdateManyWithoutTeachersNestedInput
+    grades?: gradesUncheckedUpdateManyWithoutTeachersNestedInput
+    opening_schedules?: opening_schedulesUncheckedUpdateManyWithoutTeachersNestedInput
+    teacher_courses?: teacher_coursesUncheckedUpdateManyWithoutTeachersNestedInput
+  }
+
   export type usersUpsertWithoutPlacement_testsInput = {
     update: XOR<usersUpdateWithoutPlacement_testsInput, usersUncheckedUpdateWithoutPlacement_testsInput>
     create: XOR<usersCreateWithoutPlacement_testsInput, usersUncheckedCreateWithoutPlacement_testsInput>
@@ -36687,6 +37229,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
     trial_registrations?: trial_registrationsUpdateManyWithoutUsersNestedInput
@@ -36711,6 +37254,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
     trial_registrations?: trial_registrationsUncheckedUpdateManyWithoutUsersNestedInput
@@ -36784,6 +37328,7 @@ export namespace Prisma {
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
     trial_registrations?: trial_registrationsCreateNestedManyWithoutUsersInput
@@ -36808,6 +37353,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
     trial_registrations?: trial_registrationsUncheckedCreateNestedManyWithoutUsersInput
@@ -36903,6 +37449,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
     trial_registrations?: trial_registrationsUpdateManyWithoutUsersNestedInput
@@ -36927,6 +37474,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
     trial_registrations?: trial_registrationsUncheckedUpdateManyWithoutUsersNestedInput
@@ -36948,6 +37496,7 @@ export namespace Prisma {
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
@@ -36971,6 +37520,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
@@ -37089,6 +37639,7 @@ export namespace Prisma {
     classes?: classesCreateNestedManyWithoutTeachersInput
     grades?: gradesCreateNestedManyWithoutTeachersInput
     opening_schedules?: opening_schedulesCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsCreateNestedManyWithoutTeachersInput
     users: usersCreateNestedOneWithoutTeachersInput
   }
 
@@ -37108,6 +37659,7 @@ export namespace Prisma {
     classes?: classesUncheckedCreateNestedManyWithoutTeachersInput
     grades?: gradesUncheckedCreateNestedManyWithoutTeachersInput
     opening_schedules?: opening_schedulesUncheckedCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsUncheckedCreateNestedManyWithoutTeachersInput
   }
 
   export type teachersCreateOrConnectWithoutTeacher_coursesInput = {
@@ -37198,6 +37750,7 @@ export namespace Prisma {
     classes?: classesUpdateManyWithoutTeachersNestedInput
     grades?: gradesUpdateManyWithoutTeachersNestedInput
     opening_schedules?: opening_schedulesUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUpdateManyWithoutTeachersNestedInput
     users?: usersUpdateOneRequiredWithoutTeachersNestedInput
   }
 
@@ -37217,6 +37770,7 @@ export namespace Prisma {
     classes?: classesUncheckedUpdateManyWithoutTeachersNestedInput
     grades?: gradesUncheckedUpdateManyWithoutTeachersNestedInput
     opening_schedules?: opening_schedulesUncheckedUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUncheckedUpdateManyWithoutTeachersNestedInput
   }
 
   export type assignmentsCreateWithoutTeachersInput = {
@@ -37373,6 +37927,51 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type placement_testsCreateWithoutTeachersInput = {
+    full_name: string
+    email?: string | null
+    phone?: string | null
+    test_date?: Date | string | null
+    score?: Decimal | DecimalJsLike | number | string | null
+    level_result?: string | null
+    recommendation?: string | null
+    note?: string | null
+    status?: $Enums.placement_tests_status | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    courses?: coursesCreateNestedOneWithoutPlacement_testsInput
+    users_placement_tests_evaluator_idTousers?: usersCreateNestedOneWithoutPlacement_tests_placement_tests_evaluator_idTousersInput
+    users?: usersCreateNestedOneWithoutPlacement_testsInput
+  }
+
+  export type placement_testsUncheckedCreateWithoutTeachersInput = {
+    id?: number
+    user_id?: number | null
+    recommended_course_id?: number | null
+    evaluator_id?: number | null
+    full_name: string
+    email?: string | null
+    phone?: string | null
+    test_date?: Date | string | null
+    score?: Decimal | DecimalJsLike | number | string | null
+    level_result?: string | null
+    recommendation?: string | null
+    note?: string | null
+    status?: $Enums.placement_tests_status | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type placement_testsCreateOrConnectWithoutTeachersInput = {
+    where: placement_testsWhereUniqueInput
+    create: XOR<placement_testsCreateWithoutTeachersInput, placement_testsUncheckedCreateWithoutTeachersInput>
+  }
+
+  export type placement_testsCreateManyTeachersInputEnvelope = {
+    data: placement_testsCreateManyTeachersInput | placement_testsCreateManyTeachersInput[]
+    skipDuplicates?: boolean
+  }
+
   export type teacher_coursesCreateWithoutTeachersInput = {
     role?: string | null
     assigned_at?: Date | string | null
@@ -37412,6 +38011,7 @@ export namespace Prisma {
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     trial_registrations?: trial_registrationsCreateNestedManyWithoutUsersInput
@@ -37436,6 +38036,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     trial_registrations?: trial_registrationsUncheckedCreateNestedManyWithoutUsersInput
@@ -37510,6 +38111,22 @@ export namespace Prisma {
     data: XOR<opening_schedulesUpdateManyMutationInput, opening_schedulesUncheckedUpdateManyWithoutTeachersInput>
   }
 
+  export type placement_testsUpsertWithWhereUniqueWithoutTeachersInput = {
+    where: placement_testsWhereUniqueInput
+    update: XOR<placement_testsUpdateWithoutTeachersInput, placement_testsUncheckedUpdateWithoutTeachersInput>
+    create: XOR<placement_testsCreateWithoutTeachersInput, placement_testsUncheckedCreateWithoutTeachersInput>
+  }
+
+  export type placement_testsUpdateWithWhereUniqueWithoutTeachersInput = {
+    where: placement_testsWhereUniqueInput
+    data: XOR<placement_testsUpdateWithoutTeachersInput, placement_testsUncheckedUpdateWithoutTeachersInput>
+  }
+
+  export type placement_testsUpdateManyWithWhereWithoutTeachersInput = {
+    where: placement_testsScalarWhereInput
+    data: XOR<placement_testsUpdateManyMutationInput, placement_testsUncheckedUpdateManyWithoutTeachersInput>
+  }
+
   export type teacher_coursesUpsertWithWhereUniqueWithoutTeachersInput = {
     where: teacher_coursesWhereUniqueInput
     update: XOR<teacher_coursesUpdateWithoutTeachersInput, teacher_coursesUncheckedUpdateWithoutTeachersInput>
@@ -37553,6 +38170,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     trial_registrations?: trial_registrationsUpdateManyWithoutUsersNestedInput
@@ -37577,6 +38195,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     trial_registrations?: trial_registrationsUncheckedUpdateManyWithoutUsersNestedInput
@@ -37650,6 +38269,7 @@ export namespace Prisma {
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
@@ -37674,6 +38294,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
     password_resets?: password_resetsUncheckedCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
@@ -37769,6 +38390,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
@@ -37793,6 +38415,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
@@ -38009,32 +38632,81 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type placement_testsCreateWithoutUsersInput = {
+  export type placement_testsCreateWithoutUsers_placement_tests_evaluator_idTousersInput = {
     full_name: string
     email?: string | null
     phone?: string | null
-    total_questions?: number | null
-    correct_answers?: number | null
+    test_date?: Date | string | null
     score?: Decimal | DecimalJsLike | number | string | null
     level_result?: string | null
     recommendation?: string | null
+    note?: string | null
     status?: $Enums.placement_tests_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     courses?: coursesCreateNestedOneWithoutPlacement_testsInput
+    teachers?: teachersCreateNestedOneWithoutPlacement_testsInput
+    users?: usersCreateNestedOneWithoutPlacement_testsInput
+  }
+
+  export type placement_testsUncheckedCreateWithoutUsers_placement_tests_evaluator_idTousersInput = {
+    id?: number
+    user_id?: number | null
+    recommended_course_id?: number | null
+    evaluator_teacher_id?: number | null
+    full_name: string
+    email?: string | null
+    phone?: string | null
+    test_date?: Date | string | null
+    score?: Decimal | DecimalJsLike | number | string | null
+    level_result?: string | null
+    recommendation?: string | null
+    note?: string | null
+    status?: $Enums.placement_tests_status | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type placement_testsCreateOrConnectWithoutUsers_placement_tests_evaluator_idTousersInput = {
+    where: placement_testsWhereUniqueInput
+    create: XOR<placement_testsCreateWithoutUsers_placement_tests_evaluator_idTousersInput, placement_testsUncheckedCreateWithoutUsers_placement_tests_evaluator_idTousersInput>
+  }
+
+  export type placement_testsCreateManyUsers_placement_tests_evaluator_idTousersInputEnvelope = {
+    data: placement_testsCreateManyUsers_placement_tests_evaluator_idTousersInput | placement_testsCreateManyUsers_placement_tests_evaluator_idTousersInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type placement_testsCreateWithoutUsersInput = {
+    full_name: string
+    email?: string | null
+    phone?: string | null
+    test_date?: Date | string | null
+    score?: Decimal | DecimalJsLike | number | string | null
+    level_result?: string | null
+    recommendation?: string | null
+    note?: string | null
+    status?: $Enums.placement_tests_status | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    courses?: coursesCreateNestedOneWithoutPlacement_testsInput
+    users_placement_tests_evaluator_idTousers?: usersCreateNestedOneWithoutPlacement_tests_placement_tests_evaluator_idTousersInput
+    teachers?: teachersCreateNestedOneWithoutPlacement_testsInput
   }
 
   export type placement_testsUncheckedCreateWithoutUsersInput = {
     id?: number
     recommended_course_id?: number | null
+    evaluator_teacher_id?: number | null
+    evaluator_id?: number | null
     full_name: string
     email?: string | null
     phone?: string | null
-    total_questions?: number | null
-    correct_answers?: number | null
+    test_date?: Date | string | null
     score?: Decimal | DecimalJsLike | number | string | null
     level_result?: string | null
     recommendation?: string | null
+    note?: string | null
     status?: $Enums.placement_tests_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
@@ -38101,6 +38773,7 @@ export namespace Prisma {
     classes?: classesCreateNestedManyWithoutTeachersInput
     grades?: gradesCreateNestedManyWithoutTeachersInput
     opening_schedules?: opening_schedulesCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsCreateNestedManyWithoutTeachersInput
     teacher_courses?: teacher_coursesCreateNestedManyWithoutTeachersInput
   }
 
@@ -38119,6 +38792,7 @@ export namespace Prisma {
     classes?: classesUncheckedCreateNestedManyWithoutTeachersInput
     grades?: gradesUncheckedCreateNestedManyWithoutTeachersInput
     opening_schedules?: opening_schedulesUncheckedCreateNestedManyWithoutTeachersInput
+    placement_tests?: placement_testsUncheckedCreateNestedManyWithoutTeachersInput
     teacher_courses?: teacher_coursesUncheckedCreateNestedManyWithoutTeachersInput
   }
 
@@ -38246,6 +38920,22 @@ export namespace Prisma {
     created_at?: DateTimeNullableFilter<"password_resets"> | Date | string | null
   }
 
+  export type placement_testsUpsertWithWhereUniqueWithoutUsers_placement_tests_evaluator_idTousersInput = {
+    where: placement_testsWhereUniqueInput
+    update: XOR<placement_testsUpdateWithoutUsers_placement_tests_evaluator_idTousersInput, placement_testsUncheckedUpdateWithoutUsers_placement_tests_evaluator_idTousersInput>
+    create: XOR<placement_testsCreateWithoutUsers_placement_tests_evaluator_idTousersInput, placement_testsUncheckedCreateWithoutUsers_placement_tests_evaluator_idTousersInput>
+  }
+
+  export type placement_testsUpdateWithWhereUniqueWithoutUsers_placement_tests_evaluator_idTousersInput = {
+    where: placement_testsWhereUniqueInput
+    data: XOR<placement_testsUpdateWithoutUsers_placement_tests_evaluator_idTousersInput, placement_testsUncheckedUpdateWithoutUsers_placement_tests_evaluator_idTousersInput>
+  }
+
+  export type placement_testsUpdateManyWithWhereWithoutUsers_placement_tests_evaluator_idTousersInput = {
+    where: placement_testsScalarWhereInput
+    data: XOR<placement_testsUpdateManyMutationInput, placement_testsUncheckedUpdateManyWithoutUsers_placement_tests_evaluator_idTousersInput>
+  }
+
   export type placement_testsUpsertWithWhereUniqueWithoutUsersInput = {
     where: placement_testsWhereUniqueInput
     update: XOR<placement_testsUpdateWithoutUsersInput, placement_testsUncheckedUpdateWithoutUsersInput>
@@ -38303,6 +38993,7 @@ export namespace Prisma {
     classes?: classesUpdateManyWithoutTeachersNestedInput
     grades?: gradesUpdateManyWithoutTeachersNestedInput
     opening_schedules?: opening_schedulesUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUpdateManyWithoutTeachersNestedInput
     teacher_courses?: teacher_coursesUpdateManyWithoutTeachersNestedInput
   }
 
@@ -38321,6 +39012,7 @@ export namespace Prisma {
     classes?: classesUncheckedUpdateManyWithoutTeachersNestedInput
     grades?: gradesUncheckedUpdateManyWithoutTeachersNestedInput
     opening_schedules?: opening_schedulesUncheckedUpdateManyWithoutTeachersNestedInput
+    placement_tests?: placement_testsUncheckedUpdateManyWithoutTeachersNestedInput
     teacher_courses?: teacher_coursesUncheckedUpdateManyWithoutTeachersNestedInput
   }
 
@@ -38379,6 +39071,7 @@ export namespace Prisma {
     refresh_token?: string | null
     enrollments?: enrollmentsCreateNestedManyWithoutUsersInput
     news?: newsCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsCreateNestedManyWithoutUsersInput
     registrations?: registrationsCreateNestedManyWithoutUsersInput
     teachers?: teachersCreateNestedOneWithoutUsersInput
@@ -38403,6 +39096,7 @@ export namespace Prisma {
     refresh_token?: string | null
     enrollments?: enrollmentsUncheckedCreateNestedManyWithoutUsersInput
     news?: newsUncheckedCreateNestedManyWithoutUsersInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedCreateNestedManyWithoutUsers_placement_tests_evaluator_idTousersInput
     placement_tests?: placement_testsUncheckedCreateNestedManyWithoutUsersInput
     registrations?: registrationsUncheckedCreateNestedManyWithoutUsersInput
     teachers?: teachersUncheckedCreateNestedOneWithoutUsersInput
@@ -38440,6 +39134,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
@@ -38464,6 +39159,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
@@ -38721,14 +39417,16 @@ export namespace Prisma {
   export type placement_testsCreateManyCoursesInput = {
     id?: number
     user_id?: number | null
+    evaluator_teacher_id?: number | null
+    evaluator_id?: number | null
     full_name: string
     email?: string | null
     phone?: string | null
-    total_questions?: number | null
-    correct_answers?: number | null
+    test_date?: Date | string | null
     score?: Decimal | DecimalJsLike | number | string | null
     level_result?: string | null
     recommendation?: string | null
+    note?: string | null
     status?: $Enums.placement_tests_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
@@ -38892,28 +39590,32 @@ export namespace Prisma {
     full_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    total_questions?: NullableIntFieldUpdateOperationsInput | number | null
-    correct_answers?: NullableIntFieldUpdateOperationsInput | number | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     level_result?: NullableStringFieldUpdateOperationsInput | string | null
     recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    users_placement_tests_evaluator_idTousers?: usersUpdateOneWithoutPlacement_tests_placement_tests_evaluator_idTousersNestedInput
+    teachers?: teachersUpdateOneWithoutPlacement_testsNestedInput
     users?: usersUpdateOneWithoutPlacement_testsNestedInput
   }
 
   export type placement_testsUncheckedUpdateWithoutCoursesInput = {
     id?: IntFieldUpdateOperationsInput | number
     user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_teacher_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_id?: NullableIntFieldUpdateOperationsInput | number | null
     full_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    total_questions?: NullableIntFieldUpdateOperationsInput | number | null
-    correct_answers?: NullableIntFieldUpdateOperationsInput | number | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     level_result?: NullableStringFieldUpdateOperationsInput | string | null
     recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -38922,14 +39624,16 @@ export namespace Prisma {
   export type placement_testsUncheckedUpdateManyWithoutCoursesInput = {
     id?: IntFieldUpdateOperationsInput | number
     user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_teacher_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_id?: NullableIntFieldUpdateOperationsInput | number | null
     full_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    total_questions?: NullableIntFieldUpdateOperationsInput | number | null
-    correct_answers?: NullableIntFieldUpdateOperationsInput | number | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     level_result?: NullableStringFieldUpdateOperationsInput | string | null
     recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -39376,6 +40080,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUpdateManyWithoutUsersNestedInput
     news?: newsUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUpdateManyWithoutUsersNestedInput
     teachers?: teachersUpdateOneWithoutUsersNestedInput
@@ -39399,6 +40104,7 @@ export namespace Prisma {
     enrollments?: enrollmentsUncheckedUpdateManyWithoutUsersNestedInput
     news?: newsUncheckedUpdateManyWithoutUsersNestedInput
     password_resets?: password_resetsUncheckedUpdateManyWithoutUsersNestedInput
+    placement_tests_placement_tests_evaluator_idTousers?: placement_testsUncheckedUpdateManyWithoutUsers_placement_tests_evaluator_idTousersNestedInput
     placement_tests?: placement_testsUncheckedUpdateManyWithoutUsersNestedInput
     registrations?: registrationsUncheckedUpdateManyWithoutUsersNestedInput
     teachers?: teachersUncheckedUpdateOneWithoutUsersNestedInput
@@ -39472,6 +40178,24 @@ export namespace Prisma {
     current_students?: number | null
     tuition?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.opening_schedules_status | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type placement_testsCreateManyTeachersInput = {
+    id?: number
+    user_id?: number | null
+    recommended_course_id?: number | null
+    evaluator_id?: number | null
+    full_name: string
+    email?: string | null
+    phone?: string | null
+    test_date?: Date | string | null
+    score?: Decimal | DecimalJsLike | number | string | null
+    level_result?: string | null
+    recommendation?: string | null
+    note?: string | null
+    status?: $Enums.placement_tests_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
   }
@@ -39652,6 +40376,59 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type placement_testsUpdateWithoutTeachersInput = {
+    full_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    level_result?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    courses?: coursesUpdateOneWithoutPlacement_testsNestedInput
+    users_placement_tests_evaluator_idTousers?: usersUpdateOneWithoutPlacement_tests_placement_tests_evaluator_idTousersNestedInput
+    users?: usersUpdateOneWithoutPlacement_testsNestedInput
+  }
+
+  export type placement_testsUncheckedUpdateWithoutTeachersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    recommended_course_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_id?: NullableIntFieldUpdateOperationsInput | number | null
+    full_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    level_result?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type placement_testsUncheckedUpdateManyWithoutTeachersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    recommended_course_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_id?: NullableIntFieldUpdateOperationsInput | number | null
+    full_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    level_result?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type teacher_coursesUpdateWithoutTeachersInput = {
     role?: NullableStringFieldUpdateOperationsInput | string | null
     assigned_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -39706,17 +40483,37 @@ export namespace Prisma {
     created_at?: Date | string | null
   }
 
-  export type placement_testsCreateManyUsersInput = {
+  export type placement_testsCreateManyUsers_placement_tests_evaluator_idTousersInput = {
     id?: number
+    user_id?: number | null
     recommended_course_id?: number | null
+    evaluator_teacher_id?: number | null
     full_name: string
     email?: string | null
     phone?: string | null
-    total_questions?: number | null
-    correct_answers?: number | null
+    test_date?: Date | string | null
     score?: Decimal | DecimalJsLike | number | string | null
     level_result?: string | null
     recommendation?: string | null
+    note?: string | null
+    status?: $Enums.placement_tests_status | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type placement_testsCreateManyUsersInput = {
+    id?: number
+    recommended_course_id?: number | null
+    evaluator_teacher_id?: number | null
+    evaluator_id?: number | null
+    full_name: string
+    email?: string | null
+    phone?: string | null
+    test_date?: Date | string | null
+    score?: Decimal | DecimalJsLike | number | string | null
+    level_result?: string | null
+    recommendation?: string | null
+    note?: string | null
     status?: $Enums.placement_tests_status | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
@@ -39857,32 +40654,89 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type placement_testsUpdateWithoutUsersInput = {
+  export type placement_testsUpdateWithoutUsers_placement_tests_evaluator_idTousersInput = {
     full_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    total_questions?: NullableIntFieldUpdateOperationsInput | number | null
-    correct_answers?: NullableIntFieldUpdateOperationsInput | number | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     level_result?: NullableStringFieldUpdateOperationsInput | string | null
     recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     courses?: coursesUpdateOneWithoutPlacement_testsNestedInput
+    teachers?: teachersUpdateOneWithoutPlacement_testsNestedInput
+    users?: usersUpdateOneWithoutPlacement_testsNestedInput
+  }
+
+  export type placement_testsUncheckedUpdateWithoutUsers_placement_tests_evaluator_idTousersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    recommended_course_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_teacher_id?: NullableIntFieldUpdateOperationsInput | number | null
+    full_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    level_result?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type placement_testsUncheckedUpdateManyWithoutUsers_placement_tests_evaluator_idTousersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    recommended_course_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_teacher_id?: NullableIntFieldUpdateOperationsInput | number | null
+    full_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    level_result?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type placement_testsUpdateWithoutUsersInput = {
+    full_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    level_result?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    courses?: coursesUpdateOneWithoutPlacement_testsNestedInput
+    users_placement_tests_evaluator_idTousers?: usersUpdateOneWithoutPlacement_tests_placement_tests_evaluator_idTousersNestedInput
+    teachers?: teachersUpdateOneWithoutPlacement_testsNestedInput
   }
 
   export type placement_testsUncheckedUpdateWithoutUsersInput = {
     id?: IntFieldUpdateOperationsInput | number
     recommended_course_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_teacher_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_id?: NullableIntFieldUpdateOperationsInput | number | null
     full_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    total_questions?: NullableIntFieldUpdateOperationsInput | number | null
-    correct_answers?: NullableIntFieldUpdateOperationsInput | number | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     level_result?: NullableStringFieldUpdateOperationsInput | string | null
     recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -39891,14 +40745,16 @@ export namespace Prisma {
   export type placement_testsUncheckedUpdateManyWithoutUsersInput = {
     id?: IntFieldUpdateOperationsInput | number
     recommended_course_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_teacher_id?: NullableIntFieldUpdateOperationsInput | number | null
+    evaluator_id?: NullableIntFieldUpdateOperationsInput | number | null
     full_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    total_questions?: NullableIntFieldUpdateOperationsInput | number | null
-    correct_answers?: NullableIntFieldUpdateOperationsInput | number | null
+    test_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     level_result?: NullableStringFieldUpdateOperationsInput | string | null
     recommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableEnumplacement_tests_statusFieldUpdateOperationsInput | $Enums.placement_tests_status | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

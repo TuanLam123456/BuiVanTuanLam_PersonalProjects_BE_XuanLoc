@@ -232,25 +232,31 @@ model payments {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model placement_tests {
-  id                    Int                     @id @default(autoincrement())
-  user_id               Int?
-  recommended_course_id Int?
-  full_name             String                  @db.VarChar(100)
-  email                 String?                 @db.VarChar(150)
-  phone                 String?                 @db.VarChar(20)
-  total_questions       Int?                    @default(0)
-  correct_answers       Int?                    @default(0)
-  score                 Decimal?                @db.Decimal(5, 2)
-  level_result          String?                 @db.VarChar(100)
-  recommendation        String?                 @db.Text
-  status                placement_tests_status? @default(STARTED)
-  created_at            DateTime?               @default(now()) @db.Timestamp(0)
-  updated_at            DateTime?               @default(now()) @db.Timestamp(0)
-  courses               courses?                @relation(fields: [recommended_course_id], references: [id], map: "fk_test_course")
-  users                 users?                  @relation(fields: [user_id], references: [id], map: "fk_test_user")
+  id                                        Int                     @id @default(autoincrement())
+  user_id                                   Int?
+  recommended_course_id                     Int?
+  evaluator_teacher_id                      Int?
+  evaluator_id                              Int?
+  full_name                                 String                  @db.VarChar(100)
+  email                                     String?                 @db.VarChar(150)
+  phone                                     String?                 @db.VarChar(20)
+  test_date                                 DateTime?               @db.DateTime(0)
+  score                                     Decimal?                @db.Decimal(5, 2)
+  level_result                              String?                 @db.VarChar(100)
+  recommendation                            String?                 @db.Text
+  note                                      String?                 @db.Text
+  status                                    placement_tests_status? @default(SCHEDULED)
+  created_at                                DateTime?               @default(now()) @db.Timestamp(0)
+  updated_at                                DateTime?               @default(now()) @db.Timestamp(0)
+  courses                                   courses?                @relation(fields: [recommended_course_id], references: [id], map: "fk_test_course")
+  users_placement_tests_evaluator_idTousers users?                  @relation("placement_tests_evaluator_idTousers", fields: [evaluator_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_test_evaluator")
+  teachers                                  teachers?               @relation(fields: [evaluator_teacher_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_test_evaluator_teacher")
+  users                                     users?                  @relation(fields: [user_id], references: [id], map: "fk_test_user")
 
   @@index([recommended_course_id], map: "fk_test_course")
   @@index([user_id], map: "fk_test_user")
+  @@index([evaluator_id], map: "fk_test_evaluator")
+  @@index([evaluator_teacher_id], map: "fk_test_evaluator_teacher")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -314,6 +320,7 @@ model teachers {
   classes           classes[]
   grades            grades[]
   opening_schedules opening_schedules[]
+  placement_tests   placement_tests[]
   teacher_courses   teacher_courses[]
   users             users               @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "fk_teachers_users")
 }
@@ -363,28 +370,29 @@ model tuition_plans {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model users {
-  id                  Int                   @id @default(autoincrement())
-  role_id             Int
-  full_name           String                @db.VarChar(100)
-  email               String                @unique(map: "email") @db.VarChar(150)
-  phone               String?               @db.VarChar(20)
-  password_hash       String                @db.VarChar(255)
-  avatar              String?               @db.VarChar(500)
-  date_of_birth       DateTime?             @db.Date
-  gender              users_gender?
-  address             String?               @db.VarChar(255)
-  status              users_status?         @default(ACTIVE)
-  created_at          DateTime?             @default(now()) @db.Timestamp(0)
-  updated_at          DateTime?             @default(now()) @db.Timestamp(0)
-  refresh_token       String?               @db.VarChar(500)
-  enrollments         enrollments[]
-  news                news[]
-  password_resets     password_resets[]
-  placement_tests     placement_tests[]
-  registrations       registrations[]
-  teachers            teachers?
-  trial_registrations trial_registrations[]
-  roles               roles                 @relation(fields: [role_id], references: [id], map: "fk_users_roles")
+  id                                                  Int                   @id @default(autoincrement())
+  role_id                                             Int
+  full_name                                           String                @db.VarChar(100)
+  email                                               String                @unique(map: "email") @db.VarChar(150)
+  phone                                               String?               @db.VarChar(20)
+  password_hash                                       String                @db.VarChar(255)
+  avatar                                              String?               @db.VarChar(500)
+  date_of_birth                                       DateTime?             @db.Date
+  gender                                              users_gender?
+  address                                             String?               @db.VarChar(255)
+  status                                              users_status?         @default(ACTIVE)
+  created_at                                          DateTime?             @default(now()) @db.Timestamp(0)
+  updated_at                                          DateTime?             @default(now()) @db.Timestamp(0)
+  refresh_token                                       String?               @db.VarChar(500)
+  enrollments                                         enrollments[]
+  news                                                news[]
+  password_resets                                     password_resets[]
+  placement_tests_placement_tests_evaluator_idTousers placement_tests[]     @relation("placement_tests_evaluator_idTousers")
+  placement_tests                                     placement_tests[]
+  registrations                                       registrations[]
+  teachers                                            teachers?
+  trial_registrations                                 trial_registrations[]
+  roles                                               roles                 @relation(fields: [role_id], references: [id], map: "fk_users_roles")
 
   @@index([role_id], map: "fk_users_roles")
 }
@@ -521,15 +529,16 @@ enum opening_schedules_status {
   CLOSED
 }
 
-enum placement_tests_status {
-  STARTED
-  COMPLETED
-  CONSULTED
-}
-
 enum trial_registrations_status {
   NEW
   SCHEDULED
   COMPLETED
+  CANCELLED
+}
+
+enum placement_tests_status {
+  SCHEDULED
+  COMPLETED
+  CONSULTED
   CANCELLED
 }

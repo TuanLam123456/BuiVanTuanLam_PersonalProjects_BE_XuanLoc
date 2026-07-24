@@ -276,14 +276,16 @@ exports.Prisma.Placement_testsScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
   recommended_course_id: 'recommended_course_id',
+  evaluator_teacher_id: 'evaluator_teacher_id',
+  evaluator_id: 'evaluator_id',
   full_name: 'full_name',
   email: 'email',
   phone: 'phone',
-  total_questions: 'total_questions',
-  correct_answers: 'correct_answers',
+  test_date: 'test_date',
   score: 'score',
   level_result: 'level_result',
   recommendation: 'recommendation',
+  note: 'note',
   status: 'status',
   created_at: 'created_at',
   updated_at: 'updated_at'
@@ -475,7 +477,8 @@ exports.Prisma.placement_testsOrderByRelevanceFieldEnum = {
   email: 'email',
   phone: 'phone',
   level_result: 'level_result',
-  recommendation: 'recommendation'
+  recommendation: 'recommendation',
+  note: 'note'
 };
 
 exports.Prisma.registrationsOrderByRelevanceFieldEnum = {
@@ -617,9 +620,10 @@ exports.payments_status = exports.$Enums.payments_status = {
 };
 
 exports.placement_tests_status = exports.$Enums.placement_tests_status = {
-  STARTED: 'STARTED',
+  SCHEDULED: 'SCHEDULED',
   COMPLETED: 'COMPLETED',
-  CONSULTED: 'CONSULTED'
+  CONSULTED: 'CONSULTED',
+  CANCELLED: 'CANCELLED'
 };
 
 exports.registrations_source = exports.$Enums.registrations_source = {
