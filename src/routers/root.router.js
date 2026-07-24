@@ -12,7 +12,7 @@ import trialRegistrationRouter from "./trial-registration.router.js";
 import registrationRouter from "./registration.router.js";
 import classRouter from "./class.router.js";
 import enrollmentRouter from "./enrollment.router.js";
-
+import tuitionPlanRouter from "./tuition-plan.router.js";
 const rootRouter = express.Router();
 
 rootRouter.use("/users", userRouter);
@@ -40,5 +40,7 @@ rootRouter.use("/registrations", registrationRouter);
 rootRouter.use("/classes", classRouter);
 
 rootRouter.use("/enrollments", enrollmentRouter);
+
+rootRouter.use("/tuition-plans", tuitionPlanRouter);
 
 export default rootRouter;
