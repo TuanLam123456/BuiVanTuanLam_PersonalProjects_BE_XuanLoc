@@ -10,7 +10,7 @@ import newsCategoryRouter from "./news-category.router.js";
 import openingScheduleRouter from "./opening-schedule.router.js";
 import trialRegistrationRouter from "./trial-registration.router.js";
 import registrationRouter from "./registration.router.js";
-
+import classRouter from "./class.router.js";
 const rootRouter = express.Router();
 
 rootRouter.use("/users", userRouter);
@@ -23,34 +23,18 @@ rootRouter.use("/courses", courseRouter);
 
 rootRouter.use("/teachers", teacherRouter);
 
-rootRouter.use(
-    "/teacher-courses",
-    teacherCourseRouter
-);
+rootRouter.use("/teacher-courses", teacherCourseRouter);
 
-rootRouter.use(
-    "/news",
-    newsRouter
-);
+rootRouter.use("/news", newsRouter);
 
-rootRouter.use(
-    "/news-categories",
-    newsCategoryRouter
-);
+rootRouter.use("/news-categories", newsCategoryRouter);
 
-rootRouter.use(
-    "/opening-schedules",
-    openingScheduleRouter
-);
+rootRouter.use("/opening-schedules", openingScheduleRouter);
 
-rootRouter.use(
-    "/trial-registrations",
-    trialRegistrationRouter
-);
+rootRouter.use("/trial-registrations", trialRegistrationRouter);
 
-rootRouter.use(
-  "/registrations",
-  registrationRouter
-);
+rootRouter.use("/registrations", registrationRouter);
+
+rootRouter.use("/classes", classRouter);
 
 export default rootRouter;
