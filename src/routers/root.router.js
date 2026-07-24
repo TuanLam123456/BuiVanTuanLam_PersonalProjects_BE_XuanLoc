@@ -15,6 +15,7 @@ import enrollmentRouter from "./enrollment.router.js";
 import tuitionPlanRouter from "./tuition-plan.router.js";
 import paymentRouter from "./payment.router.js";
 import placementTestRouter from "./placement-test.router.js";
+import assignmentRouter from "./assignment.router.js";
 const rootRouter = express.Router();
 
 rootRouter.use("/users", userRouter);
@@ -48,5 +49,7 @@ rootRouter.use("/tuition-plans", tuitionPlanRouter);
 rootRouter.use("/payments", paymentRouter);
 
 rootRouter.use("/placement-tests", placementTestRouter);
+
+rootRouter.use("/assignments", assignmentRouter);
 
 export default rootRouter;
