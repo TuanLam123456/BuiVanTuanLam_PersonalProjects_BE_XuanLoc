@@ -1,7 +1,6 @@
 import { responseSuccess } from "../common/helpers/response.helper.js";
 import { authService } from "../services/auth.service.js";
 
-
 export const authController = {
   async register(req, res, next) {
     try {
@@ -55,6 +54,7 @@ export const authController = {
     try {
       await authService.logout(req);
 
+      res.clearCookie("accessToken");
       res.clearCookie("refreshToken");
 
       res.json(responseSuccess(null, "Đăng xuất thành công"));

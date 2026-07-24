@@ -3,15 +3,20 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { PORT } from "./src/common/constant/app.constant.js";
-import { appError } from './src/common/helpers/appError.helper.js';
-import { logAPI } from './src/common/middlewares/log-api.middleware.js';
-import rootRouter from './src/routers/root.router.js';
+import { appError } from "./src/common/helpers/appError.helper.js";
+import { logAPI } from "./src/common/middlewares/log-api.middleware.js";
+import rootRouter from "./src/routers/root.router.js";
 
 const app = express();
 
 app.use(express.json()); // middleware để parse body của request có định dạng json
 
-app.use(cors({ origin: "*" })); // cho phép truy cập từ mọi domain
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+); // cho phép truy cập từ mọi domain
 
 app.use(cookieParser()); // middleware để parse cookie từ request
 
